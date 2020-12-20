@@ -13,7 +13,7 @@ public class DatabaseConnection {
             //variables
                 Connection connection = null;
 
-            // establish connection to database
+            //establish connection to database
                 try{
                     connection = DriverManager.getConnection(
                     DATABASE_URL, "root", "Knockbeg11" );
