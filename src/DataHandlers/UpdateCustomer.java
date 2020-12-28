@@ -24,10 +24,10 @@ public class UpdateCustomer {
                 DATABASE_URL, "root", "Knockbeg11" );
                 
 				// create Statement for updating table
-                pstat = connection.prepareStatement("Update Authors SET lastName = ? Where firstName = ?");
+                pstat = connection.prepareStatement("UPDATE Customer SET lastName = ? Where firstName = ?");
                 pstat.setString(1, lastname);
-                pstat.setString(2, firstname);
-																																		//TODO:
+				pstat.setString(2, firstname);
+				
                 //Update data in database
                 i = pstat.executeUpdate();
                 System.out.println(i + " record successfully updated in the database");

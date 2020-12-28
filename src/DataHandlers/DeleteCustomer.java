@@ -8,7 +8,8 @@ import java.sql.SQLException;
 public class DeleteCustomer {
 
 	public static void main(String[] args) {
-        // database URL
+
+		// database URL
 
 		final String DATABASE_URL = "jdbc:mysql://localhost/customer_management_system";
 		
