@@ -17,7 +17,7 @@ public class CustomerHandler {
         PreparedStatement pstat = null;
         String firstname = "Michael";
         String lastname = "Stevenson";
-        int i = 0;
+        int i;
 
         try {
 
@@ -105,7 +105,7 @@ public class CustomerHandler {
         String lastname="Brennan";
         Connection connection = null;
         PreparedStatement pstat = null;
-        int i = 0;
+        int i;
         
         try{
             // establish connection to database
