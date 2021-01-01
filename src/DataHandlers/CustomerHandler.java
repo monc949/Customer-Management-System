@@ -9,7 +9,8 @@ import java.sql.SQLException;
 
 
 public class CustomerHandler {
-    public void create() {
+//Create method
+public void create() {
         //database URL
         final String DATABASE_URL = "jdbc:mysql://localhost/customer_management_system";
 
@@ -22,32 +23,33 @@ public class CustomerHandler {
         try {
 
             //establish connection to database
-            connection = DriverManager.getConnection(DATABASE_URL, "root", "Knockbeg11");
+                connection = DriverManager.getConnection(DATABASE_URL, "root", "Knockbeg11");
 
             //create Prepared Statement for inserting into table
+                pstat = connection.prepareStatement("INSERT INTO Customer (FirstName, LastName) VALUES (?,?)");
+                pstat.setString(1, firstname);
+                pstat.setString(2, lastname);
 
-
-            pstat = connection.prepareStatement("INSERT INTO Customer (FirstName, LastName) VALUES (?,?)");
-            pstat.setString(1, firstname);
-            pstat.setString(2, lastname);
-
-            i = pstat.executeUpdate();
-            System.out.println(i + " record successfully added to the database");
-
-        } catch (SQLException sqlException) {
+                i = pstat.executeUpdate();
+                System.out.println(i + " record successfully added to the database");
+        } 
+        catch (SQLException sqlException) {
             sqlException.printStackTrace();
-        } finally {
-            try {
-                pstat.close();
-                connection.close();
-            } catch (Exception exception) {
-                exception.printStackTrace();
-            }
+        }
+        finally {
+                try {
+                    pstat.close();
+                    connection.close();
+                } catch (Exception exception) {
+                    exception.printStackTrace();
+                }
 
         }
     }
 
-    public void retrieve() {
+
+//Retrieve method
+public void retrieve() {
         		// database URL
 		        final String DATABASE_URL = "jdbc:mysql://localhost/customer_management_system";
 	
@@ -96,8 +98,9 @@ public class CustomerHandler {
                         }
                     }
                 }
-
-    public void update() {
+                
+//Update method
+public void update() {
         // database URL
 		final String DATABASE_URL = "jdbc:mysql://localhost/customer_management_system";
 		
@@ -135,7 +138,9 @@ public class CustomerHandler {
         }
     }
 
-    public void delete() {
+
+//Delete method
+public void delete() {
         	// database URL
 
 		final String DATABASE_URL = "jdbc:mysql://localhost/customer_management_system";
