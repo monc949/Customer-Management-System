@@ -1,10 +1,8 @@
-package DataObjects;
-//TODO:
-public class Customer{
+package Model;
 
+public class Customer{
     private String firstName;
     private String lastName;
-    private String address;
     private String address1;
     private String address2;
     private String city;
@@ -18,7 +16,6 @@ public class Customer{
     String county, String postcode, String email, String phoneNumber) {
         setFirstName(firstName);
         setLastName(lastName);
-        setAddress(address);
         setAddress1(address1);
         setAddress2(address2);
         setCity(city);
@@ -48,11 +45,9 @@ public class Customer{
     }
 
     public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
+        return address1 + "\n" 
+        + address2 + "\n" + city + "\n" 
+        + county + "\n" + postcode;
     }
 
     public String getAddress1() {

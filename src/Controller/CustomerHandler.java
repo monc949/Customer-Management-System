@@ -1,4 +1,4 @@
-package DataHandlers;
+package Controller;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,17 +7,26 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
+import Model.Customer;
+
 
 public class CustomerHandler {
 //Create method
-public void create() {
+public void create(Customer newCustomer) {
         //database URL
         final String DATABASE_URL = "jdbc:mysql://localhost/customer_management_system";
 
         Connection connection = null;
         PreparedStatement pstat = null;
-        String firstname = "Michael";
-        String lastname = "Stevenson";
+        String firstname = newCustomer.getFirstName();
+        String lastname = newCustomer.getLastName();
+        String address1 = newCustomer.getAddress1();
+        String address2 = newCustomer.getAddress2();
+        String city = newCustomer.getCity();
+        String county = newCustomer.getCounty();
+        String postcode = newCustomer.getPostcode();
+        String email = newCustomer.getEmail();
+        String phoneNumber = newCustomer.getPhoneNumber();
         int i;
 
         try {
@@ -26,9 +35,16 @@ public void create() {
                 connection = DriverManager.getConnection(DATABASE_URL, "root", "Knockbeg11");
 
             //create Prepared Statement for inserting into table
-                pstat = connection.prepareStatement("INSERT INTO Customer (FirstName, LastName) VALUES (?,?)");
+                pstat = connection.prepareStatement("INSERT INTO Customer (FirstName, LastName, Address_1, Address_2, City, County, Postcode, Email, PhoneNumber) VALUES (?,?,?,?,?,?,?,?,?)");
                 pstat.setString(1, firstname);
                 pstat.setString(2, lastname);
+                pstat.setString(3, address1);
+                pstat.setString(4, address2);
+                pstat.setString(5, city);
+                pstat.setString(6, county);
+                pstat.setString(7, postcode);
+                pstat.setString(8, email);
+                pstat.setString(9, phoneNumber);
 
                 i = pstat.executeUpdate();
                 System.out.println(i + " record successfully added to the database");
@@ -140,15 +156,14 @@ public void update() {
 
 
 //Delete method
-public void delete() {
+public void delete(int customerID) {
         	// database URL
 
 		final String DATABASE_URL = "jdbc:mysql://localhost/customer_management_system";
 		
         Connection connection = null;
         PreparedStatement pstat = null;	
-        int i = 0;
-        int authorID = 1;		
+        int i = 0;		
         try{
             
             // establish connection to database
@@ -156,7 +171,7 @@ public void delete() {
 
             // create Statement for deleting from table
             pstat = connection.prepareStatement("Delete FROM Customer WHERE CustomerID = ?");	
-            pstat.setInt(1, authorID);		
+            pstat.setInt(1, customerID);		
             
             //Delete data in database
             i = pstat.executeUpdate();

@@ -1,4 +1,4 @@
-package DataObjects;
+package Model;
 //TODO:
 public class Product {
     
