@@ -116,7 +116,7 @@ public void retrieve() {
                 }
                 
 //Update method
-public void update() {
+public void update() { //FIXME:
         // database URL
 		final String DATABASE_URL = "jdbc:mysql://localhost/customer_management_system";
 		
