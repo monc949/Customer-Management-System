@@ -1,5 +1,5 @@
 package Model;
-//TODO:
+
 public class Product {
     
     private String brand;
