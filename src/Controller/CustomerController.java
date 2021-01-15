@@ -10,7 +10,13 @@ import java.sql.SQLException;
 import Model.Customer;
 
 
-public class CustomerHandler {
+public class CustomerController {
+
+    //Constructor
+    public CustomerController() {
+
+    }
+
 //Create method
 public void create(Customer newCustomer) {
         //database URL
@@ -192,3 +198,4 @@ public void delete(int customerID) {
         }
     }
 }
+
