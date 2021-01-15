@@ -8,12 +8,14 @@ public class Invoice {
     private int customerID;
     private Date invoiceDate;
     private double totalPrice;
+    private Product[] productList;
 
-    public Invoice(int invoiceID, int customerID, Date invoiceDate, double totalPrice) {
+    public Invoice(int invoiceID, int customerID, Date invoiceDate, double totalPrice, Product[] productList) {
         setInvoiceID(invoiceID);
         setCustomerID(customerID);
         setInvoiceDate(invoiceDate);
         setCustomerID(customerID);
+        setProductList(productList);
     }
 
     public int getInvoiceID() {
@@ -47,6 +49,15 @@ public class Invoice {
     public void setTotalPrice(double totalPrice) {
         this.totalPrice = totalPrice;
     }
+
+    public Product[] getProductList() {
+        return productList;
+    }
+
+    public void setProductList(Product[] productList) {
+        this.productList = productList;
+    }
+
 
 
     

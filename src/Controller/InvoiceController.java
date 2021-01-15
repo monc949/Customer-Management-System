@@ -1,36 +1,30 @@
 package Controller;
-
+//TODO: Need to do the whole thing, still just a copy of customercontroller
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-//FIXME: 
-import Model.Product;
 
+import Model.Invoice;
 
-
-public class ProductController {
-
-    public ProductController() {
+public class InvoiceController {
+    
+    //Constructor
+    public InvoiceController() {
 
     }
 
-
 //Create method
-public void create(Product newProduct) {
+public void create(Invoice newInvoice) {
         //database URL
         final String DATABASE_URL = "jdbc:mysql://localhost/customer_management_system";
 
         Connection connection = null;
         PreparedStatement pstat = null;
-        String brand = newProduct.getBrand();
-        String name = newProduct.getName();
-        String description = newProduct.getDescription();
-        float price = newProduct.getPrice();
-        int quantity = newProduct.getQuantity();
- 
+        
+       
         int i;
 
         try {
@@ -39,12 +33,16 @@ public void create(Product newProduct) {
                 connection = DriverManager.getConnection(DATABASE_URL, "root", "Knockbeg11");
 
             //create Prepared Statement for inserting into table
-                pstat = connection.prepareStatement("INSERT INTO Product (brand, name, description, price, quantity) VALUES (?,?,?,?,?)");
-                pstat.setString(1, brand);
-                pstat.setString(2, name);
-                pstat.setString(3, description);
-                pstat.setFloat(4, price);
-                pstat.setInt(5, quantity);
+                pstat = connection.prepareStatement("INSERT INTO Customer (FirstName, LastName, Address_1, Address_2, City, County, Postcode, Email, PhoneNumber) VALUES (?,?,?,?,?,?,?,?,?)");
+                pstat.setString(1, firstname);
+                pstat.setString(2, lastname);
+                pstat.setString(3, address1);
+                pstat.setString(4, address2);
+                pstat.setString(5, city);
+                pstat.setString(6, county);
+                pstat.setString(7, postcode);
+                pstat.setString(8, email);
+                pstat.setString(9, phoneNumber);
 
                 i = pstat.executeUpdate();
                 System.out.println(i + " record successfully added to the database");
@@ -79,11 +77,11 @@ public void retrieve() {
                 DATABASE_URL, "root", "Knockbeg11" );
                 
                 // create Statement for querying table
-                pstat = connection.prepareStatement("SELECT * From Product");
+                pstat = connection.prepareStatement("SELECT * From Customer");
                 
                 // query database
                 resultSet = pstat.executeQuery(
-                "SELECT * From Product" );
+                "SELECT * From Customer" );
                 
                 // process query results
                 ResultSetMetaData metaData = resultSet.getMetaData();
@@ -120,8 +118,8 @@ public void update() { //FIXME:
         // database URL
 		final String DATABASE_URL = "jdbc:mysql://localhost/customer_management_system";
 		
-        String brand="Lisa";
-        String name="Brennan";
+        String firstname="Lisa";
+        String lastname="Brennan";
         Connection connection = null;
         PreparedStatement pstat = null;
         int i;
@@ -132,9 +130,9 @@ public void update() { //FIXME:
             DATABASE_URL, "root", "Knockbeg11" );
             
             // create Statement for updating table
-            pstat = connection.prepareStatement("UPDATE Customer SET name = ? Where firstName = ?");
-            pstat.setString(1, name);
-            pstat.setString(2, brand);
+            pstat = connection.prepareStatement("UPDATE Customer SET lastName = ? Where firstName = ?");
+            pstat.setString(1, lastname);
+            pstat.setString(2, firstname);
 
             //Update data in database
             i = pstat.executeUpdate();
@@ -170,7 +168,7 @@ public void delete(int customerID) {
             connection = DriverManager.getConnection(DATABASE_URL, "root" , "Knockbeg11" );
 
             // create Statement for deleting from table
-            pstat = connection.prepareStatement("Delete FROM Product WHERE ProductID = ?");	
+            pstat = connection.prepareStatement("Delete FROM Customer WHERE CustomerID = ?");	
             pstat.setInt(1, customerID);		
             
             //Delete data in database
