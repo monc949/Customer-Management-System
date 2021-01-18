@@ -1,6 +1,8 @@
 package Controller;
+
 //TODO: Need to do the whole thing, still just a copy of customercontroller
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,6 +10,7 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
 import Model.Invoice;
+import Model.Product;
 
 public class InvoiceController {
     
@@ -23,7 +26,14 @@ public void create(Invoice newInvoice) {
 
         Connection connection = null;
         PreparedStatement pstat = null;
+        PreparedStatement pstat2 = null;
+
         
+        
+        int customerID = newInvoice.getCustomerID();
+        Date invoiceDate = newInvoice.getInvoiceDate();
+        double totalPrice = newInvoice.getTotalPrice();
+        Product[] productList = newInvoice.getProductList();
        
         int i;
 
@@ -33,19 +43,17 @@ public void create(Invoice newInvoice) {
                 connection = DriverManager.getConnection(DATABASE_URL, "root", "Knockbeg11");
 
             //create Prepared Statement for inserting into table
-                pstat = connection.prepareStatement("INSERT INTO Customer (FirstName, LastName, Address_1, Address_2, City, County, Postcode, Email, PhoneNumber) VALUES (?,?,?,?,?,?,?,?,?)");
-                pstat.setString(1, firstname);
-                pstat.setString(2, lastname);
-                pstat.setString(3, address1);
-                pstat.setString(4, address2);
-                pstat.setString(5, city);
-                pstat.setString(6, county);
-                pstat.setString(7, postcode);
-                pstat.setString(8, email);
-                pstat.setString(9, phoneNumber);
+                pstat = connection.prepareStatement("INSERT INTO Invoice (CustomerID, InvoiceDate, TotalPrice) VALUES (?,?,?)");
+                pstat.setInt(1, customerID);
+                pstat.setDate(2, invoiceDate);
+                pstat.setDouble(3, totalPrice);
 
                 i = pstat.executeUpdate();
                 System.out.println(i + " record successfully added to the database");
+
+                //TODO: Write a for loop that makes a new entry in the invoiceDetails table. The for lopp will execute
+                // as many times as there is elements in 'product list'. i.e. productlist.getlength -1? 
+
         } 
         catch (SQLException sqlException) {
             sqlException.printStackTrace();
