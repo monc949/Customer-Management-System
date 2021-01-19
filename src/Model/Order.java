@@ -2,28 +2,18 @@ package Model;
 
 import java.sql.Date;
 
-public class Invoice {
+public class Order {
 
-    private int invoiceID;
     private int customerID;
-    private Date invoiceDate;
+    private Date orderDate;
     private double totalPrice;
     private Product[] productList;
 
-    public Invoice(int invoiceID, int customerID, Date invoiceDate, double totalPrice, Product[] productList) {
-        setInvoiceID(invoiceID);
+    public Order(int customerID, Date orderDate, double totalPrice, Product[] productList) {
         setCustomerID(customerID);
-        setInvoiceDate(invoiceDate);
+        setOrderDate(orderDate);
         setCustomerID(customerID);
         setProductList(productList);
-    }
-
-    public int getInvoiceID() {
-        return invoiceID;
-    }
-
-    public void setInvoiceID(int invoiceID) {
-        this.invoiceID = invoiceID;
     }
 
     public int getCustomerID() {
@@ -34,12 +24,12 @@ public class Invoice {
         this.customerID = customerID;
     }
 
-    public Date getInvoiceDate() {
-        return invoiceDate;
+    public Date getOrderDate() {
+        return orderDate;
     }
 
-    public void setInvoiceDate(Date invoiceDate) {
-        this.invoiceDate = invoiceDate;
+    public void setOrderDate(Date orderDate) {
+        this.orderDate = orderDate;
     }
 
     public double getTotalPrice() {

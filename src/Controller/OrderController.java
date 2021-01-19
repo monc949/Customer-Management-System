@@ -9,17 +9,17 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
-import Model.Invoice;
+import Model.Order;
 
-public class InvoiceController {
+public class OrderController {
     
     //Constructor
-    public InvoiceController() {
+    public OrderController() {
 
     }
 
 //Create method
-public void create(Invoice newInvoice) {
+public void create(Order newOrder) {
         //database URL
         final String DATABASE_URL = "jdbc:mysql://localhost/customer_management_system";
 
@@ -28,9 +28,9 @@ public void create(Invoice newInvoice) {
 
         
         
-        int customerID = newInvoice.getCustomerID();
-        Date invoiceDate = newInvoice.getInvoiceDate();
-        double totalPrice = newInvoice.getTotalPrice();
+        int customerID = newOrder.getCustomerID();
+        Date orderDate = newOrder.getOrderDate();
+        double totalPrice = newOrder.getTotalPrice();
        
         int i;
 
@@ -40,9 +40,9 @@ public void create(Invoice newInvoice) {
                 connection = DriverManager.getConnection(DATABASE_URL, "root", "Knockbeg11");
 
             //create Prepared Statement for inserting into table
-                pstat = connection.prepareStatement("INSERT INTO Invoice (CustomerID, InvoiceDate, TotalPrice) VALUES (?,?,?)");
+                pstat = connection.prepareStatement("INSERT INTO order (CustomerID, orderDate, TotalPrice) VALUES (?,?,?)");
                 pstat.setInt(1, customerID);
-                pstat.setDate(2, invoiceDate);
+                pstat.setDate(2, orderDate);
                 pstat.setDouble(3, totalPrice);
 
                 i = pstat.executeUpdate();
