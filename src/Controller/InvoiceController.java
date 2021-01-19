@@ -10,7 +10,6 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
 import Model.Invoice;
-import Model.Product;
 
 public class InvoiceController {
     
@@ -26,14 +25,12 @@ public void create(Invoice newInvoice) {
 
         Connection connection = null;
         PreparedStatement pstat = null;
-        PreparedStatement pstat2 = null;
 
         
         
         int customerID = newInvoice.getCustomerID();
         Date invoiceDate = newInvoice.getInvoiceDate();
         double totalPrice = newInvoice.getTotalPrice();
-        Product[] productList = newInvoice.getProductList();
        
         int i;
 
@@ -51,8 +48,6 @@ public void create(Invoice newInvoice) {
                 i = pstat.executeUpdate();
                 System.out.println(i + " record successfully added to the database");
 
-                //TODO: Write a for loop that makes a new entry in the invoiceDetails table. The for lopp will execute
-                // as many times as there is elements in 'product list'. i.e. productlist.getlength -1? 
 
         } 
         catch (SQLException sqlException) {
