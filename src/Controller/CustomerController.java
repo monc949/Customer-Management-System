@@ -41,7 +41,7 @@ public void create(Customer newCustomer) {
                 connection = DriverManager.getConnection(DATABASE_URL, "root", "Knockbeg11");
 
             //create Prepared Statement for inserting into table
-                pstat = connection.prepareStatement("INSERT INTO Customer (FirstName, LastName, Address_1, Address_2, City, County, Postcode, Email, PhoneNumber) VALUES (?,?,?,?,?,?,?,?,?)");
+                pstat = connection.prepareStatement("INSERT INTO Customer (FirstName, LastName, Address1, Address2, City, County, Postcode, Email, PhoneNumber) VALUES (?,?,?,?,?,?,?,?,?)");
                 pstat.setString(1, firstname);
                 pstat.setString(2, lastname);
                 pstat.setString(3, address1);

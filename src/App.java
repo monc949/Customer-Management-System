@@ -1,4 +1,4 @@
-import Controller.OrderController;
+import Controller.*;
 import Model.*;
 
 
@@ -9,10 +9,12 @@ public class App {
         Product[] list = new Product[1];
         list[0] = item1;
 
-        Order order = new Order(46,list);
+        Order order = new Order(1,list);
 
         OrderController orderController = new OrderController();
         orderController.create(order);
+
+
         
 
 

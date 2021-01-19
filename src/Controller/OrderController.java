@@ -39,7 +39,7 @@ public void create(Order newOrder) {
                 connection = DriverManager.getConnection(DATABASE_URL, "root", "Knockbeg11");
 
             //create Prepared Statement for inserting into table
-                pstat = connection.prepareStatement("INSERT INTO Order (CustomerID, ProductList, TotalPrice) VALUES (?,?,?)");
+                pstat = connection.prepareStatement("INSERT INTO Orders (CustomerID, ProductList, TotalPrice) VALUES (?,?,?)");
                 pstat.setInt(1, customerID);
                 pstat.setString(2, productList);
                 pstat.setDouble(3, totalPrice);
@@ -79,7 +79,7 @@ public void retrieve() {
                 DATABASE_URL, "root", "Knockbeg11" );
                 
                 // create Statement for querying table
-                pstat = connection.prepareStatement("SELECT * From Order");
+                pstat = connection.prepareStatement("SELECT * From Orders");
                 
                 // query database
                 resultSet = pstat.executeQuery(
@@ -88,7 +88,7 @@ public void retrieve() {
                 // process query results
                 ResultSetMetaData metaData = resultSet.getMetaData();
                 int numberOfColumns = metaData.getColumnCount();
-                System.out.println( "Order Table of CMS Database:\n" );
+                System.out.println( "Orders Table of CMS Database:\n" );
                 
                  for ( int i = 1; i <= numberOfColumns; i++ )
                  System.out.print(metaData.getColumnName( i ) + "\t");
@@ -132,7 +132,7 @@ public void update() { //FIXME:
             DATABASE_URL, "root", "Knockbeg11" );
             
             // create Statement for updating table
-            pstat = connection.prepareStatement("UPDATE Order SET lastName = ? Where firstName = ?");
+            pstat = connection.prepareStatement("UPDATE Orders SET lastName = ? Where firstName = ?");
             pstat.setString(1, lastname);
             pstat.setString(2, firstname);
 
@@ -170,7 +170,7 @@ public void delete(int customerID) { //FIXME:
             connection = DriverManager.getConnection(DATABASE_URL, "root" , "Knockbeg11" );
 
             // create Statement for deleting from table
-            pstat = connection.prepareStatement("Delete FROM order WHERE CustomerID = ?");	
+            pstat = connection.prepareStatement("Delete FROM Orders WHERE CustomerID = ?");	
             pstat.setInt(1, customerID);		
             
             //Delete data in database
