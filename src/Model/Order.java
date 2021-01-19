@@ -27,12 +27,11 @@ public class Order {
     }
 
     public void setTotalPrice() {
-        // double totalPrice = 0;
-        // for (int i = 0; i < productList.length - 1; i++) {
-        //     totalPrice = totalPrice + productList[i].getPrice();
-        // }
-        // this.totalPrice = totalPrice;
-        this.totalPrice = 56;
+        double totalPrice = 0;
+        for (int i = 0; i < productList.length - 1; i++) {
+            totalPrice = totalPrice + productList[i].getPrice();
+        }
+        this.totalPrice = totalPrice;
     }
 
     public Product[] getProductList() {

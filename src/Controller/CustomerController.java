@@ -41,7 +41,7 @@ public void create(Customer newCustomer) {
                 connection = DriverManager.getConnection(DATABASE_URL, "root", "Knockbeg11");
 
             //create Prepared Statement for inserting into table
-                pstat = connection.prepareStatement("INSERT INTO Customer (FirstName, LastName, Address1, Address2, City, County, Postcode, Email, PhoneNumber) VALUES (?,?,?,?,?,?,?,?,?)");
+                pstat = connection.prepareStatement("INSERT INTO customers (FirstName, LastName, Address1, Address2, City, County, Postcode, Email, PhoneNumber) VALUES (?,?,?,?,?,?,?,?,?)");
                 pstat.setString(1, firstname);
                 pstat.setString(2, lastname);
                 pstat.setString(3, address1);
@@ -71,7 +71,7 @@ public void create(Customer newCustomer) {
 
 
 //Retrieve method
-public void retrieve() {
+public void retrieve(int customerID) {
         		// database URL
 		        final String DATABASE_URL = "jdbc:mysql://localhost/cms";
 	
@@ -85,16 +85,16 @@ public void retrieve() {
                 DATABASE_URL, "root", "Knockbeg11" );
                 
                 // create Statement for querying table
-                pstat = connection.prepareStatement("SELECT * From Customer");
+                pstat = connection.prepareStatement("SELECT * From customers WHERE Customer ID = ?");
+                pstat.setInt(1, customerID);
                 
                 // query database
-                resultSet = pstat.executeQuery(
-                "SELECT * From Customer" );
+                resultSet = pstat.executeQuery("SELECT * From customers WHERE Customer ID = ?");
                 
                 // process query results
                 ResultSetMetaData metaData = resultSet.getMetaData();
                 int numberOfColumns = metaData.getColumnCount();
-                System.out.println( "Customer Table of CMS Database:\n" );
+                System.out.println( "Customers Table of CMS Database:\n" );
                 
                  for ( int i = 1; i <= numberOfColumns; i++ )
                  System.out.print(metaData.getColumnName( i ) + "\t");
@@ -138,7 +138,7 @@ public void update() { //FIXME:
             DATABASE_URL, "root", "Knockbeg11" );
             
             // create Statement for updating table
-            pstat = connection.prepareStatement("UPDATE Customer SET lastName = ? Where firstName = ?");
+            pstat = connection.prepareStatement("UPDATE customers SET lastName = ? Where firstName = ?");
             pstat.setString(1, lastname);
             pstat.setString(2, firstname);
 
@@ -176,7 +176,7 @@ public void delete(int customerID) {
             connection = DriverManager.getConnection(DATABASE_URL, "root" , "Knockbeg11" );
 
             // create Statement for deleting from table
-            pstat = connection.prepareStatement("Delete FROM Customer WHERE CustomerID = ?");	
+            pstat = connection.prepareStatement("Delete FROM customers WHERE CustomerID = ?");	
             pstat.setInt(1, customerID);		
             
             //Delete data in database

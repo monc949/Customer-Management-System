@@ -86,7 +86,7 @@ public void retrieve() {
                 // process query results
                 ResultSetMetaData metaData = resultSet.getMetaData();
                 int numberOfColumns = metaData.getColumnCount();
-                System.out.println( "Customer Table of CMS Database:\n" );
+                System.out.println( "Products Table of CMS Database:\n" );
                 
                  for ( int i = 1; i <= numberOfColumns; i++ )
                  System.out.print(metaData.getColumnName( i ) + "\t");
@@ -130,7 +130,7 @@ public void update() { //FIXME:
             DATABASE_URL, "root", "Knockbeg11" );
             
             // create Statement for updating table
-            pstat = connection.prepareStatement("UPDATE Customer SET name = ? Where firstName = ?");
+            pstat = connection.prepareStatement("UPDATE products SET name = ? Where firstName = ?");
             pstat.setString(1, name);
             pstat.setString(2, brand);
 
@@ -154,7 +154,7 @@ public void update() { //FIXME:
 
 
 //Delete method
-public void delete(int customerID) {
+public void delete(int productID) {
         	// database URL
 
 		final String DATABASE_URL = "jdbc:mysql://localhost/cms";
@@ -169,7 +169,7 @@ public void delete(int customerID) {
 
             // create Statement for deleting from table
             pstat = connection.prepareStatement("Delete FROM Product WHERE ProductID = ?");	
-            pstat.setInt(1, customerID);		
+            pstat.setInt(1, productID);		
             
             //Delete data in database
             i = pstat.executeUpdate();
