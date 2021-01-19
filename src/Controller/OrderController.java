@@ -1,8 +1,7 @@
 package Controller;
 
-//TODO: Need to do the whole thing, still just a copy of customercontroller
+//TODO: Need to do the whole thing, still just a copy of customer controller
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,7 +20,7 @@ public class OrderController {
 //Create method
 public void create(Order newOrder) {
         //database URL
-        final String DATABASE_URL = "jdbc:mysql://localhost/customer_management_system";
+        final String DATABASE_URL = "jdbc:mysql://localhost/cms";
 
         Connection connection = null;
         PreparedStatement pstat = null;
@@ -29,8 +28,8 @@ public void create(Order newOrder) {
         
         
         int customerID = newOrder.getCustomerID();
-        Date orderDate = newOrder.getOrderDate();
         double totalPrice = newOrder.getTotalPrice();
+        String productList = newOrder.toString();
        
         int i;
 
@@ -40,9 +39,9 @@ public void create(Order newOrder) {
                 connection = DriverManager.getConnection(DATABASE_URL, "root", "Knockbeg11");
 
             //create Prepared Statement for inserting into table
-                pstat = connection.prepareStatement("INSERT INTO order (CustomerID, orderDate, TotalPrice) VALUES (?,?,?)");
+                pstat = connection.prepareStatement("INSERT INTO Order (CustomerID, ProductList, TotalPrice) VALUES (?,?,?)");
                 pstat.setInt(1, customerID);
-                pstat.setDate(2, orderDate);
+                pstat.setString(2, productList);
                 pstat.setDouble(3, totalPrice);
 
                 i = pstat.executeUpdate();
@@ -68,7 +67,7 @@ public void create(Order newOrder) {
 //Retrieve method
 public void retrieve() {
         		// database URL
-		        final String DATABASE_URL = "jdbc:mysql://localhost/customer_management_system";
+		        final String DATABASE_URL = "jdbc:mysql://localhost/cms";
 	
             Connection connection = null;
             PreparedStatement pstat = null;
@@ -80,7 +79,7 @@ public void retrieve() {
                 DATABASE_URL, "root", "Knockbeg11" );
                 
                 // create Statement for querying table
-                pstat = connection.prepareStatement("SELECT * From Customer");
+                pstat = connection.prepareStatement("SELECT * From Order");
                 
                 // query database
                 resultSet = pstat.executeQuery(
@@ -89,7 +88,7 @@ public void retrieve() {
                 // process query results
                 ResultSetMetaData metaData = resultSet.getMetaData();
                 int numberOfColumns = metaData.getColumnCount();
-                System.out.println( "Customer Table of CMS Database:\n" );
+                System.out.println( "Order Table of CMS Database:\n" );
                 
                  for ( int i = 1; i <= numberOfColumns; i++ )
                  System.out.print(metaData.getColumnName( i ) + "\t");
@@ -119,7 +118,7 @@ public void retrieve() {
 //Update method
 public void update() { //FIXME:
         // database URL
-		final String DATABASE_URL = "jdbc:mysql://localhost/customer_management_system";
+		final String DATABASE_URL = "jdbc:mysql://localhost/cms";
 		
         String firstname="Lisa";
         String lastname="Brennan";
@@ -133,7 +132,7 @@ public void update() { //FIXME:
             DATABASE_URL, "root", "Knockbeg11" );
             
             // create Statement for updating table
-            pstat = connection.prepareStatement("UPDATE Customer SET lastName = ? Where firstName = ?");
+            pstat = connection.prepareStatement("UPDATE Order SET lastName = ? Where firstName = ?");
             pstat.setString(1, lastname);
             pstat.setString(2, firstname);
 
@@ -157,10 +156,10 @@ public void update() { //FIXME:
 
 
 //Delete method
-public void delete(int customerID) {
+public void delete(int customerID) { //FIXME:
         	// database URL
 
-		final String DATABASE_URL = "jdbc:mysql://localhost/customer_management_system";
+		final String DATABASE_URL = "jdbc:mysql://localhost/cms";
 		
         Connection connection = null;
         PreparedStatement pstat = null;	
@@ -171,7 +170,7 @@ public void delete(int customerID) {
             connection = DriverManager.getConnection(DATABASE_URL, "root" , "Knockbeg11" );
 
             // create Statement for deleting from table
-            pstat = connection.prepareStatement("Delete FROM Customer WHERE CustomerID = ?");	
+            pstat = connection.prepareStatement("Delete FROM order WHERE CustomerID = ?");	
             pstat.setInt(1, customerID);		
             
             //Delete data in database

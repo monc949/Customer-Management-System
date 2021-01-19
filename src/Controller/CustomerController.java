@@ -20,7 +20,7 @@ public class CustomerController {
 //Create method
 public void create(Customer newCustomer) {
         //database URL
-        final String DATABASE_URL = "jdbc:mysql://localhost/customer_management_system";
+        final String DATABASE_URL = "jdbc:mysql://localhost/cms";
 
         Connection connection = null;
         PreparedStatement pstat = null;
@@ -73,7 +73,7 @@ public void create(Customer newCustomer) {
 //Retrieve method
 public void retrieve() {
         		// database URL
-		        final String DATABASE_URL = "jdbc:mysql://localhost/customer_management_system";
+		        final String DATABASE_URL = "jdbc:mysql://localhost/cms";
 	
             Connection connection = null;
             PreparedStatement pstat = null;
@@ -124,7 +124,7 @@ public void retrieve() {
 //Update method
 public void update() { //FIXME:
         // database URL
-		final String DATABASE_URL = "jdbc:mysql://localhost/customer_management_system";
+		final String DATABASE_URL = "jdbc:mysql://localhost/cms";
 		
         String firstname="Lisa";
         String lastname="Brennan";
@@ -165,7 +165,7 @@ public void update() { //FIXME:
 public void delete(int customerID) {
         	// database URL
 
-		final String DATABASE_URL = "jdbc:mysql://localhost/customer_management_system";
+		final String DATABASE_URL = "jdbc:mysql://localhost/cms";
 		
         Connection connection = null;
         PreparedStatement pstat = null;	

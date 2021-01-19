@@ -1,19 +1,17 @@
 package Model;
 
-import java.sql.Date;
 
 public class Order {
 
     private int customerID;
-    private Date orderDate;
     private double totalPrice;
     private Product[] productList;
 
-    public Order(int customerID, Date orderDate, double totalPrice, Product[] productList) {
-        setCustomerID(customerID);
-        setOrderDate(orderDate);
+    public Order(int customerID, Product[] productList) {
         setCustomerID(customerID);
         setProductList(productList);
+        setTotalPrice();
+
     }
 
     public int getCustomerID() {
@@ -24,20 +22,17 @@ public class Order {
         this.customerID = customerID;
     }
 
-    public Date getOrderDate() {
-        return orderDate;
-    }
-
-    public void setOrderDate(Date orderDate) {
-        this.orderDate = orderDate;
-    }
-
     public double getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotalPrice(double totalPrice) {
-        this.totalPrice = totalPrice;
+    public void setTotalPrice() {
+        // double totalPrice = 0;
+        // for (int i = 0; i < productList.length - 1; i++) {
+        //     totalPrice = totalPrice + productList[i].getPrice();
+        // }
+        // this.totalPrice = totalPrice;
+        this.totalPrice = 56;
     }
 
     public Product[] getProductList() {
@@ -47,6 +42,17 @@ public class Order {
     public void setProductList(Product[] productList) {
         this.productList = productList;
     }
+
+    @Override
+    public String toString() {
+        String productString = "";
+        for (Product product : productList) {
+            productString+=product.getName() + ", ";
+        }
+
+        return productString;
+    }
+
 
 
 

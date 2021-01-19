@@ -5,15 +5,13 @@ public class Product {
     private String brand;
     private String name;
     private String description;
-    private float price;
-    private int quantity;
+    private double price;
 
-    public Product(String brand, String name, String description, float price, int quantity) {
+    public Product(String brand, String name, String description, double price) {
         setBrand(brand);
         setName(name);
         setDescription(description);
         setPrice(price);
-        setQuantity(quantity);
     }
 
     public String getBrand() {
@@ -40,20 +38,12 @@ public class Product {
         this.description = description;
     }
 
-    public float getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(double price) {
         this.price = price;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
     }
 
     

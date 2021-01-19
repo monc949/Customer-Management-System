@@ -21,15 +21,14 @@ public class ProductController {
 //Create method
 public void create(Product newProduct) {
         //database URL
-        final String DATABASE_URL = "jdbc:mysql://localhost/customer_management_system";
+        final String DATABASE_URL = "jdbc:mysql://localhost/cms";
 
         Connection connection = null;
         PreparedStatement pstat = null;
         String brand = newProduct.getBrand();
         String name = newProduct.getName();
         String description = newProduct.getDescription();
-        float price = newProduct.getPrice();
-        int quantity = newProduct.getQuantity();
+        double price = newProduct.getPrice();
  
         int i;
 
@@ -43,8 +42,7 @@ public void create(Product newProduct) {
                 pstat.setString(1, brand);
                 pstat.setString(2, name);
                 pstat.setString(3, description);
-                pstat.setFloat(4, price);
-                pstat.setInt(5, quantity);
+                pstat.setDouble(4, price);
 
                 i = pstat.executeUpdate();
                 System.out.println(i + " record successfully added to the database");
@@ -67,7 +65,7 @@ public void create(Product newProduct) {
 //Retrieve method
 public void retrieve() {
         		// database URL
-		        final String DATABASE_URL = "jdbc:mysql://localhost/customer_management_system";
+		        final String DATABASE_URL = "jdbc:mysql://localhost/cms";
 	
             Connection connection = null;
             PreparedStatement pstat = null;
@@ -118,7 +116,7 @@ public void retrieve() {
 //Update method
 public void update() { //FIXME:
         // database URL
-		final String DATABASE_URL = "jdbc:mysql://localhost/customer_management_system";
+		final String DATABASE_URL = "jdbc:mysql://localhost/cms";
 		
         String brand="Lisa";
         String name="Brennan";
@@ -159,7 +157,7 @@ public void update() { //FIXME:
 public void delete(int customerID) {
         	// database URL
 
-		final String DATABASE_URL = "jdbc:mysql://localhost/customer_management_system";
+		final String DATABASE_URL = "jdbc:mysql://localhost/cms";
 		
         Connection connection = null;
         PreparedStatement pstat = null;	
