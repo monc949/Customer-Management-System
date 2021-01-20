@@ -82,8 +82,7 @@ public void retrieve() {
                 pstat = connection.prepareStatement("SELECT * From Orders");
                 
                 // query database
-                resultSet = pstat.executeQuery(
-                "SELECT * From Customer" );
+                resultSet = pstat.executeQuery("SELECT * From Orders" );
                 
                 // process query results
                 ResultSetMetaData metaData = resultSet.getMetaData();

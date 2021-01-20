@@ -71,7 +71,7 @@ public void create(Customer newCustomer) {
 
 
 //Retrieve method
-public void retrieve(int customerID) {
+public void retrieve() {
         		// database URL
 		        final String DATABASE_URL = "jdbc:mysql://localhost/cms";
 	
@@ -85,11 +85,10 @@ public void retrieve(int customerID) {
                 DATABASE_URL, "root", "Knockbeg11" );
                 
                 // create Statement for querying table
-                pstat = connection.prepareStatement("SELECT * From customers WHERE Customer ID = ?");
-                pstat.setInt(1, customerID);
+                pstat = connection.prepareStatement("SELECT * From customers");
                 
                 // query database
-                resultSet = pstat.executeQuery("SELECT * From customers WHERE Customer ID = ?");
+                resultSet = pstat.executeQuery("SELECT * From customers");
                 
                 // process query results
                 ResultSetMetaData metaData = resultSet.getMetaData();

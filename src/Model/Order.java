@@ -28,8 +28,8 @@ public class Order {
 
     public void setTotalPrice() {
         double totalPrice = 0;
-        for (int i = 0; i < productList.length - 1; i++) {
-            totalPrice = totalPrice + productList[i].getPrice();
+        for (Product product : productList) {
+            totalPrice+=product.getPrice();
         }
         this.totalPrice = totalPrice;
     }
