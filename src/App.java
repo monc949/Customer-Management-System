@@ -1,5 +1,6 @@
 import Controller.*;
 import Model.*;
+import View.*;
 
 
 public class App {
@@ -34,6 +35,7 @@ public class App {
 
         // pc.retrieve();
 
+        new InitUi();
 
         
 
