@@ -38,7 +38,7 @@ public void create(Product newProduct) {
                 connection = DriverManager.getConnection(DATABASE_URL, "root", "Knockbeg11");
 
             //create Prepared Statement for inserting into table
-                pstat = connection.prepareStatement("INSERT INTO Product (brand, name, description, price, quantity) VALUES (?,?,?,?,?)");
+                pstat = connection.prepareStatement("INSERT INTO Products (brand, name, description, price) VALUES (?,?,?,?)");
                 pstat.setString(1, brand);
                 pstat.setString(2, name);
                 pstat.setString(3, description);
@@ -63,7 +63,7 @@ public void create(Product newProduct) {
 
 
 //Retrieve method
-public void retrieve() {
+public ResultSet retrieve() {
         		// database URL
 		        final String DATABASE_URL = "jdbc:mysql://localhost/cms";
 	
@@ -77,11 +77,10 @@ public void retrieve() {
                 DATABASE_URL, "root", "Knockbeg11" );
                 
                 // create Statement for querying table
-                pstat = connection.prepareStatement("SELECT * From Product");
+                pstat = connection.prepareStatement("SELECT * From Products");
                 
                 // query database
-                resultSet = pstat.executeQuery(
-                "SELECT * From Product" );
+                resultSet = pstat.executeQuery("SELECT * From Products" );
                 
                 // process query results
                 ResultSetMetaData metaData = resultSet.getMetaData();
@@ -111,7 +110,10 @@ public void retrieve() {
                             exception.printStackTrace();
                         }
                     }
+                    return resultSet;
                 }
+
+
                 
 //Update method
 public void update() { //FIXME:

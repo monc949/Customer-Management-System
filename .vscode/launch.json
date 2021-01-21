@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch Table",
+            "request": "launch",
+            "mainClass": "View.Table",
+            "projectName": "Customer-Management-System_88c09d1b"
+        },
+        {
+            "type": "java",
+            "name": "Launch Main",
+            "request": "launch",
+            "mainClass": "View.Main",
+            "projectName": "Customer-Management-System_88c09d1b"
+        },
+        {
+            "type": "java",
             "name": "Launch Current File",
             "request": "launch",
             "mainClass": "${file}"

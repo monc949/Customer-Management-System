@@ -4,28 +4,36 @@ import Model.*;
 
 public class App {
     public static void main(String[] args) {
-        CustomerController cc = new CustomerController();
-        OrderController oc = new OrderController();
+        // CustomerController cc = new CustomerController();
+        // OrderController oc = new OrderController();
         
-        cc.create(new Customer("Johnny", "Maye", "35 The Belfry", "Chapel Lane", "Thomastown", "Kilkenny", "R95RX60", "ciaranmaye8@gmail.com", "0871044880"));
+        // cc.create(new Customer("Jane", "Roberts", "35 The Belfry", "Chapel Lane", "Thomastown", "Kilkenny", "R95RX60", "ciaranmaye8@gmail.com", "0871044880"));
 
 
-        Product item1 = new Product("Sony", "K400", "TV", 50);
-        Product item2 = new Product("Apple", "iPhone12", "Phone", 100);
-        Product item3 = new Product("Asus", "TP412UA", "Laptop", 200);
+        // Product item1 = new Product("Sony", "K400", "TV", 50);
+        // Product item2 = new Product("Apple", "iPhone12", "Phone", 100);
+        // Product item3 = new Product("Asus", "TP412UA", "Laptop", 200);
         
-        Product[] list = new Product[3];
-        list[0] = item1;
-        list[1] = item2;
-        list[2] = item3;
+        // Product[] list = new Product[3];
+        // list[0] = item1;
+        // list[1] = item2;
+        // list[2] = item3;
 
-        Order order = new Order(1,list);
+        // Order order = new Order(1,list);
 
-        OrderController orderController = new OrderController();
-        orderController.create(order);
+        // OrderController orderController = new OrderController();
+        // orderController.create(order);
 
-        cc.retrieve();
-        oc.retrieve();
+        // cc.retrieve();
+        // oc.retrieve();
+
+        // ProductController pc = new ProductController();
+        // pc.create(new Product("Sony", "K400", "TV", 50));
+        // pc.create(new Product("Apple", "iPhone12", "Phone", 100));
+        // pc.create(new Product("Asus", "TP412UA", "Laptop", 200));
+
+        // pc.retrieve();
+
 
         
 
