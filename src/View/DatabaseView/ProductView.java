@@ -1,4 +1,4 @@
-package View;
+package View.DatabaseView;
 
 import javax.swing.*;
 import java.awt.*;

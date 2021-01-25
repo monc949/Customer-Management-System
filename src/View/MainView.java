@@ -8,6 +8,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import View.DatabaseView.Table;
+
 public class MainView extends JFrame implements ActionListener {
 
     /**
@@ -40,7 +42,7 @@ public class MainView extends JFrame implements ActionListener {
 
     //-------Side Panel-------//
         
-        sideMenu.setPreferredSize(new Dimension(200,0));
+        sideMenu.setPreferredSize(new Dimension(300,0));
         sideMenu.setMinimumSize(new Dimension(150,0));
         sideMenu.setBackground(Color.GRAY);
         sideMenu.setVisible(true);
@@ -61,9 +63,13 @@ public class MainView extends JFrame implements ActionListener {
                         topMenu.add(productDBButton);
 
                         customerDBButton.setBounds(0, 0, 90, 5);
+                        customerDBButton.setFocusable(false);
+                        customerDBButton.addActionListener(new ButtonHandler());
                         topMenu.add(customerDBButton);
 
                         orderDBButton.setBounds(0, 0, 90, 5);
+                        orderDBButton.setFocusable(false);
+                        orderDBButton.addActionListener(new ButtonHandler());
                         topMenu.add(orderDBButton);
 
 
@@ -72,13 +78,15 @@ public class MainView extends JFrame implements ActionListener {
 
 
 
+    //--------Center Panel-------////
+
+
 
 
 
     //-----Add components ------>
         frame.add(sideMenu, BorderLayout.WEST);
         frame.add(topMenu, BorderLayout.NORTH);
-
 
     }
 
@@ -102,14 +110,13 @@ public class MainView extends JFrame implements ActionListener {
     private class ButtonHandler implements ActionListener {
         public void actionPerformed(ActionEvent e){
             if (e.getSource()==productDBButton) {
-                //TODO: open new window (Product Database)
-                new Table();
+                    new Table(1);
             }
             if (e.getSource()==customerDBButton) {
-                //TODO: open new window (Customer Database)
+                    new Table(2);
             }
             if (e.getSource()==orderDBButton) {
-                //TODO: open new window (Order Database)
+                    new Table(3);
             }
         }
     }
