@@ -10,9 +10,11 @@ public class ProductList extends JFrame {
      *
      */
     private static final long serialVersionUID = 1L;
+    
     DefaultTableModel model = new DefaultTableModel();
     Container cnt = this.getContentPane();
     JTable jtbl = new JTable(model);
+    
     public ProductList() {
         cnt.setLayout(new FlowLayout(FlowLayout.LEFT));
         model.addColumn("ProductID");

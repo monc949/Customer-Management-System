@@ -57,6 +57,7 @@ public class InitUi extends JFrame implements ActionListener {
                         //-----Buttons-----//
                         productDBButton.setBounds(0, 0, 90, 5);
                         productDBButton.setFocusable(false);
+                        productDBButton.addActionListener(new ButtonHandler();
                         topMenu.add(productDBButton);
 
                         customerDBButton.setBounds(0, 0, 90, 5);
@@ -95,16 +96,22 @@ public class InitUi extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource()==productDBButton) {
-            //TODO: open new window (Product Database)
-        }
-        if (e.getSource()==customerDBButton) {
-            //TODO: open new window (Customer Database)
-        }
-        if (e.getSource()==orderDBButton) {
-            //TODO: open new window (Order Database)
-        }
 
+    }
+
+    private class ButtonHandler implements ActionListener {
+        public void actionPerformed(ActionEvent e){
+            if (e.getSource()==productDBButton) {
+                //TODO: open new window (Product Database)
+                System.out.println("dick");
+            }
+            if (e.getSource()==customerDBButton) {
+                //TODO: open new window (Customer Database)
+            }
+            if (e.getSource()==orderDBButton) {
+                //TODO: open new window (Order Database)
+            }
+        }
     }
     
 }
