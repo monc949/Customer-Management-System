@@ -8,7 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class InitUi extends JFrame implements ActionListener {
+public class MainView extends JFrame implements ActionListener {
 
     /**
      *
@@ -21,7 +21,7 @@ public class InitUi extends JFrame implements ActionListener {
 
     // ---------Constructor-----------------//
 
-    public InitUi() {
+    public MainView() {
 
         JFrame frame = new JFrame();
         JPanel sideMenu = new JPanel();
@@ -57,7 +57,7 @@ public class InitUi extends JFrame implements ActionListener {
                         //-----Buttons-----//
                         productDBButton.setBounds(0, 0, 90, 5);
                         productDBButton.setFocusable(false);
-                        productDBButton.addActionListener(new ButtonHandler();
+                        productDBButton.addActionListener(new ButtonHandler());
                         topMenu.add(productDBButton);
 
                         customerDBButton.setBounds(0, 0, 90, 5);
@@ -103,7 +103,7 @@ public class InitUi extends JFrame implements ActionListener {
         public void actionPerformed(ActionEvent e){
             if (e.getSource()==productDBButton) {
                 //TODO: open new window (Product Database)
-                System.out.println("dick");
+                new Table();
             }
             if (e.getSource()==customerDBButton) {
                 //TODO: open new window (Customer Database)

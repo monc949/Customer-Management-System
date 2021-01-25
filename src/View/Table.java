@@ -1,15 +1,18 @@
+package View;
+
 import javax.swing.JFrame;
 
-import View.ProductList;
 
 
 public class Table {
     public Table() {
-        JFrame frame = new ProductList();
-        frame.setTitle("Swing Example");
-        frame.setSize(500, 300);
+        JFrame frame = new ProductView();
+        frame.setTitle("Product Table");
+        frame.setSize(900, 300);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
+
+    
 }
