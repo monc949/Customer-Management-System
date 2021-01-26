@@ -16,6 +16,7 @@ public class ProductView extends JFrame {
     JTable table = new JTable(model);
     
     public ProductView() {
+        table.setEnabled(false);
         container.setLayout(new FlowLayout(FlowLayout.LEFT));
         model.addColumn("ProductID");
         model.addColumn("Brand");

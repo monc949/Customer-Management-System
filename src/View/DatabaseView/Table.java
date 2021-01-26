@@ -11,7 +11,7 @@ public class Table {
             if (i == 1) {
                 JFrame frame = new ProductView();
                 frame.setTitle("Product Table");
-                frame.setSize(900, 300);
+                frame.setSize(1500, 900);
                 frame.setLocationRelativeTo(null);
                 frame.setVisible(true);
                 frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -21,7 +21,7 @@ public class Table {
             if (i == 2) {
                 JFrame frame = new CustomerView();
                 frame.setTitle("Customer Table");
-                frame.setSize(900, 300);
+                frame.setSize(1500, 900);
                 frame.setLocationRelativeTo(null);
                 frame.setVisible(true);
                 frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -31,7 +31,7 @@ public class Table {
             if (i == 3) {
                 JFrame frame = new OrderView();
                 frame.setTitle("Order Table");
-                frame.setSize(900, 300);
+                frame.setSize(1500, 900);
                 frame.setLocationRelativeTo(null);
                 frame.setVisible(true);
                 frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

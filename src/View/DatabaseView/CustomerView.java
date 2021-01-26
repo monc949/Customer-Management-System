@@ -16,14 +16,26 @@ public class CustomerView extends JFrame {
     JTable table = new JTable(model);
     JPanel updatePanel = new JPanel();
     JButton submitButton = new JButton();
-    JTextField nameField = new JTextField("Name", 20);
+    JTextField IDField = new JTextField("ID", 20);
+    JTextField FNameField = new JTextField("First Name", 20);
+    JTextField LNameField = new JTextField("Last Name", 20);
+    JTextField Address1Field = new JTextField("Address Line 1", 20);
+    JTextField Address2Field = new JTextField("Address Line 2", 20);
+    JTextField CityField = new JTextField("City", 20);
+    JTextField CountyField = new JTextField("County", 20);
+    JTextField PostcodeField = new JTextField("PostCode", 20);
+    JTextField EmailField = new JTextField("Email", 20);
+    JTextField PhoneNumberField = new JTextField("Phone Number", 20);
     
     public CustomerView() {
 
 
         //---------------Table----------------//
 
-        container.setLayout(new FlowLayout(FlowLayout.LEFT));
+        //Make table uneditable
+        table.setEnabled(false);
+
+        container.setLayout(new BorderLayout());
         model.addColumn("CustomerID");
         model.addColumn("FirstName");
         model.addColumn("LastName");
@@ -34,6 +46,11 @@ public class CustomerView extends JFrame {
         model.addColumn("Postcode");
         model.addColumn("Email");
         model.addColumn("PhoneNumber");
+
+        //----------Set Column Width-----------//
+
+       // table.getColumnModel().getColumn(0).setPreferredWidth(5); //FIXME:
+
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
@@ -51,7 +68,7 @@ public class CustomerView extends JFrame {
             System.out.println(e.getMessage());
         }
         JScrollPane pg = new JScrollPane(table);
-        container.add(pg);
+        container.add(pg, BorderLayout.WEST);
         
         this.pack();
 
@@ -61,8 +78,13 @@ public class CustomerView extends JFrame {
         updatePanel.setLayout(new FlowLayout());
         updatePanel.setVisible(true);
 
-        nameField.setSize(50, 20);
-        updatePanel.add(nameField);
+        FNameField.setSize(50, 20);
+        updatePanel.add(FNameField);
+
+        LNameField.setSize(50,20);
+        updatePanel.add(LNameField);
+
+
 
 
         container.add(updatePanel, BorderLayout.EAST);

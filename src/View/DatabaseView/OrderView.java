@@ -16,6 +16,7 @@ public class OrderView extends JFrame {
     JTable table = new JTable(model);
     
     public OrderView() {
+        table.setEnabled(false);
         container.setLayout(new FlowLayout(FlowLayout.LEFT));
         model.addColumn("OrderID");
         model.addColumn("CustomerID");
