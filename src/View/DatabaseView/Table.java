@@ -37,15 +37,8 @@ public class Table {
                 frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             } 
 
-            if (i == 4) {
-                OrderView panel = new OrderView();
-                panel.setName("Order Table");
-                panel.setVisible(true);
-            } 
 
             
-
-
     }
 
 

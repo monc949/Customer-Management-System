@@ -14,8 +14,15 @@ public class CustomerView extends JFrame {
     DefaultTableModel model = new DefaultTableModel();
     Container container = this.getContentPane();
     JTable table = new JTable(model);
+    JPanel updatePanel = new JPanel();
+    JButton submitButton = new JButton();
+    JTextField nameField = new JTextField("Name", 20);
     
     public CustomerView() {
+
+
+        //---------------Table----------------//
+
         container.setLayout(new FlowLayout(FlowLayout.LEFT));
         model.addColumn("CustomerID");
         model.addColumn("FirstName");
@@ -47,6 +54,21 @@ public class CustomerView extends JFrame {
         container.add(pg);
         
         this.pack();
+
+
+
+        //-----------------Side panel-----------------//
+        updatePanel.setLayout(new FlowLayout());
+        updatePanel.setVisible(true);
+
+        nameField.setSize(50, 20);
+        updatePanel.add(nameField);
+
+
+        container.add(updatePanel, BorderLayout.EAST);
+
+
+
 
     }
 }
