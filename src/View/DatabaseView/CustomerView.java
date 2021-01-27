@@ -1,9 +1,23 @@
 package View.DatabaseView;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
-import java.sql.*;
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 
 public class CustomerView extends JFrame {
     /**
@@ -47,9 +61,7 @@ public class CustomerView extends JFrame {
         model.addColumn("Email");
         model.addColumn("PhoneNumber");
 
-        //----------Set Column Width-----------//
 
-       // table.getColumnModel().getColumn(0).setPreferredWidth(5); //FIXME:
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -68,21 +80,47 @@ public class CustomerView extends JFrame {
             System.out.println(e.getMessage());
         }
         JScrollPane pg = new JScrollPane(table);
-        container.add(pg, BorderLayout.WEST);
+        container.add(pg, BorderLayout.CENTER);
         
         this.pack();
 
 
 
         //-----------------Side panel-----------------//
-        updatePanel.setLayout(new FlowLayout());
+        updatePanel.setLayout(new BoxLayout(updatePanel, BoxLayout.PAGE_AXIS));
+        updatePanel.add(Box.createRigidArea(new Dimension(0,40)));
+        updatePanel.setBorder(BorderFactory.createEmptyBorder(30,30,30,30));
         updatePanel.setVisible(true);
+
+        IDField.setBounds(20, 20, 10, 5);
+        updatePanel.add(IDField);
 
         FNameField.setSize(50, 20);
         updatePanel.add(FNameField);
 
         LNameField.setSize(50,20);
         updatePanel.add(LNameField);
+
+        Address1Field.setSize(50, 20);
+        updatePanel.add(Address1Field);
+
+        Address2Field.setSize(50,20);
+        updatePanel.add(Address2Field);
+
+        CityField.setSize(50, 20);
+        updatePanel.add(CityField);
+
+        CountyField.setSize(50,20);
+        updatePanel.add(CountyField);
+
+        PostcodeField.setSize(50, 20);
+        updatePanel.add(PostcodeField);
+
+        EmailField.setSize(50,20);
+        updatePanel.add(EmailField);
+
+        PhoneNumberField.setSize(50,20);
+        updatePanel.add(PhoneNumberField);
 
 
 
