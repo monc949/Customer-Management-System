@@ -121,12 +121,11 @@ public void retrieve() {
                 }
                 
 //Update method
-public void update() { //FIXME:
+public void update(int CustomerID, String firstname, String lastname, String address1, String address2, String city, String county, String postcode, String email, String phoneNumber) { //FIXME:
         // database URL
 		final String DATABASE_URL = "jdbc:mysql://localhost/cms";
 		
-        String firstname="Lisa";
-        String lastname="Brennan";
+
         Connection connection = null;
         PreparedStatement pstat = null;
         int i;
@@ -137,9 +136,16 @@ public void update() { //FIXME:
             DATABASE_URL, "root", "Knockbeg11" );
             
             // create Statement for updating table
-            pstat = connection.prepareStatement("UPDATE customers SET lastName = ? Where firstName = ?");
-            pstat.setString(1, lastname);
-            pstat.setString(2, firstname);
+            pstat = connection.prepareStatement("UPDATE customers SET FirstName = ?, Lastname = ?, Address1 = ?, Address2 = ?, City = ?, County = ?, Postcode = ? Email = ?, Phonenumber = ?");
+            pstat.setString(1, firstname);
+            pstat.setString(2, lastname);
+            pstat.setString(3, address1);
+            pstat.setString(4, address2);
+            pstat.setString(5, city);
+            pstat.setString(6, county);
+            pstat.setString(7, postcode);
+            pstat.setString(8, email);
+            pstat.setString(9, phoneNumber);
 
             //Update data in database
             i = pstat.executeUpdate();

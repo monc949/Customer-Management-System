@@ -3,11 +3,16 @@ package View.DatabaseView;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -15,21 +20,23 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.BorderFactory;
-import javax.swing.Box;
-import javax.swing.BoxLayout;
 
-public class CustomerView extends JFrame {
+import Controller.CustomerController;
+import Model.Customer;
+
+public class CustomerView extends JFrame implements ActionListener {
     /**
      *
      */
     private static final long serialVersionUID = 1L;
-    
+
     DefaultTableModel model = new DefaultTableModel();
     Container container = this.getContentPane();
     JTable table = new JTable(model);
     JPanel updatePanel = new JPanel();
-    JButton submitButton = new JButton();
+    JButton createButton = new JButton("Create Customer");
+    JButton editButton = new JButton("Edit Customer");
+
     JTextField IDField = new JTextField("ID", 20);
     JTextField FNameField = new JTextField("First Name", 20);
     JTextField LNameField = new JTextField("Last Name", 20);
@@ -40,13 +47,12 @@ public class CustomerView extends JFrame {
     JTextField PostcodeField = new JTextField("PostCode", 20);
     JTextField EmailField = new JTextField("Email", 20);
     JTextField PhoneNumberField = new JTextField("Phone Number", 20);
-    
+
     public CustomerView() {
 
+        // ---------------Table----------------//
 
-        //---------------Table----------------//
-
-        //Make table uneditable
+        // Make table uneditable
         table.setEnabled(false);
 
         container.setLayout(new BorderLayout());
@@ -61,74 +67,112 @@ public class CustomerView extends JFrame {
         model.addColumn("Email");
         model.addColumn("PhoneNumber");
 
-
-
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
             final String DATABASE_URL = "jdbc:mysql://localhost/cms";
-            Connection con = DriverManager.getConnection(DATABASE_URL, "root", "Knockbeg11" );
-
+            Connection con = DriverManager.getConnection(DATABASE_URL, "root", "Knockbeg11");
 
             PreparedStatement pstm = con.prepareStatement("SELECT * FROM Customers");
             ResultSet Rs = pstm.executeQuery();
-            while(Rs.next()){
-                model.addRow(new Object[]{Rs.getInt(1), Rs.getString(2),Rs.getString(3),Rs.getString(4)
-                ,Rs.getString(5),Rs.getString(6),Rs.getString(7),Rs.getString(8),Rs.getString(9),Rs.getString(10)});
+            while (Rs.next()) {
+                model.addRow(
+                        new Object[] { Rs.getInt(1), Rs.getString(2), Rs.getString(3), Rs.getString(4), Rs.getString(5),
+                                Rs.getString(6), Rs.getString(7), Rs.getString(8), Rs.getString(9), Rs.getString(10) });
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
         JScrollPane pg = new JScrollPane(table);
         container.add(pg, BorderLayout.CENTER);
-        
+
         this.pack();
 
-
-
-        //-----------------Side panel-----------------//
+        // -----------------Side panel-----------------//
         updatePanel.setLayout(new BoxLayout(updatePanel, BoxLayout.PAGE_AXIS));
-        updatePanel.add(Box.createRigidArea(new Dimension(0,40)));
-        updatePanel.setBorder(BorderFactory.createEmptyBorder(30,30,30,30));
+        updatePanel.add(Box.createRigidArea(new Dimension(0, 40)));
+        updatePanel.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
         updatePanel.setVisible(true);
 
-        IDField.setBounds(20, 20, 10, 5);
+        IDField.setSize(1, 5);
         updatePanel.add(IDField);
 
-        FNameField.setSize(50, 20);
+        FNameField.setSize(10, 5);
         updatePanel.add(FNameField);
 
-        LNameField.setSize(50,20);
+        LNameField.setSize(10, 5);
         updatePanel.add(LNameField);
 
-        Address1Field.setSize(50, 20);
+        Address1Field.setSize(10, 5);
         updatePanel.add(Address1Field);
 
-        Address2Field.setSize(50,20);
+        Address2Field.setSize(10, 5);
         updatePanel.add(Address2Field);
 
-        CityField.setSize(50, 20);
+        CityField.setSize(10, 5);
         updatePanel.add(CityField);
 
-        CountyField.setSize(50,20);
+        CountyField.setSize(10, 5);
         updatePanel.add(CountyField);
 
-        PostcodeField.setSize(50, 20);
+        PostcodeField.setSize(10, 5);
         updatePanel.add(PostcodeField);
 
-        EmailField.setSize(50,20);
+        EmailField.setSize(10, 5);
         updatePanel.add(EmailField);
 
-        PhoneNumberField.setSize(50,20);
+        PhoneNumberField.setSize(10, 5);
         updatePanel.add(PhoneNumberField);
 
 
+        createButton.addActionListener(new ButtonHandler());
+        updatePanel.add(createButton);
 
+
+        updatePanel.add(editButton);
 
         container.add(updatePanel, BorderLayout.EAST);
 
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        
+
+    }
+
+    private class ButtonHandler implements ActionListener {
+        public void actionPerformed(ActionEvent e){
+            CustomerController cc = new CustomerController();
 
 
+         if (e.getSource()==editButton){
+            cc.update(IDField.getText().parseInt(), //FIXME: in conjuction with customer controller create method
+            FNameField.getText(), 
+            LNameField.getText(), 
+            Address1Field.getText(), 
+            Address2Field.getText(), 
+            CityField.getText(), 
+            CountyField.getText(), 
+            PostcodeField.getText(), 
+            EmailField.getText(), 
+            PhoneNumberField.getText());
 
+
+         }
+         if (e.getSource()==createButton){
+            cc.create(new Customer(FNameField.getText(), 
+            LNameField.getText(), 
+            Address1Field.getText(), 
+            Address2Field.getText(), 
+            CityField.getText(), 
+            CountyField.getText(), 
+            PostcodeField.getText(), 
+            EmailField.getText(), 
+            PhoneNumberField.getText())
+            );
+            model.fireTableDataChanged();
+         }
+        }
     }
 }
