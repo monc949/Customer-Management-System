@@ -1,5 +1,7 @@
 package View.DatabaseView;
 
+import java.awt.Font;
+import java.awt.Window;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -15,6 +17,7 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -36,17 +39,32 @@ public class CustomerView extends JFrame implements ActionListener {
     JPanel updatePanel = new JPanel();
     JButton createButton = new JButton("Create Customer");
     JButton editButton = new JButton("Edit Customer");
+    JButton refreshButton = new JButton("Refresh Table");
+//FONT//
+    Font font1 = new Font("SansSerif", Font.BOLD, 10);
 
-    JTextField IDField = new JTextField("ID", 20);
-    JTextField FNameField = new JTextField("First Name", 20);
-    JTextField LNameField = new JTextField("Last Name", 20);
-    JTextField Address1Field = new JTextField("Address Line 1", 20);
-    JTextField Address2Field = new JTextField("Address Line 2", 20);
-    JTextField CityField = new JTextField("City", 20);
-    JTextField CountyField = new JTextField("County", 20);
-    JTextField PostcodeField = new JTextField("PostCode", 20);
-    JTextField EmailField = new JTextField("Email", 20);
-    JTextField PhoneNumberField = new JTextField("Phone Number", 20);
+    JTextField IDField = new JTextField();
+    JTextField FNameField = new JTextField();
+    JTextField LNameField = new JTextField();
+    JTextField Address1Field = new JTextField();
+    JTextField Address2Field = new JTextField();
+    JTextField CityField = new JTextField();
+    JTextField CountyField = new JTextField();
+    JTextField PostcodeField = new JTextField();
+    JTextField EmailField = new JTextField();
+    JTextField PhoneNumberField = new JTextField();
+
+
+    JLabel IDLabel = new JLabel("Customer ID (Type Customers ID here and fill in the fields below)");
+    JLabel FNameLabel = new JLabel("First Name");
+    JLabel LNameLabel = new JLabel("Last Name");
+    JLabel Address1Label = new JLabel("Address1");
+    JLabel Address2Label = new JLabel("Address2");
+    JLabel CityLabel = new JLabel("City");
+    JLabel CountyLabel = new JLabel("County");
+    JLabel PostcodeLabel = new JLabel("Post Code");
+    JLabel EmailLabel = new JLabel("Email");
+    JLabel PhoneNumberLabel = new JLabel("Phone Number");
 
     public CustomerView() {
 
@@ -54,8 +72,10 @@ public class CustomerView extends JFrame implements ActionListener {
 
         // Make table uneditable
         table.setEnabled(false);
-
+//---Container---//
         container.setLayout(new BorderLayout());
+        container.add(refreshButton);
+        
         model.addColumn("CustomerID");
         model.addColumn("FirstName");
         model.addColumn("LastName");
@@ -67,6 +87,9 @@ public class CustomerView extends JFrame implements ActionListener {
         model.addColumn("Email");
         model.addColumn("PhoneNumber");
 
+
+        //---retrieve from database---//
+        //-and populate tbale---//
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
@@ -91,46 +114,87 @@ public class CustomerView extends JFrame implements ActionListener {
         // -----------------Side panel-----------------//
         updatePanel.setLayout(new BoxLayout(updatePanel, BoxLayout.PAGE_AXIS));
         updatePanel.add(Box.createRigidArea(new Dimension(0, 40)));
-        updatePanel.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
+        updatePanel.setBorder(BorderFactory.createEmptyBorder(30, 90, 30, 30));
         updatePanel.setVisible(true);
 
-        IDField.setSize(1, 5);
+        updatePanel.add(refreshButton);
+
+
+        //-----Text Fields-----////////
+
+        IDField.setSize(1, 2);
+        IDField.setFont(font1);
+        updatePanel.add(IDLabel);
         updatePanel.add(IDField);
 
+
         FNameField.setSize(10, 5);
+        FNameField.setFont(font1);
+        updatePanel.add(FNameLabel);
         updatePanel.add(FNameField);
 
+
         LNameField.setSize(10, 5);
+        LNameField.setFont(font1);
+        updatePanel.add(LNameLabel);
         updatePanel.add(LNameField);
 
+
         Address1Field.setSize(10, 5);
+        Address1Field.setFont(font1);
+        updatePanel.add(Address1Label);
         updatePanel.add(Address1Field);
 
+
         Address2Field.setSize(10, 5);
+        Address2Field.setFont(font1);
+        updatePanel.add(Address2Label);
         updatePanel.add(Address2Field);
 
+
         CityField.setSize(10, 5);
+        CityField.setFont(font1);
+        updatePanel.add(CityLabel);
         updatePanel.add(CityField);
 
+
         CountyField.setSize(10, 5);
+        CountyField.setFont(font1);
+        updatePanel.add(CountyLabel);
         updatePanel.add(CountyField);
 
+
         PostcodeField.setSize(10, 5);
+        PostcodeField.setFont(font1);
+        updatePanel.add(PostcodeLabel);
         updatePanel.add(PostcodeField);
 
+
         EmailField.setSize(10, 5);
+        EmailField.setFont(font1);
+        updatePanel.add(EmailLabel);
         updatePanel.add(EmailField);
 
+
         PhoneNumberField.setSize(10, 5);
+        PhoneNumberField.setFont(font1);
+        updatePanel.add(PhoneNumberLabel);
         updatePanel.add(PhoneNumberField);
 
 
+
+
+        //Action listeners
         createButton.addActionListener(new ButtonHandler());
         updatePanel.add(createButton);
 
-
+        editButton.addActionListener(new ButtonHandler());
         updatePanel.add(editButton);
 
+        refreshButton.addActionListener(new ButtonHandler());
+        updatePanel.add(refreshButton);
+
+        //------Final Panel Placement--------//
         container.add(updatePanel, BorderLayout.EAST);
 
     }
@@ -141,13 +205,16 @@ public class CustomerView extends JFrame implements ActionListener {
 
     }
 
+
+    //-----Both of these next methods control the create and edit requirements for customer database------///////
+
+
     private class ButtonHandler implements ActionListener {
         public void actionPerformed(ActionEvent e){
             CustomerController cc = new CustomerController();
 
-
          if (e.getSource()==editButton){
-            cc.update(IDField.getText().parseInt(), //FIXME: in conjuction with customer controller create method
+            cc.update(Integer.parseInt(IDField.getText()),
             FNameField.getText(), 
             LNameField.getText(), 
             Address1Field.getText(), 
@@ -157,9 +224,8 @@ public class CustomerView extends JFrame implements ActionListener {
             PostcodeField.getText(), 
             EmailField.getText(), 
             PhoneNumberField.getText());
-
-
          }
+
          if (e.getSource()==createButton){
             cc.create(new Customer(FNameField.getText(), 
             LNameField.getText(), 
@@ -171,7 +237,11 @@ public class CustomerView extends JFrame implements ActionListener {
             EmailField.getText(), 
             PhoneNumberField.getText())
             );
-            model.fireTableDataChanged();
+         }
+
+         if (e.getSource()==refreshButton){
+            dispose();
+            new CustomerView(); //FIXME: doesnt reopen window
          }
         }
     }

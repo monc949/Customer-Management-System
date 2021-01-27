@@ -136,7 +136,7 @@ public void update(int CustomerID, String firstname, String lastname, String add
             DATABASE_URL, "root", "Knockbeg11" );
             
             // create Statement for updating table
-            pstat = connection.prepareStatement("UPDATE customers SET FirstName = ?, Lastname = ?, Address1 = ?, Address2 = ?, City = ?, County = ?, Postcode = ? Email = ?, Phonenumber = ?");
+            pstat = connection.prepareStatement("UPDATE customers SET FirstName = ?, Lastname = ?, Address1 = ?, Address2 = ?, City = ?, County = ?, Postcode = ?, Email = ?, Phonenumber = ? WHERE CustomerID = ?");
             pstat.setString(1, firstname);
             pstat.setString(2, lastname);
             pstat.setString(3, address1);
@@ -146,6 +146,7 @@ public void update(int CustomerID, String firstname, String lastname, String add
             pstat.setString(7, postcode);
             pstat.setString(8, email);
             pstat.setString(9, phoneNumber);
+            pstat.setInt(10, CustomerID);
 
             //Update data in database
             i = pstat.executeUpdate();
