@@ -1,10 +1,10 @@
 package View.DatabaseView;
 
-import java.awt.Font;
-import java.awt.Window;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -24,6 +24,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+
 import Controller.CustomerController;
 import Model.Customer;
 
@@ -39,9 +40,9 @@ public class CustomerView extends JFrame implements ActionListener {
     JPanel updatePanel = new JPanel();
     JButton createButton = new JButton("Create Customer");
     JButton editButton = new JButton("Edit Customer");
-    JButton refreshButton = new JButton("Refresh Table");
+    JButton loadButton = new JButton("Load Customer");
 //FONT//
-    Font font1 = new Font("SansSerif", Font.BOLD, 10);
+    Font font1 = new Font("SansSerif", Font.BOLD, 20);
 
     JTextField IDField = new JTextField();
     JTextField FNameField = new JTextField();
@@ -74,7 +75,6 @@ public class CustomerView extends JFrame implements ActionListener {
         table.setEnabled(false);
 //---Container---//
         container.setLayout(new BorderLayout());
-        container.add(refreshButton);
         
         model.addColumn("CustomerID");
         model.addColumn("FirstName");
@@ -89,7 +89,7 @@ public class CustomerView extends JFrame implements ActionListener {
 
 
         //---retrieve from database---//
-        //-and populate tbale---//
+        //-and populate table---//
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
@@ -117,15 +117,16 @@ public class CustomerView extends JFrame implements ActionListener {
         updatePanel.setBorder(BorderFactory.createEmptyBorder(30, 90, 30, 30));
         updatePanel.setVisible(true);
 
-        updatePanel.add(refreshButton);
 
 
         //-----Text Fields-----////////
 
         IDField.setSize(1, 2);
+        IDField.setMargin(new Insets(5,5,5,5));
         IDField.setFont(font1);
         updatePanel.add(IDLabel);
         updatePanel.add(IDField);
+
 
 
         FNameField.setSize(10, 5);
@@ -191,8 +192,6 @@ public class CustomerView extends JFrame implements ActionListener {
         editButton.addActionListener(new ButtonHandler());
         updatePanel.add(editButton);
 
-        refreshButton.addActionListener(new ButtonHandler());
-        updatePanel.add(refreshButton);
 
         //------Final Panel Placement--------//
         container.add(updatePanel, BorderLayout.EAST);
@@ -239,10 +238,11 @@ public class CustomerView extends JFrame implements ActionListener {
             );
          }
 
-         if (e.getSource()==refreshButton){
-            dispose();
-            new CustomerView(); //FIXME: doesnt reopen window
-         }
+
         }
     }
+    
+
+
+
 }

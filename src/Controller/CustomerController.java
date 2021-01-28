@@ -121,7 +121,7 @@ public void retrieve() {
                 }
                 
 //Update method
-public void update(int CustomerID, String firstname, String lastname, String address1, String address2, String city, String county, String postcode, String email, String phoneNumber) { //FIXME:
+public void update(int CustomerID, String firstname, String lastname, String address1, String address2, String city, String county, String postcode, String email, String phoneNumber) { 
         // database URL
 		final String DATABASE_URL = "jdbc:mysql://localhost/cms";
 		

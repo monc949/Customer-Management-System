@@ -1,6 +1,5 @@
 package Controller;
 
-//TODO: Need to do the whole thing, still just a copy of customer controller
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -115,12 +114,11 @@ public void retrieve() {
                 }
                 
 //Update method
-public void update() { //FIXME:
+public void update(int orderID, String productList, double totalPrice) { 
         // database URL
 		final String DATABASE_URL = "jdbc:mysql://localhost/cms";
 		
-        String firstname="Lisa";
-        String lastname="Brennan";
+
         Connection connection = null;
         PreparedStatement pstat = null;
         int i;
@@ -131,9 +129,10 @@ public void update() { //FIXME:
             DATABASE_URL, "root", "Knockbeg11" );
             
             // create Statement for updating table
-            pstat = connection.prepareStatement("UPDATE Orders SET lastName = ? Where firstName = ?");
-            pstat.setString(1, lastname);
-            pstat.setString(2, firstname);
+            pstat = connection.prepareStatement("UPDATE Orders SET ProductList = ?, TotalPrice = ? Where orderID = ?");
+            pstat.setString(1, productList);
+            pstat.setDouble(2, totalPrice);
+            pstat.setInt(3, orderID);
 
             //Update data in database
             i = pstat.executeUpdate();
@@ -155,7 +154,7 @@ public void update() { //FIXME:
 
 
 //Delete method
-public void delete(int customerID) { //FIXME:
+public void delete(int orderID) {
         	// database URL
 
 		final String DATABASE_URL = "jdbc:mysql://localhost/cms";
@@ -169,8 +168,8 @@ public void delete(int customerID) { //FIXME:
             connection = DriverManager.getConnection(DATABASE_URL, "root" , "Knockbeg11" );
 
             // create Statement for deleting from table
-            pstat = connection.prepareStatement("Delete FROM Orders WHERE CustomerID = ?");	
-            pstat.setInt(1, customerID);		
+            pstat = connection.prepareStatement("Delete FROM Orders WHERE OrderID = ?");	
+            pstat.setInt(1, orderID);		
             
             //Delete data in database
             i = pstat.executeUpdate();

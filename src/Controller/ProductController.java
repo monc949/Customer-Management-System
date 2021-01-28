@@ -6,7 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-//FIXME: 
 import Model.Product;
 
 
@@ -116,12 +115,11 @@ public ResultSet retrieve() {
 
                 
 //Update method
-public void update() { //FIXME:
+public void update(int orderID, String brand, String name, String description, double price) {
         // database URL
 		final String DATABASE_URL = "jdbc:mysql://localhost/cms";
 		
-        String brand="Lisa";
-        String name="Brennan";
+
         Connection connection = null;
         PreparedStatement pstat = null;
         int i;
@@ -132,9 +130,12 @@ public void update() { //FIXME:
             DATABASE_URL, "root", "Knockbeg11" );
             
             // create Statement for updating table
-            pstat = connection.prepareStatement("UPDATE products SET name = ? Where firstName = ?");
-            pstat.setString(1, name);
-            pstat.setString(2, brand);
+            pstat = connection.prepareStatement("UPDATE products SET brand = ?, name = ?, description = ?, price = ? Where orderID = ?");
+            pstat.setString(1, brand);
+            pstat.setString(2, name);
+            pstat.setString(3, description);
+            pstat.setDouble(4, price);
+            pstat.setDouble(5, orderID);
 
             //Update data in database
             i = pstat.executeUpdate();
