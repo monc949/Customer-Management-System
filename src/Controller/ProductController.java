@@ -130,7 +130,7 @@ public void update(int orderID, String brand, String name, String description, d
             DATABASE_URL, "root", "Knockbeg11" );
             
             // create Statement for updating table
-            pstat = connection.prepareStatement("UPDATE products SET brand = ?, name = ?, description = ?, price = ? Where orderID = ?");
+            pstat = connection.prepareStatement("UPDATE products SET brand = ?, name = ?, description = ?, price = ? Where ProductID = ?");
             pstat.setString(1, brand);
             pstat.setString(2, name);
             pstat.setString(3, description);
@@ -171,7 +171,7 @@ public void delete(int productID) {
             connection = DriverManager.getConnection(DATABASE_URL, "root" , "Knockbeg11" );
 
             // create Statement for deleting from table
-            pstat = connection.prepareStatement("Delete FROM Product WHERE ProductID = ?");	
+            pstat = connection.prepareStatement("Delete FROM Products WHERE ProductID = ?");	
             pstat.setInt(1, productID);		
             
             //Delete data in database

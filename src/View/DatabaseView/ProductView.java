@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -61,12 +60,14 @@ public class ProductView extends JFrame {
 
         //----------Table----------//
 
-                // Make table uneditable
+        // Make table uneditable
+        table.setEnabled(false);
 
-                table.setEnabled(false);
   //---Container---//
         table.setEnabled(false);
+
         container.setLayout(new BorderLayout());
+
         model.addColumn("ProductID");
         model.addColumn("Brand");
         model.addColumn("Name");
@@ -104,8 +105,7 @@ public class ProductView extends JFrame {
 
                //----text fields---//
         
-               IDField.setSize(1, 2);
-               IDField.setMargin(new Insets(5,5,5,5));
+               IDField.setSize(10, 5);
                IDField.setFont(font1);
                updatePanel.add(IDLabel);
                updatePanel.add(IDField);
@@ -154,17 +154,14 @@ public class ProductView extends JFrame {
                 BrandField.getText(),
                 nameField.getText(),
                 descriptionField.getText(),
-                Double.parseDouble(priceField.getText())
-            );
+                Double.parseDouble(priceField.getText()));
+         }
 
          if (e.getSource()==createButton){
                 pc.create(new Product(BrandField.getText(),
                 nameField.getText(),
                 descriptionField.getText(),
-                Double.parseDouble(priceField.getText()))
-            ); 
-
-
+                Double.parseDouble(priceField.getText()))); 
          }
 
          if (e.getSource() == deleteButton) {
@@ -175,5 +172,4 @@ public class ProductView extends JFrame {
     }
 }
 
-}
 }

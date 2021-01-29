@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -73,6 +72,7 @@ public class CustomerView extends JFrame implements ActionListener {
 
         // Make table uneditable
         table.setEnabled(false);
+
 //---Container---//
         container.setLayout(new BorderLayout());
         
@@ -121,8 +121,7 @@ public class CustomerView extends JFrame implements ActionListener {
 
         //-----Text Fields-----////////
 
-        IDField.setSize(1, 2);
-        IDField.setMargin(new Insets(5,5,5,5));
+        IDField.setSize(10, 5);
         IDField.setFont(font1);
         updatePanel.add(IDLabel);
         updatePanel.add(IDField);
