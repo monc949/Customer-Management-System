@@ -64,7 +64,6 @@ public class ProductView extends JFrame {
         table.setEnabled(false);
 
   //---Container---//
-        table.setEnabled(false);
 
         container.setLayout(new BorderLayout());
 

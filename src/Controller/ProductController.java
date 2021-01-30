@@ -76,10 +76,10 @@ public ResultSet retrieve() {
                 DATABASE_URL, "root", "Knockbeg11" );
                 
                 // create Statement for querying table
-                pstat = connection.prepareStatement("SELECT * From Products");
+                pstat = connection.prepareStatement("SELECT Name From Products");
                 
                 // query database
-                resultSet = pstat.executeQuery("SELECT * From Products" );
+                resultSet = pstat.executeQuery("SELECT Name From Products" );
                 
                 // process query results
                 ResultSetMetaData metaData = resultSet.getMetaData();

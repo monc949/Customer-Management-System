@@ -6,7 +6,11 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JSeparator;
+import javax.swing.SwingConstants;
 
 import View.DatabaseView.Table;
 
@@ -21,6 +25,10 @@ public class MainView extends JFrame implements ActionListener {
     JButton orderDBButton = new JButton("Order Database");
     JButton customerDBButton = new JButton("Customer Database");
 
+    JLabel invoiceBuilderLabel = new JLabel("Invoice Builder");
+    JSeparator sideSeparator = new JSeparator(SwingConstants.HORIZONTAL);
+
+
     // ---------Constructor-----------------//
 
     public MainView() {
@@ -33,10 +41,9 @@ public class MainView extends JFrame implements ActionListener {
      // -------Main Panel-----------//
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(1020, 680);
-        frame.setState(Frame.MAXIMIZED_BOTH);
+        frame.setSize(1920, 1080);
+        frame.setExtendedState(Frame.MAXIMIZED_BOTH);
         frame.setLayout(new BorderLayout());
-        frame.setBackground(Color.LIGHT_GRAY);
         frame.setVisible(true);
 
 
@@ -44,9 +51,21 @@ public class MainView extends JFrame implements ActionListener {
         
         sideMenu.setPreferredSize(new Dimension(300,0));
         sideMenu.setMinimumSize(new Dimension(150,0));
+        sideMenu.setLayout(new FlowLayout());
         sideMenu.setBackground(Color.GRAY);
         sideMenu.setVisible(true);
-        
+
+            //-------Labels------//
+            invoiceBuilderLabel.setForeground(Color.white);
+            sideMenu.add(invoiceBuilderLabel);
+
+            sideSeparator.setVisible(true);
+
+            sideSeparator.setBackground(Color.white);
+            sideSeparator.setForeground(Color.white);
+            sideMenu.add(sideSeparator);
+
+    
 
         
     //-----Top Panel-------//
@@ -79,7 +98,6 @@ public class MainView extends JFrame implements ActionListener {
 
 
     //--------Center Panel-------////
-
 
 
 

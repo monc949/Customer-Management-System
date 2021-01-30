@@ -1,11 +1,22 @@
 package View.DatabaseView;
 
+
+
 import javax.swing.JFrame;
 
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 
 
-public class Table {
+
+public class Table extends JFrame {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
+    DefaultTableModel model = new DefaultTableModel();
+    JTable table = new JTable(model);
 
         public Table(int i) {
             if (i == 1) {
@@ -36,7 +47,6 @@ public class Table {
                 frame.setVisible(true);
                 frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             } 
-
 
             
     }
