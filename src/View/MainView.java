@@ -7,7 +7,6 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
@@ -124,6 +123,8 @@ public class MainView extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
     }
+
+    
 
     private class ButtonHandler implements ActionListener {
         public void actionPerformed(ActionEvent e){
