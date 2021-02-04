@@ -6,6 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+
+import javax.swing.JList;
+
 import Model.Product;
 
 
@@ -112,6 +115,65 @@ public ResultSet retrieve() {
                     return resultSet;
                 }
 
+
+
+
+//Retrieve product list method
+public JList<String> retrieveProductList() { //FIXME: Not working yet, still trying to poulate list from database using this method, fucking kill me
+    // database URL
+    final String DATABASE_URL = "jdbc:mysql://localhost/cms";
+
+    String productList[] = new String[];
+    Connection connection = null;
+    PreparedStatement pstat = null;
+    ResultSet resultSet = null;
+    String result = null;
+    int index;
+    try{
+    
+        // establish connection to database
+        connection = DriverManager.getConnection(
+        DATABASE_URL, "root", "Knockbeg11" );
+        
+        // create Statement for querying table
+        pstat = connection.prepareStatement("SELECT Name From Products");
+        
+        // query database
+        resultSet = pstat.executeQuery("SELECT Name From Products" );
+        
+        // process query results
+        ResultSetMetaData metaData = resultSet.getMetaData();
+        int numberOfColumns = metaData.getColumnCount();
+        System.out.println( "Products Table of CMS Database:\n" );
+        
+        for ( int i = 1; i <= numberOfColumns; i++ )
+        System.out.print(metaData.getColumnName( i ) + "\t");
+        System.out.println();
+        
+        while(resultSet.next() ){
+                for ( int i = 1; i <= numberOfColumns; i++ )
+                    index = i;
+                    result = resultSet.getString("name");
+                    productList[i] = result;
+        }
+            catch(SQLException sqlException ) {
+                sqlException.printStackTrace();
+        }
+            finally{
+                try{
+                    resultSet.close();
+                    pstat.close();
+                    connection.close();
+                }
+                catch ( Exception exception ){
+                    exception.printStackTrace();
+                }
+        }
+            return productList;
+
+}
+    
+    
 
                 
 //Update method

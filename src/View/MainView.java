@@ -1,12 +1,23 @@
 package View;
 
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Vector;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
@@ -35,6 +46,7 @@ public class MainView extends JFrame implements ActionListener {
         JFrame frame = new JFrame();
         JPanel sideMenu = new JPanel();
         JPanel topMenu = new JPanel();
+        JPanel center = new JPanel();
 
 
      // -------Main Panel-----------//
@@ -44,6 +56,18 @@ public class MainView extends JFrame implements ActionListener {
         frame.setExtendedState(Frame.MAXIMIZED_BOTH);
         frame.setLayout(new BorderLayout());
         frame.setVisible(true);
+
+
+    //-----------Center panel-------------//
+
+        center.setLayout(new FlowLayout());
+        center.setBackground(Color.MAGENTA);
+        center.setVisible(true);
+
+        JList<String> productList = new JList<String>();
+
+
+
 
 
     //-------Side Panel-------//
@@ -139,5 +163,7 @@ public class MainView extends JFrame implements ActionListener {
             }
         }
     }
-    
+
+
+  
 }
