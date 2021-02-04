@@ -119,7 +119,7 @@ public ResultSet retrieve() {
 
 
 //Retrieve product list method
-public JList<String> retrieveProductList() { //FIXME: Not working yet, still trying to poulate list from database using this method, fucking kill me
+public String[] retrieveProductList() { //FIXME: Not working yet, still trying to poulate list from database using this method, fucking kill me
     // database URL
     final String DATABASE_URL = "jdbc:mysql://localhost/cms";
 
@@ -128,7 +128,6 @@ public JList<String> retrieveProductList() { //FIXME: Not working yet, still try
     PreparedStatement pstat = null;
     ResultSet resultSet = null;
     String result = null;
-    int index;
     try{
     
         // establish connection to database
@@ -152,7 +151,6 @@ public JList<String> retrieveProductList() { //FIXME: Not working yet, still try
         
         while(resultSet.next() ){
                 for ( int i = 1; i <= numberOfColumns; i++ )
-                    index = i;
                     result = resultSet.getString("name");
                     productList[i] = result;
         }
