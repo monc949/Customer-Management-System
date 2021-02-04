@@ -123,7 +123,7 @@ public JList<String> retrieveProductList() { //FIXME: Not working yet, still try
     // database URL
     final String DATABASE_URL = "jdbc:mysql://localhost/cms";
 
-    String productList[] = new String[];
+    String productList[] = new String[10];
     Connection connection = null;
     PreparedStatement pstat = null;
     ResultSet resultSet = null;
@@ -156,6 +156,7 @@ public JList<String> retrieveProductList() { //FIXME: Not working yet, still try
                     result = resultSet.getString("name");
                     productList[i] = result;
         }
+    }
             catch(SQLException sqlException ) {
                 sqlException.printStackTrace();
         }
