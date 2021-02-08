@@ -20,6 +20,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
+import javax.swing.JTable;
 import javax.swing.SwingConstants;
 
 import View.DatabaseView.Table;
@@ -42,6 +43,7 @@ public class MainView extends JFrame implements ActionListener {
     // ---------Constructor-----------------//
 
     public MainView() {
+
 
         JFrame frame = new JFrame();
         JPanel sideMenu = new JPanel();
@@ -121,6 +123,11 @@ public class MainView extends JFrame implements ActionListener {
 
 
     //--------Center Panel-------////
+
+
+
+        
+        
 
 
 
