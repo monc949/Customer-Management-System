@@ -7,22 +7,15 @@ import java.awt.FlowLayout;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Vector;
 
-import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
-import javax.swing.JSeparator;
-import javax.swing.JTable;
-import javax.swing.SwingConstants;
+import javax.swing.JScrollPane;
 
+import Controller.ProductController;
 import View.DatabaseView.Table;
 
 public class MainView extends JFrame implements ActionListener {
@@ -31,13 +24,17 @@ public class MainView extends JFrame implements ActionListener {
      *
      */
     private static final long serialVersionUID = 1L;
+
+    ProductController pc = new ProductController();
+
+
+
     //---------Components--------------//
     JButton productDBButton = new JButton("Product Database");
     JButton orderDBButton = new JButton("Order Database");
     JButton customerDBButton = new JButton("Customer Database");
 
-    JLabel invoiceBuilderLabel = new JLabel("Invoice Builder");
-    JSeparator sideSeparator = new JSeparator(SwingConstants.HORIZONTAL);
+    JLabel ProductSelectLabel = new JLabel("Select Products");
 
 
     // ---------Constructor-----------------//
@@ -51,7 +48,7 @@ public class MainView extends JFrame implements ActionListener {
         JPanel center = new JPanel();
 
 
-     // -------Main Panel-----------//
+     // -------Main Panel (frame)-----------//
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1920, 1080);
@@ -63,10 +60,10 @@ public class MainView extends JFrame implements ActionListener {
     //-----------Center panel-------------//
 
         center.setLayout(new FlowLayout());
-        center.setBackground(Color.MAGENTA);
+        center.setBackground(Color.CYAN);
         center.setVisible(true);
 
-        JList<String> productList = new JList<String>();
+       
 
 
 
@@ -74,29 +71,35 @@ public class MainView extends JFrame implements ActionListener {
 
     //-------Side Panel-------//
         
-        sideMenu.setPreferredSize(new Dimension(300,0));
-        sideMenu.setMinimumSize(new Dimension(150,0));
+        sideMenu.setPreferredSize(new Dimension(500,0));
+        sideMenu.setMinimumSize(new Dimension(300,0));
         sideMenu.setLayout(new FlowLayout());
         sideMenu.setBackground(Color.GRAY);
         sideMenu.setVisible(true);
 
-            //-------Labels------//
-            invoiceBuilderLabel.setForeground(Color.white);
-            sideMenu.add(invoiceBuilderLabel);
+                        //-------Customer Selection Box------//
 
-            sideSeparator.setVisible(true);
+                        
 
-            sideSeparator.setBackground(Color.white);
-            sideSeparator.setForeground(Color.white);
-            sideMenu.add(sideSeparator);
+                        //-----Product List------//
+                        ProductSelectLabel.setForeground(Color.white);
+                        ProductSelectLabel.setSize(new Dimension(500, 0));
+                        sideMenu.add(ProductSelectLabel);
+                        JList<String> productList = new JList<String>();
+                        productList.setModel(pc.retrieveProductList());
+                        productList.setPreferredSize(new Dimension(250,700));
 
-    
+                        JScrollPane productListContainer = new JScrollPane(productList);
+
+                        sideMenu.add(productListContainer);
+
+                
 
         
     //-----Top Panel-------//
         
-        topMenu.setPreferredSize(new Dimension(0, 100));
-        topMenu.setMinimumSize(new Dimension(0, 70));
+        topMenu.setPreferredSize(new Dimension(0, 50));
+        topMenu.setMinimumSize(new Dimension(0, 30));
         topMenu.setLayout(new FlowLayout());
         topMenu.setBackground(Color.GRAY);
 
@@ -122,19 +125,10 @@ public class MainView extends JFrame implements ActionListener {
 
 
 
-    //--------Center Panel-------////
-
-
-
-        
-        
-
-
-
-
     //-----Add components ------>
         frame.add(sideMenu, BorderLayout.WEST);
         frame.add(topMenu, BorderLayout.NORTH);
+        frame.add(center, BorderLayout.CENTER);
 
     }
 

@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JList;
 
 import Model.Product;
@@ -119,11 +120,12 @@ public ResultSet retrieve() {
 
 
 //Retrieve product list method
-public String[] retrieveProductList() { //FIXME: Not working yet, still trying to poulate list from database using this method, fucking kill me
+public DefaultListModel<String> retrieveProductList() {
     // database URL
     final String DATABASE_URL = "jdbc:mysql://localhost/cms";
 
-    String productList[] = new String[10];
+    DefaultListModel<String> model = new DefaultListModel<String>();
+
     Connection connection = null;
     PreparedStatement pstat = null;
     ResultSet resultSet = null;
@@ -135,15 +137,14 @@ public String[] retrieveProductList() { //FIXME: Not working yet, still trying t
         DATABASE_URL, "root", "Knockbeg11" );
         
         // create Statement for querying table
-        pstat = connection.prepareStatement("SELECT Name From Products");
+        pstat = connection.prepareStatement("SELECT Brand, Name From Products");
         
         // query database
-        resultSet = pstat.executeQuery("SELECT Name From Products" );
+        resultSet = pstat.executeQuery("SELECT Brand, Name From Products" );
         
         // process query results
         ResultSetMetaData metaData = resultSet.getMetaData();
         int numberOfColumns = metaData.getColumnCount();
-        System.out.println( "Products Table of CMS Database:\n" );
         
         for ( int i = 1; i <= numberOfColumns; i++ )
         System.out.print(metaData.getColumnName( i ) + "\t");
@@ -152,7 +153,7 @@ public String[] retrieveProductList() { //FIXME: Not working yet, still trying t
         while(resultSet.next() ){
                 for ( int i = 1; i <= numberOfColumns; i++ )
                     result = resultSet.getString("name");
-                    productList[i] = result;
+                    model.addElement(result);
         }
     }
             catch(SQLException sqlException ) {
@@ -168,7 +169,7 @@ public String[] retrieveProductList() { //FIXME: Not working yet, still trying t
                     exception.printStackTrace();
                 }
         }
-            return productList;
+            return model;
 
 }
     
