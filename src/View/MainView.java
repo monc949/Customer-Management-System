@@ -9,12 +9,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import Controller.CustomerController;
+import Controller.OrderController;
 import Controller.ProductController;
 import View.DatabaseView.Table;
 
@@ -26,8 +29,10 @@ public class MainView extends JFrame implements ActionListener {
     private static final long serialVersionUID = 1L;
 
     ProductController pc = new ProductController();
+    CustomerController cc = new CustomerController();
+    OrderController oc = new OrderController();
 
-
+    
 
     //---------Components--------------//
     JButton productDBButton = new JButton("Product Database");
@@ -35,6 +40,8 @@ public class MainView extends JFrame implements ActionListener {
     JButton customerDBButton = new JButton("Customer Database");
 
     JLabel ProductSelectLabel = new JLabel("Select Products");
+
+    JComboBox<String> customerSelector = new JComboBox<String>(cc.retrieveCustomerList());
 
 
     // ---------Constructor-----------------//
@@ -78,13 +85,16 @@ public class MainView extends JFrame implements ActionListener {
         sideMenu.setVisible(true);
 
                         //-------Customer Selection Box------//
-
+                        customerSelector.setBounds(150, 450, 500, 75);
                         
+                        customerSelector.setVisible(true);
+                        sideMenu.add(customerSelector);
 
                         //-----Product List------//
                         ProductSelectLabel.setForeground(Color.white);
                         ProductSelectLabel.setSize(new Dimension(500, 0));
                         sideMenu.add(ProductSelectLabel);
+
                         JList<String> productList = new JList<String>();
                         productList.setModel(pc.retrieveProductList());
                         productList.setPreferredSize(new Dimension(250,700));

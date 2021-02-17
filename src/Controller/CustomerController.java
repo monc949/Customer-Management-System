@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
+import javax.swing.DefaultListModel;
+
 import Model.Customer;
 
 
@@ -119,6 +121,77 @@ public void retrieve() {
                         }
                     }
                 }
+
+
+
+
+
+
+    //get customer list for combo box 
+
+                public String[] retrieveCustomerList() {
+                    // database URL
+                    final String DATABASE_URL = "jdbc:mysql://localhost/cms";
+                
+                    DefaultListModel<String> model = new DefaultListModel<String>();
+                
+                    Connection connection = null;
+                    PreparedStatement pstat = null;
+                    ResultSet resultSet = null;
+                    String result = null;
+                    try{
+                    
+                        // establish connection to database
+                        connection = DriverManager.getConnection(
+                        DATABASE_URL, "root", "Knockbeg11" );
+                        
+                        // create Statement for querying table
+                        pstat = connection.prepareStatement("SELECT CustomerID, Name From Customers");
+                        
+                        // query database
+                        resultSet = pstat.executeQuery("SELECT CustomerID, Name From Customers" );
+                        
+                        // process query results
+                        ResultSetMetaData metaData = resultSet.getMetaData();
+                        int numberOfColumns = metaData.getColumnCount();
+                        
+                        for ( int i = 1; i <= numberOfColumns; i++ )
+                        System.out.print(metaData.getColumnName( i ) + "\t");
+                        System.out.println();
+                        
+                        while(resultSet.next() ){
+                                for ( int i = 1; i <= numberOfColumns; i++ )
+                                    result = resultSet.getString("name");
+                                    model.addElement(result);
+                        }
+                    }
+                            catch(SQLException sqlException ) {
+                                sqlException.printStackTrace();
+                        }
+                            finally{
+                                try{
+                                    resultSet.close();
+                                    pstat.close();
+                                    connection.close();
+                                }
+                                catch ( Exception exception ){
+                                    exception.printStackTrace();
+                                }
+                        }
+                            String[] customerString = new String[model.toArray().length];
+                            customerString = model.toArray();
+
+                            return customerString;
+                
+                }
+                  
+
+
+
+
+
+
+
                 
 //Update method
 public void update(int CustomerID, String firstname, String lastname, String address1, String address2, String city, String county, String postcode, String email, String phoneNumber) { 
