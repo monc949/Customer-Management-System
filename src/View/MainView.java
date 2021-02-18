@@ -41,7 +41,7 @@ public class MainView extends JFrame implements ActionListener {
 
     JLabel ProductSelectLabel = new JLabel("Select Products");
 
-    JComboBox<String> customerSelector = new JComboBox<String>(cc.retrieveCustomerList());
+    JComboBox<Object> customerSelector = new JComboBox<Object>(cc.retrieveCustomerList());
 
 
     // ---------Constructor-----------------//
@@ -87,7 +87,6 @@ public class MainView extends JFrame implements ActionListener {
                         //-------Customer Selection Box------//
                         customerSelector.setBounds(150, 450, 500, 75);
                         
-                        customerSelector.setVisible(true);
                         sideMenu.add(customerSelector);
 
                         //-----Product List------//

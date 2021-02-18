@@ -129,7 +129,7 @@ public void retrieve() {
 
     //get customer list for combo box 
 
-                public String[] retrieveCustomerList() {
+                public Object[] retrieveCustomerList() {
                     // database URL
                     final String DATABASE_URL = "jdbc:mysql://localhost/cms";
                 
@@ -146,22 +146,19 @@ public void retrieve() {
                         DATABASE_URL, "root", "Knockbeg11" );
                         
                         // create Statement for querying table
-                        pstat = connection.prepareStatement("SELECT CustomerID, Name From Customers");
+                        pstat = connection.prepareStatement("SELECT CustomerID, FirstName, LastName From Customers");
                         
                         // query database
-                        resultSet = pstat.executeQuery("SELECT CustomerID, Name From Customers" );
+                        resultSet = pstat.executeQuery("SELECT CustomerID, FirstName, LastName From Customers" );
                         
                         // process query results
                         ResultSetMetaData metaData = resultSet.getMetaData();
                         int numberOfColumns = metaData.getColumnCount();
                         
-                        for ( int i = 1; i <= numberOfColumns; i++ )
-                        System.out.print(metaData.getColumnName( i ) + "\t");
-                        System.out.println();
                         
                         while(resultSet.next() ){
                                 for ( int i = 1; i <= numberOfColumns; i++ )
-                                    result = resultSet.getString("name");
+                                    result = resultSet.getString("CustomerID") +" : " + resultSet.getString("FirstName") + " " + resultSet.getString("LastName");
                                     model.addElement(result);
                         }
                     }
@@ -178,7 +175,7 @@ public void retrieve() {
                                     exception.printStackTrace();
                                 }
                         }
-                            String[] customerString = new String[model.toArray().length];
+                            Object[] customerString = new String[model.toArray().length];
                             customerString = model.toArray();
 
                             return customerString;
