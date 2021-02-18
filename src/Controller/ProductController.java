@@ -146,9 +146,6 @@ public DefaultListModel<String> retrieveProductList() {
         ResultSetMetaData metaData = resultSet.getMetaData();
         int numberOfColumns = metaData.getColumnCount();
         
-        for ( int i = 1; i <= numberOfColumns; i++ )
-        System.out.print(metaData.getColumnName( i ) + "\t");
-        System.out.println();
         
         while(resultSet.next() ){
                 for ( int i = 1; i <= numberOfColumns; i++ )

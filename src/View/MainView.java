@@ -40,8 +40,10 @@ public class MainView extends JFrame implements ActionListener {
     JButton customerDBButton = new JButton("Customer Database");
 
     JLabel ProductSelectLabel = new JLabel("Select Products");
+    JLabel CustomerSelectLabel = new JLabel("Select Customer");
 
     JComboBox<Object> customerSelector = new JComboBox<Object>(cc.retrieveCustomerList());
+    JList<String> productList = new JList<String>();
 
 
     // ---------Constructor-----------------//
@@ -80,21 +82,24 @@ public class MainView extends JFrame implements ActionListener {
         
         sideMenu.setPreferredSize(new Dimension(500,0));
         sideMenu.setMinimumSize(new Dimension(300,0));
-        sideMenu.setLayout(new FlowLayout());
+        sideMenu.setLayout(new BorderLayout());
         sideMenu.setBackground(Color.GRAY);
         sideMenu.setVisible(true);
 
                         //-------Customer Selection Box------//
-                        customerSelector.setBounds(150, 450, 500, 75);
-                        
-                        sideMenu.add(customerSelector);
+
+                        sideMenu.add(CustomerSelectLabel, BorderLayout.NORTH);
+                        sideMenu.add(customerSelector, BorderLayout.NORTH);
+
+
+
 
                         //-----Product List------//
+
                         ProductSelectLabel.setForeground(Color.white);
                         ProductSelectLabel.setSize(new Dimension(500, 0));
-                        sideMenu.add(ProductSelectLabel);
+                        sideMenu.add(ProductSelectLabel, BorderLayout.CENTER);
 
-                        JList<String> productList = new JList<String>();
                         productList.setModel(pc.retrieveProductList());
                         productList.setPreferredSize(new Dimension(250,700));
 
