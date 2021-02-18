@@ -1,4 +1,4 @@
 Next thing to do is add a customer selection combo box above the product selection and populate it from the database,
- after that, add the new list of "selected" items to a the center panel(action event blah blah)
+ after that, add the new list of "selected" items to a the center panel(action event blah blah
 
- Still Cant get the combobox to populate
+ Its populating but looks like shit
