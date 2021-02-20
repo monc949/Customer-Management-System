@@ -8,7 +8,6 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
 import javax.swing.DefaultListModel;
-import javax.swing.JList;
 
 import Model.Product;
 
@@ -149,9 +148,11 @@ public DefaultListModel<String> retrieveProductList() {
         
         while(resultSet.next() ){
                 for ( int i = 1; i <= numberOfColumns; i++ )
-                    result = resultSet.getString("name");
+                    result = resultSet.getString("Brand") + " " + resultSet.getString("Name");
                     model.addElement(result);
         }
+
+
     }
             catch(SQLException sqlException ) {
                 sqlException.printStackTrace();
@@ -169,6 +170,7 @@ public DefaultListModel<String> retrieveProductList() {
             return model;
 
 }
+
     
     
 

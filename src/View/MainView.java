@@ -16,6 +16,7 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+
 import Controller.CustomerController;
 import Controller.OrderController;
 import Controller.ProductController;
@@ -39,11 +40,16 @@ public class MainView extends JFrame implements ActionListener {
     JButton orderDBButton = new JButton("Order Database");
     JButton customerDBButton = new JButton("Customer Database");
 
-    JLabel ProductSelectLabel = new JLabel("Select Products");
+    JButton submitInvoiceButton = new JButton("Submit Invoice");
+    JButton clearListButton = new JButton("Clear List");
+
+    JLabel productSelectLabel = new JLabel("Select Products");
     JLabel CustomerSelectLabel = new JLabel("Select Customer");
 
     JComboBox<Object> customerSelector = new JComboBox<Object>(cc.retrieveCustomerList());
-    JList<String> productList = new JList<String>();
+    JList<String> productSelector = new JList<String>(pc.retrieveProductList());
+
+
 
 
     // ---------Constructor-----------------//
@@ -60,7 +66,7 @@ public class MainView extends JFrame implements ActionListener {
      // -------Main Panel (frame)-----------//
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(1920, 1080);
+        frame.setSize(1000, 500);
         frame.setExtendedState(Frame.MAXIMIZED_BOTH);
         frame.setLayout(new BorderLayout());
         frame.setVisible(true);
@@ -75,19 +81,16 @@ public class MainView extends JFrame implements ActionListener {
        
 
 
-
-
-
     //-------Side Panel-------//
         
-        sideMenu.setPreferredSize(new Dimension(500,0));
-        sideMenu.setMinimumSize(new Dimension(300,0));
-        sideMenu.setLayout(new BorderLayout());
+        sideMenu.setPreferredSize(new Dimension(300,0));
+        sideMenu.setMinimumSize(new Dimension(200,0));
+        sideMenu.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 20));
         sideMenu.setBackground(Color.GRAY);
         sideMenu.setVisible(true);
 
                         //-------Customer Selection Box------//
-
+                        CustomerSelectLabel.setForeground(Color.white);
                         sideMenu.add(CustomerSelectLabel, BorderLayout.NORTH);
                         sideMenu.add(customerSelector, BorderLayout.NORTH);
 
@@ -96,16 +99,21 @@ public class MainView extends JFrame implements ActionListener {
 
                         //-----Product List------//
 
-                        ProductSelectLabel.setForeground(Color.white);
-                        ProductSelectLabel.setSize(new Dimension(500, 0));
-                        sideMenu.add(ProductSelectLabel, BorderLayout.CENTER);
+                        productSelectLabel.setForeground(Color.white);
+                        sideMenu.add(productSelectLabel);
 
-                        productList.setModel(pc.retrieveProductList());
-                        productList.setPreferredSize(new Dimension(250,700));
+                        productSelector.setPreferredSize(new Dimension(150,700));
 
-                        JScrollPane productListContainer = new JScrollPane(productList);
+                        JScrollPane productListContainer = new JScrollPane(productSelector);
 
                         sideMenu.add(productListContainer);
+                        pack();
+
+
+                        //-----Buttons-----//
+                        
+                        sideMenu.add(submitInvoiceButton);
+                        sideMenu.add(clearListButton);
 
                 
 
@@ -145,12 +153,6 @@ public class MainView extends JFrame implements ActionListener {
         frame.add(center, BorderLayout.CENTER);
 
     }
-
-
-
-
-
-
 
 
 

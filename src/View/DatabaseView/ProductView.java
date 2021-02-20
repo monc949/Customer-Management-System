@@ -49,8 +49,8 @@ public class ProductView extends JFrame {
     JTextField descriptionField = new JTextField();
     JTextField priceField = new JTextField();
 
-
-    JLabel IDLabel = new JLabel("Product ID (Type OrderID here and fill in the fields below)");
+    JLabel instructionLabel = new JLabel("Hover over buttons for instructions");
+    JLabel IDLabel = new JLabel("Product ID");
     JLabel BrandLabel = new JLabel("Brand");
     JLabel nameLabel = new JLabel("Name");
     JLabel descriptionLabel = new JLabel("Description");
@@ -104,39 +104,44 @@ public class ProductView extends JFrame {
 
                //----text fields---//
         
-               IDField.setSize(10, 5);
+               IDField.setPreferredSize(new Dimension(10, 5));
                IDField.setFont(font1);
                updatePanel.add(IDLabel);
                updatePanel.add(IDField);
        
-               BrandField.setSize(10, 5);
+               BrandField.setPreferredSize(new Dimension(10, 5));
                BrandField.setFont(font1);
                updatePanel.add(BrandLabel);
                updatePanel.add(BrandField);
        
-               nameField.setSize(10, 5);
+               nameField.setPreferredSize(new Dimension(10, 5));
                nameField.setFont(font1);
                updatePanel.add(nameLabel);
                updatePanel.add(nameField);
        
-               descriptionField.setSize(10, 5);
+               descriptionField.setPreferredSize(new Dimension(10, 5));
                descriptionField.setFont(font1);
                updatePanel.add(descriptionLabel);
                updatePanel.add(descriptionField);
        
-               priceField.setSize(10, 5);
+               priceField.setPreferredSize(new Dimension(10, 5));
                priceField.setFont(font1);
                updatePanel.add(priceLabel);
                updatePanel.add(priceField);
 
             //Action listeners
+                updatePanel.add(instructionLabel);
+
                 createButton.addActionListener(new ButtonHandler());
+                createButton.setToolTipText("Do Not Enter Product ID when creating new Product");
                 updatePanel.add(createButton);
 
                 editButton.addActionListener(new ButtonHandler());
+                editButton.setToolTipText("Enter Product ID and fill in new product info");
                 updatePanel.add(editButton);
 
                 deleteButton.addActionListener(new ButtonHandler());
+                deleteButton.setToolTipText("Enter Product ID only to delete");
                 updatePanel.add(deleteButton);
                 
 

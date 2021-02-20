@@ -54,6 +54,7 @@ public class CustomerView extends JFrame implements ActionListener {
     JTextField EmailField = new JTextField();
     JTextField PhoneNumberField = new JTextField();
 
+    JLabel instructionLabel = new JLabel("Hover over buttons for instructions");
 
     JLabel IDLabel = new JLabel("Customer ID (Type Customers ID here and fill in the fields below)");
     JLabel FNameLabel = new JLabel("First Name");
@@ -185,10 +186,14 @@ public class CustomerView extends JFrame implements ActionListener {
 
 
         //Action listeners
+        updatePanel.add(instructionLabel);
+
         createButton.addActionListener(new ButtonHandler());
+        createButton.setToolTipText("Enter customer info. Do not enter enter Customer ID. This auto generated");
         updatePanel.add(createButton);
 
         editButton.addActionListener(new ButtonHandler());
+        editButton.setToolTipText("Enter Customer ID and fill in new info");
         updatePanel.add(editButton);
 
 

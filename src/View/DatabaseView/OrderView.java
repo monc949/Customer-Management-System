@@ -48,7 +48,9 @@ public class OrderView extends JFrame implements ActionListener {
     JTextField TotalPriceField = new JTextField();
 
 
-    JLabel IDLabel = new JLabel("Customer ID (Type OrderID here and fill in the fields below)");
+    JLabel instructionLabel = new JLabel("Hover over buttons for instructions");
+
+    JLabel IDLabel = new JLabel("Order ID (Type OrderID here and fill in the fields below)");
     JLabel ProductListLabel = new JLabel("Product List ");
     JLabel TotalPriceLabel = new JLabel("Total Price");
     
@@ -120,10 +122,14 @@ public class OrderView extends JFrame implements ActionListener {
 
 
         //Action listeners
+        updatePanel.add(instructionLabel);
+
         editButton.addActionListener(new ButtonHandler());
+        editButton.setToolTipText("Enter Order ID and enter new info.");
         updatePanel.add(editButton);
 
         deleteButton.addActionListener(new ButtonHandler());
+        deleteButton.setToolTipText("Enter OrderID only");
         updatePanel.add(editButton);
 
         
@@ -134,6 +140,7 @@ public class OrderView extends JFrame implements ActionListener {
     }
     
     private class ButtonHandler implements ActionListener {
+        @Override
         public void actionPerformed(ActionEvent e){
             OrderController oc = new OrderController();
 
@@ -158,4 +165,6 @@ public class OrderView extends JFrame implements ActionListener {
 public void actionPerformed(ActionEvent e) {
 
 }
+
+
 }
