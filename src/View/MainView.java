@@ -8,6 +8,7 @@ import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -46,13 +47,16 @@ public class MainView extends JFrame implements ActionListener {
     JLabel productSelectLabel = new JLabel("Select Products");
     JLabel CustomerSelectLabel = new JLabel("Select Customer");
 
+    JLabel productListLabel = new JLabel("Product List");
+
     JComboBox<Object> customerSelector = new JComboBox<Object>(cc.retrieveCustomerList());
     JList<String> productSelector = new JList<String>(pc.retrieveProductList());
 
+    JList<String> productList = new JList<String>();
 
 
 
-    // ---------Constructor-----------------//
+// ---------Constructor-----------------//
 
     public MainView() {
 
@@ -67,16 +71,22 @@ public class MainView extends JFrame implements ActionListener {
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1000, 500);
-        frame.setExtendedState(Frame.MAXIMIZED_BOTH);
         frame.setLayout(new BorderLayout());
         frame.setVisible(true);
 
 
     //-----------Center panel-------------//
 
-        center.setLayout(new FlowLayout());
+        center.setLayout(new BoxLayout(center, BoxLayout.Y_AXIS));
         center.setBackground(Color.CYAN);
         center.setVisible(true);
+
+        productList.setPreferredSize(new Dimension(500, 500));
+        productList.setAlignmentX(TOP_ALIGNMENT);
+        
+        center.add(productListLabel);
+        center.add(productList);
+
 
        
 
@@ -120,8 +130,8 @@ public class MainView extends JFrame implements ActionListener {
         
     //-----Top Panel-------//
         
-        topMenu.setPreferredSize(new Dimension(0, 50));
-        topMenu.setMinimumSize(new Dimension(0, 30));
+        topMenu.setPreferredSize(new Dimension(0, 100));
+        topMenu.setMinimumSize(new Dimension(0, 70));
         topMenu.setLayout(new FlowLayout());
         topMenu.setBackground(Color.GRAY);
 
@@ -177,6 +187,15 @@ public class MainView extends JFrame implements ActionListener {
             }
             if (e.getSource()==orderDBButton) {
                     new Table(3);
+            }
+
+
+
+            if (e.getSource()==submitInvoiceButton) {
+                //TODO:
+            }
+            if (e.getSource()==clearListButton) {
+                //TODO:
             }
         }
     }
