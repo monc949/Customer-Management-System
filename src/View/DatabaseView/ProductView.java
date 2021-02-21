@@ -41,7 +41,7 @@ public class ProductView extends JFrame {
     JButton deleteButton = new JButton("Delete Product");
 
     //FONT//
-    Font font1 = new Font("SansSerif", Font.BOLD, 20);
+    Font font1 = new Font("SansSerif", Font.PLAIN, 14);
 
     JTextField IDField = new JTextField();
     JTextField BrandField = new JTextField();

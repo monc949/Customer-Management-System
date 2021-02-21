@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -16,7 +15,6 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-
 
 import Controller.CustomerController;
 import Controller.OrderController;
@@ -101,8 +99,8 @@ public class MainView extends JFrame implements ActionListener {
 
                         //-------Customer Selection Box------//
                         CustomerSelectLabel.setForeground(Color.white);
-                        sideMenu.add(CustomerSelectLabel, BorderLayout.NORTH);
-                        sideMenu.add(customerSelector, BorderLayout.NORTH);
+                        sideMenu.add(CustomerSelectLabel);
+                        sideMenu.add(customerSelector);
 
 
 

@@ -41,7 +41,7 @@ public class CustomerView extends JFrame implements ActionListener {
     JButton editButton = new JButton("Edit Customer");
     JButton loadButton = new JButton("Load Customer");
 //FONT//
-    Font font1 = new Font("SansSerif", Font.BOLD, 20);
+    Font font1 = new Font("SansSerif", Font.PLAIN, 14);
 
     JTextField IDField = new JTextField();
     JTextField FNameField = new JTextField();
@@ -115,7 +115,7 @@ public class CustomerView extends JFrame implements ActionListener {
         // -----------------Side panel-----------------//
         updatePanel.setLayout(new BoxLayout(updatePanel, BoxLayout.PAGE_AXIS));
         updatePanel.add(Box.createRigidArea(new Dimension(0, 40)));
-        updatePanel.setBorder(BorderFactory.createEmptyBorder(30, 90, 30, 30));
+        updatePanel.setBorder(BorderFactory.createEmptyBorder(5, 35, 5, 5));
         updatePanel.setVisible(true);
 
 

@@ -41,7 +41,7 @@ public class OrderView extends JFrame implements ActionListener {
     JButton deleteButton = new JButton("Delete Order");
 
 //FONT//
-    Font font1 = new Font("SansSerif", Font.BOLD, 20);
+    Font font1 = new Font("SansSerif", Font.PLAIN, 14);
 
     JTextField IDField = new JTextField();
     JTextField ProductListField = new JTextField();
