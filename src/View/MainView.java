@@ -15,13 +15,16 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.event.MouseInputListener;
 
 import Controller.CustomerController;
 import Controller.OrderController;
 import Controller.ProductController;
 import View.DatabaseView.Table;
 
-public class MainView extends JFrame implements ActionListener {
+public class MainView extends JFrame {
 
     /**
      *
@@ -32,9 +35,7 @@ public class MainView extends JFrame implements ActionListener {
     CustomerController cc = new CustomerController();
     OrderController oc = new OrderController();
 
-    
-
-    //---------Components--------------//
+    // ---------Components--------------//
     JButton productDBButton = new JButton("Product Database");
     JButton orderDBButton = new JButton("Order Database");
     JButton customerDBButton = new JButton("Customer Database");
@@ -52,28 +53,23 @@ public class MainView extends JFrame implements ActionListener {
 
     JList<String> productList = new JList<String>();
 
-
-
-// ---------Constructor-----------------//
+    // ---------Constructor-----------------//
 
     public MainView() {
-
 
         JFrame frame = new JFrame();
         JPanel sideMenu = new JPanel();
         JPanel topMenu = new JPanel();
         JPanel center = new JPanel();
 
-
-     // -------Main Panel (frame)-----------//
+        // -------Main Panel (frame)-----------//
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1000, 500);
         frame.setLayout(new BorderLayout());
         frame.setVisible(true);
 
-
-    //-----------Center panel-------------//
+        // -----------Center panel-------------//
 
         center.setLayout(new BoxLayout(center, BoxLayout.Y_AXIS));
         center.setBackground(Color.CYAN);
@@ -81,123 +77,105 @@ public class MainView extends JFrame implements ActionListener {
 
         productList.setPreferredSize(new Dimension(500, 500));
         productList.setAlignmentX(TOP_ALIGNMENT);
-        
+
         center.add(productListLabel);
         center.add(productList);
 
+        // -------Side Panel-------//
 
-       
-
-
-    //-------Side Panel-------//
-        
-        sideMenu.setPreferredSize(new Dimension(300,0));
-        sideMenu.setMinimumSize(new Dimension(200,0));
+        sideMenu.setPreferredSize(new Dimension(300, 0));
+        sideMenu.setMinimumSize(new Dimension(200, 0));
         sideMenu.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 20));
         sideMenu.setBackground(Color.GRAY);
         sideMenu.setVisible(true);
 
-                        //-------Customer Selection Box------//
+                        // -------Customer Selection Box------//
                         CustomerSelectLabel.setForeground(Color.white);
                         sideMenu.add(CustomerSelectLabel);
                         sideMenu.add(customerSelector);
 
-
-
-
-                        //-----Product List------//
+                        // -----Product List------//
 
                         productSelectLabel.setForeground(Color.white);
                         sideMenu.add(productSelectLabel);
 
-                        productSelector.setPreferredSize(new Dimension(150,700));
+                        productSelector.setPreferredSize(new Dimension(150, 700));
 
                         JScrollPane productListContainer = new JScrollPane(productSelector);
 
                         sideMenu.add(productListContainer);
                         pack();
 
+                        // -----Buttons-----//
 
-                        //-----Buttons-----//
-                        
                         sideMenu.add(submitInvoiceButton);
                         sideMenu.add(clearListButton);
 
-                
+        // -----Top Panel-------//
 
-        
-    //-----Top Panel-------//
-        
         topMenu.setPreferredSize(new Dimension(0, 100));
         topMenu.setMinimumSize(new Dimension(0, 70));
         topMenu.setLayout(new FlowLayout());
         topMenu.setBackground(Color.GRAY);
 
-                        //-----Buttons-----//
-                        productDBButton.setBounds(0, 0, 90, 5);
-                        productDBButton.setFocusable(false);
-                        productDBButton.addActionListener(new ButtonHandler());
-                        topMenu.add(productDBButton);
+                    // -----Buttons-----//
+                    productDBButton.setBounds(0, 0, 90, 5);
+                    productDBButton.setFocusable(false);
+                    productDBButton.addActionListener(new ButtonHandler());
+                    topMenu.add(productDBButton);
 
-                        customerDBButton.setBounds(0, 0, 90, 5);
-                        customerDBButton.setFocusable(false);
-                        customerDBButton.addActionListener(new ButtonHandler());
-                        topMenu.add(customerDBButton);
+                    customerDBButton.setBounds(0, 0, 90, 5);
+                    customerDBButton.setFocusable(false);
+                    customerDBButton.addActionListener(new ButtonHandler());
+                    topMenu.add(customerDBButton);
 
-                        orderDBButton.setBounds(0, 0, 90, 5);
-                        orderDBButton.setFocusable(false);
-                        orderDBButton.addActionListener(new ButtonHandler());
-                        topMenu.add(orderDBButton);
+                    orderDBButton.setBounds(0, 0, 90, 5);
+                    orderDBButton.setFocusable(false);
+                    orderDBButton.addActionListener(new ButtonHandler());
+                    topMenu.add(orderDBButton);
 
+                    topMenu.setVisible(true);
 
-
-        topMenu.setVisible(true);
-
-
-
-    //-----Add components ------>
+        // -----Add components ------>
         frame.add(sideMenu, BorderLayout.WEST);
         frame.add(topMenu, BorderLayout.NORTH);
         frame.add(center, BorderLayout.CENTER);
 
+
+
     }
 
 
 
 
 
-    //----------Action listener---------------//
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
 
-    }
 
-    
+    // ----------Action listener---------------//
+
+ 
 
     private class ButtonHandler implements ActionListener {
-        public void actionPerformed(ActionEvent e){
-            if (e.getSource()==productDBButton) {
-                    new Table(1);
+        public void actionPerformed(ActionEvent e) {
+            if (e.getSource() == productDBButton) {
+                new Table(1);
             }
-            if (e.getSource()==customerDBButton) {
-                    new Table(2);
+            if (e.getSource() == customerDBButton) {
+                new Table(2);
             }
-            if (e.getSource()==orderDBButton) {
-                    new Table(3);
+            if (e.getSource() == orderDBButton) {
+                new Table(3);
             }
 
-
-
-            if (e.getSource()==submitInvoiceButton) {
-                //TODO:
+            if (e.getSource() == submitInvoiceButton) {
+                // TODO:
             }
-            if (e.getSource()==clearListButton) {
-                //TODO:
+            if (e.getSource() == clearListButton) {
+                // TODO:
             }
         }
     }
-
 
   
 }
