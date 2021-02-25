@@ -1,2 +1,6 @@
 add the new list of "selected" items to a the center panel
 add inner join functionality to orders page (Search for order with customer name)
+
+still need to make tables scrollable TODO
+
+fix updatePanel buttons sizing on resize

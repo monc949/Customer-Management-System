@@ -86,17 +86,14 @@ public class MainView extends JFrame {
         sideMenu.setPreferredSize(new Dimension(300, 0));
         sideMenu.setMinimumSize(new Dimension(200, 0));
         sideMenu.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 20));
-        sideMenu.setBackground(Color.GRAY);
+        sideMenu.setBackground(Color.lightGray);
         sideMenu.setVisible(true);
 
                         // -------Customer Selection Box------//
-                        CustomerSelectLabel.setForeground(Color.white);
                         sideMenu.add(CustomerSelectLabel);
                         sideMenu.add(customerSelector);
 
                         // -----Product List------//
-
-                        productSelectLabel.setForeground(Color.white);
                         sideMenu.add(productSelectLabel);
 
                         productSelector.setPreferredSize(new Dimension(150, 700));
@@ -116,7 +113,7 @@ public class MainView extends JFrame {
         topMenu.setPreferredSize(new Dimension(0, 100));
         topMenu.setMinimumSize(new Dimension(0, 70));
         topMenu.setLayout(new FlowLayout());
-        topMenu.setBackground(Color.GRAY);
+        topMenu.setBackground(Color.lightGray);
 
                     // -----Buttons-----//
                     productDBButton.setBounds(0, 0, 90, 5);

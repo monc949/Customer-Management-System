@@ -1,10 +1,11 @@
 package View.DatabaseView;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Insets;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -13,7 +14,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import javax.swing.BorderFactory;
-import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -23,7 +23,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
-
 
 import Controller.OrderController;
 
@@ -36,7 +35,8 @@ public class OrderView extends JFrame implements ActionListener {
     DefaultTableModel model = new DefaultTableModel();
     Container container = this.getContentPane();
     JTable table = new JTable(model);
-    JPanel updatePanel = new JPanel();
+    JPanel sidePanel = new JPanel();
+    JPanel buttonPanel = new JPanel();
     JButton editButton = new JButton("Edit Order");
     JButton deleteButton = new JButton("Delete Order");
 
@@ -94,47 +94,52 @@ public class OrderView extends JFrame implements ActionListener {
 
         
         // -----------------Side panel-----------------//
-        updatePanel.setLayout(new BoxLayout(updatePanel, BoxLayout.PAGE_AXIS));
-        updatePanel.add(Box.createRigidArea(new Dimension(0, 40)));
-        updatePanel.setBorder(BorderFactory.createEmptyBorder(30, 90, 30, 30));
-        updatePanel.setVisible(true);
+        sidePanel.setLayout(new BoxLayout(sidePanel, BoxLayout.Y_AXIS));
+        sidePanel.setBackground(Color.lightGray);
+        sidePanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        sidePanel.setVisible(true);
 
 
 
         //----text fields---//
         
-        IDField.setSize(1, 2);
-        IDField.setMargin(new Insets(5,5,5,5));
+        IDField.setSize(12, 23);
+        IDField.setMaximumSize(new Dimension(Integer.MAX_VALUE, IDField.getPreferredSize().height));
         IDField.setFont(font1);
-        updatePanel.add(IDLabel);
-        updatePanel.add(IDField);
+        sidePanel.add(IDLabel);
+        sidePanel.add(IDField);
 
-        ProductListField.setSize(10, 5);
+        ProductListField.setSize(12, 23);
+        ProductListField.setMaximumSize(new Dimension(Integer.MAX_VALUE, ProductListField.getPreferredSize().height));
         ProductListField.setFont(font1);
-        updatePanel.add(ProductListLabel);
-        updatePanel.add(ProductListField);
+        sidePanel.add(ProductListLabel);
+        sidePanel.add(ProductListField);
 
-        TotalPriceField.setSize(10, 5);
+        TotalPriceField.setSize(12, 23);
+        TotalPriceField.setMaximumSize(new Dimension(Integer.MAX_VALUE, TotalPriceField.getPreferredSize().height));
         TotalPriceField.setFont(font1);
-        updatePanel.add(TotalPriceLabel);
-        updatePanel.add(TotalPriceField);
+        sidePanel.add(TotalPriceLabel);
+        sidePanel.add(TotalPriceField);
 
 
 
-        //Action listeners
-        updatePanel.add(instructionLabel);
+        //Buttons
+        buttonPanel.setLayout(new GridLayout(2,1));
+        sidePanel.add(instructionLabel);
 
         editButton.addActionListener(new ButtonHandler());
         editButton.setToolTipText("Enter Order ID and enter new info.");
-        updatePanel.add(editButton);
+        buttonPanel.add(editButton);
 
         deleteButton.addActionListener(new ButtonHandler());
         deleteButton.setToolTipText("Enter OrderID only");
-        updatePanel.add(editButton);
+        buttonPanel.add(deleteButton);
+
+        sidePanel.add(buttonPanel);
 
         
         //------Final Panel Placement--------//
-        container.add(updatePanel, BorderLayout.EAST);
+        container.add(sidePanel, BorderLayout.EAST);
 
 
     }

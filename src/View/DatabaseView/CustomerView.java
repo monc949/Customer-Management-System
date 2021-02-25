@@ -1,9 +1,11 @@
 package View.DatabaseView;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -12,7 +14,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import javax.swing.BorderFactory;
-import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -22,7 +23,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
-
 
 import Controller.CustomerController;
 import Model.Customer;
@@ -36,7 +36,8 @@ public class CustomerView extends JFrame implements ActionListener {
     DefaultTableModel model = new DefaultTableModel();
     Container container = this.getContentPane();
     JTable table = new JTable(model);
-    JPanel updatePanel = new JPanel();
+    JPanel sidePanel = new JPanel();
+    JPanel buttonPanel = new JPanel();
     JButton createButton = new JButton("Create Customer");
     JButton editButton = new JButton("Edit Customer");
     JButton loadButton = new JButton("Load Customer");
@@ -113,92 +114,106 @@ public class CustomerView extends JFrame implements ActionListener {
         this.pack();
 
         // -----------------Side panel-----------------//
-        updatePanel.setLayout(new BoxLayout(updatePanel, BoxLayout.PAGE_AXIS));
-        updatePanel.add(Box.createRigidArea(new Dimension(0, 40)));
-        updatePanel.setBorder(BorderFactory.createEmptyBorder(5, 35, 5, 5));
-        updatePanel.setVisible(true);
+        sidePanel.setLayout(new BoxLayout(sidePanel, BoxLayout.Y_AXIS));
+        sidePanel.setBackground(Color.lightGray);
+        sidePanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        sidePanel.setVisible(true);
 
 
 
         //-----Text Fields-----////////
 
-        IDField.setSize(10, 5);
+        IDField.setSize(12, 23);
+        IDField.setMaximumSize(new Dimension(Integer.MAX_VALUE, IDField.getPreferredSize().height));
         IDField.setFont(font1);
-        updatePanel.add(IDLabel);
-        updatePanel.add(IDField);
+        sidePanel.add(IDLabel);
+        sidePanel.add(IDField);
 
 
 
-        FNameField.setSize(10, 5);
+        FNameField.setSize(12, 23);
+        FNameField.setMaximumSize(new Dimension(Integer.MAX_VALUE, FNameField.getPreferredSize().height));
         FNameField.setFont(font1);
-        updatePanel.add(FNameLabel);
-        updatePanel.add(FNameField);
+        sidePanel.add(FNameLabel);
+        sidePanel.add(FNameField);
 
 
-        LNameField.setSize(10, 5);
+        LNameField.setSize(12, 23);
+        LNameField.setMaximumSize(new Dimension(Integer.MAX_VALUE, LNameField.getPreferredSize().height));
         LNameField.setFont(font1);
-        updatePanel.add(LNameLabel);
-        updatePanel.add(LNameField);
+        sidePanel.add(LNameLabel);
+        sidePanel.add(LNameField);
 
 
-        Address1Field.setSize(10, 5);
+        Address1Field.setSize(12, 23);
+        Address1Field.setMaximumSize(new Dimension(Integer.MAX_VALUE, Address1Field.getPreferredSize().height));
         Address1Field.setFont(font1);
-        updatePanel.add(Address1Label);
-        updatePanel.add(Address1Field);
+        sidePanel.add(Address1Label);
+        sidePanel.add(Address1Field);
 
 
-        Address2Field.setSize(10, 5);
+        Address2Field.setSize(12, 23);
+        Address2Field.setMaximumSize(new Dimension(Integer.MAX_VALUE, Address2Field.getPreferredSize().height));
         Address2Field.setFont(font1);
-        updatePanel.add(Address2Label);
-        updatePanel.add(Address2Field);
+        sidePanel.add(Address2Label);
+        sidePanel.add(Address2Field);
 
 
-        CityField.setSize(10, 5);
+        CityField.setSize(12, 23);
+        CityField.setMaximumSize(new Dimension(Integer.MAX_VALUE, CityField.getPreferredSize().height));
         CityField.setFont(font1);
-        updatePanel.add(CityLabel);
-        updatePanel.add(CityField);
+        sidePanel.add(CityLabel);
+        sidePanel.add(CityField);
 
 
-        CountyField.setSize(10, 5);
+        CountyField.setSize(12, 23);
+        CountyField.setMaximumSize(new Dimension(Integer.MAX_VALUE, CountyField.getPreferredSize().height));
         CountyField.setFont(font1);
-        updatePanel.add(CountyLabel);
-        updatePanel.add(CountyField);
+        sidePanel.add(CountyLabel);
+        sidePanel.add(CountyField);
 
 
-        PostcodeField.setSize(10, 5);
+        PostcodeField.setSize(12, 23);
+        PostcodeField.setMaximumSize(new Dimension(Integer.MAX_VALUE, PostcodeField.getPreferredSize().height));
         PostcodeField.setFont(font1);
-        updatePanel.add(PostcodeLabel);
-        updatePanel.add(PostcodeField);
+        sidePanel.add(PostcodeLabel);
+        sidePanel.add(PostcodeField);
 
 
-        EmailField.setSize(10, 5);
+        EmailField.setSize(12, 23);
+        EmailField.setMaximumSize(new Dimension(Integer.MAX_VALUE, EmailField.getPreferredSize().height));
         EmailField.setFont(font1);
-        updatePanel.add(EmailLabel);
-        updatePanel.add(EmailField);
+        sidePanel.add(EmailLabel);
+        sidePanel.add(EmailField);
 
 
-        PhoneNumberField.setSize(10, 5);
+        PhoneNumberField.setSize(12, 23);
+        PhoneNumberField.setMaximumSize(new Dimension(Integer.MAX_VALUE, PhoneNumberField.getPreferredSize().height));
         PhoneNumberField.setFont(font1);
-        updatePanel.add(PhoneNumberLabel);
-        updatePanel.add(PhoneNumberField);
+        sidePanel.add(PhoneNumberLabel);
+        sidePanel.add(PhoneNumberField);
 
 
 
 
-        //Action listeners
-        updatePanel.add(instructionLabel);
+        //Buttons
+        buttonPanel.setLayout(new GridLayout(2, 1));
+
+        sidePanel.add(instructionLabel);
 
         createButton.addActionListener(new ButtonHandler());
         createButton.setToolTipText("Enter customer info. Do not enter enter Customer ID. This auto generated");
-        updatePanel.add(createButton);
+        buttonPanel.add(createButton);
 
         editButton.addActionListener(new ButtonHandler());
         editButton.setToolTipText("Enter Customer ID and fill in new info");
-        updatePanel.add(editButton);
+        buttonPanel.add(editButton);
+
+        sidePanel.add(buttonPanel);
 
 
         //------Final Panel Placement--------//
-        container.add(updatePanel, BorderLayout.EAST);
+        container.add(sidePanel, BorderLayout.EAST);
 
     }
 

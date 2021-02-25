@@ -1,6 +1,8 @@
 package View.DatabaseView;
 
 import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -12,7 +14,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import javax.swing.BorderFactory;
-import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -35,7 +36,8 @@ public class ProductView extends JFrame {
     DefaultTableModel model = new DefaultTableModel();
     Container container = this.getContentPane();
     JTable table = new JTable(model);
-    JPanel updatePanel = new JPanel();
+    JPanel sidePanel = new JPanel();
+    JPanel buttonPanel = new JPanel();
     JButton createButton = new JButton("Create Product");
     JButton editButton = new JButton("Edit Product");
     JButton deleteButton = new JButton("Delete Product");
@@ -44,14 +46,14 @@ public class ProductView extends JFrame {
     Font font1 = new Font("SansSerif", Font.PLAIN, 14);
 
     JTextField IDField = new JTextField();
-    JTextField BrandField = new JTextField();
+    JTextField brandField = new JTextField();
     JTextField nameField = new JTextField();
     JTextField descriptionField = new JTextField();
     JTextField priceField = new JTextField();
 
     JLabel instructionLabel = new JLabel("Hover over buttons for instructions");
     JLabel IDLabel = new JLabel("Product ID");
-    JLabel BrandLabel = new JLabel("Brand");
+    JLabel brandLabel = new JLabel("Brand");
     JLabel nameLabel = new JLabel("Name");
     JLabel descriptionLabel = new JLabel("Description");
     JLabel priceLabel = new JLabel("Price");
@@ -96,57 +98,69 @@ public class ProductView extends JFrame {
         this.pack();
 
         // -----------------Side panel-----------------//
-        updatePanel.setLayout(new BoxLayout(updatePanel, BoxLayout.PAGE_AXIS));
-        updatePanel.add(Box.createRigidArea(new Dimension(0, 40)));
-        updatePanel.setBorder(BorderFactory.createEmptyBorder(30, 90, 30, 30));
-        updatePanel.setVisible(true);
+        sidePanel.setLayout(new BoxLayout(sidePanel, BoxLayout.Y_AXIS));
+        sidePanel.setBackground(Color.lightGray);
+        sidePanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        sidePanel.setVisible(true);
 
 
                //----text fields---//
         
-               IDField.setPreferredSize(new Dimension(10, 5));
+               IDField.setPreferredSize(new Dimension(15, 23));
+               IDField.setMaximumSize(new Dimension(Integer.MAX_VALUE, IDField.getPreferredSize().height));
                IDField.setFont(font1);
-               updatePanel.add(IDLabel);
-               updatePanel.add(IDField);
+               sidePanel.add(IDLabel);
+               sidePanel.add(IDField);
        
-               BrandField.setPreferredSize(new Dimension(10, 5));
-               BrandField.setFont(font1);
-               updatePanel.add(BrandLabel);
-               updatePanel.add(BrandField);
+               brandField.setPreferredSize(new Dimension(12, 23));
+               brandField.setMaximumSize(new Dimension(Integer.MAX_VALUE, brandField.getPreferredSize().height));
+               brandField.setFont(font1);
+               sidePanel.add(brandLabel);
+               sidePanel.add(brandField);
        
-               nameField.setPreferredSize(new Dimension(10, 5));
+               nameField.setPreferredSize(new Dimension(12, 23));
+               nameField.setMaximumSize(new Dimension(Integer.MAX_VALUE, nameField.getPreferredSize().height));
                nameField.setFont(font1);
-               updatePanel.add(nameLabel);
-               updatePanel.add(nameField);
+               sidePanel.add(nameLabel);
+               sidePanel.add(nameField);
        
-               descriptionField.setPreferredSize(new Dimension(10, 5));
+               descriptionField.setPreferredSize(new Dimension(12, 23));
+               descriptionField.setMaximumSize(new Dimension(Integer.MAX_VALUE, descriptionField.getPreferredSize().height));
                descriptionField.setFont(font1);
-               updatePanel.add(descriptionLabel);
-               updatePanel.add(descriptionField);
+               sidePanel.add(descriptionLabel);
+               sidePanel.add(descriptionField);
        
-               priceField.setPreferredSize(new Dimension(10, 5));
+               priceField.setPreferredSize(new Dimension(12, 23));
+               priceField.setMaximumSize(new Dimension(Integer.MAX_VALUE, priceField.getPreferredSize().height));
                priceField.setFont(font1);
-               updatePanel.add(priceLabel);
-               updatePanel.add(priceField);
+               sidePanel.add(priceLabel);
+               sidePanel.add(priceField);
 
-            //Action listeners
-                updatePanel.add(instructionLabel);
+
+
+
+
+            //Buttons
+                 buttonPanel.setLayout(new GridLayout(3, 1));
+                sidePanel.add(instructionLabel);
 
                 createButton.addActionListener(new ButtonHandler());
                 createButton.setToolTipText("Do Not Enter Product ID when creating new Product");
-                updatePanel.add(createButton);
+                buttonPanel.add(createButton);
 
                 editButton.addActionListener(new ButtonHandler());
                 editButton.setToolTipText("Enter Product ID and fill in new product info");
-                updatePanel.add(editButton);
+                buttonPanel.add(editButton);
 
                 deleteButton.addActionListener(new ButtonHandler());
                 deleteButton.setToolTipText("Enter Product ID only to delete");
-                updatePanel.add(deleteButton);
+                buttonPanel.add(deleteButton);
+
+                sidePanel.add(buttonPanel);
                 
 
            //------Final Panel Placement--------//
-           container.add(updatePanel, BorderLayout.EAST);
+           container.add(sidePanel, BorderLayout.EAST);
 
     }
     private class ButtonHandler implements ActionListener {
@@ -155,14 +169,14 @@ public class ProductView extends JFrame {
 
          if (e.getSource()==editButton){
                 pc.update(Integer.parseInt(IDField.getText()),
-                BrandField.getText(),
+                brandField.getText(),
                 nameField.getText(),
                 descriptionField.getText(),
                 Double.parseDouble(priceField.getText()));
          }
 
          if (e.getSource()==createButton){
-                pc.create(new Product(BrandField.getText(),
+                pc.create(new Product(brandField.getText(),
                 nameField.getText(),
                 descriptionField.getText(),
                 Double.parseDouble(priceField.getText()))); 
