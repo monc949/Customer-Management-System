@@ -1,6 +1,19 @@
 add the new list of "selected" items to a the center panel
-add inner join functionality to orders page (Search for order with customer name)
+currently thinking of making a mini panel to hold the product list indiviudal items that have all its info on it,
+so you click an item on the product selector and it pops up in the center panel 
+with all of its info with a quantity field aswell for ease of use, maybe a remove button.
 
-still need to make tables scrollable TODO
 
-fix updatePanel buttons sizing on resize
+
+add inner join functionality to orders page (Search for order with customer name
+
+
+still need to make tables scrollable on database views
+
+
+
+
+fix updatePanel buttons sizing on resize in database views
+
+
+
