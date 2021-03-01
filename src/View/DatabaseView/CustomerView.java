@@ -27,7 +27,7 @@ import javax.swing.table.DefaultTableModel;
 import Controller.CustomerController;
 import Model.Customer;
 
-public class CustomerView extends JFrame implements ActionListener {
+public class CustomerView extends JFrame{
     /**
      *
      */
@@ -57,7 +57,7 @@ public class CustomerView extends JFrame implements ActionListener {
 
     JLabel instructionLabel = new JLabel("Hover over buttons for instructions");
 
-    JLabel IDLabel = new JLabel("Customer ID (Type Customers ID here and fill in the fields below)");
+    JLabel IDLabel = new JLabel("Customer ID");
     JLabel FNameLabel = new JLabel("First Name");
     JLabel LNameLabel = new JLabel("Last Name");
     JLabel Address1Label = new JLabel("Address1");
@@ -74,6 +74,7 @@ public class CustomerView extends JFrame implements ActionListener {
 
         // Make table uneditable
         table.setEnabled(false);
+        setResizable(false);
 
 //---Container---//
         container.setLayout(new BorderLayout());
@@ -116,7 +117,7 @@ public class CustomerView extends JFrame implements ActionListener {
         // -----------------Side panel-----------------//
         sidePanel.setLayout(new BoxLayout(sidePanel, BoxLayout.Y_AXIS));
         sidePanel.setBackground(Color.lightGray);
-        sidePanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        sidePanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 345, 15));
         sidePanel.setVisible(true);
 
 
@@ -197,7 +198,8 @@ public class CustomerView extends JFrame implements ActionListener {
 
 
         //Buttons
-        buttonPanel.setLayout(new GridLayout(2, 1));
+        buttonPanel.setLayout(new GridLayout(2, 1, 15, 15));
+        buttonPanel.setBackground(Color.lightGray);
 
         sidePanel.add(instructionLabel);
 
@@ -214,12 +216,6 @@ public class CustomerView extends JFrame implements ActionListener {
 
         //------Final Panel Placement--------//
         container.add(sidePanel, BorderLayout.EAST);
-
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        
 
     }
 

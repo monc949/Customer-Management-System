@@ -68,6 +68,7 @@ public class ProductView extends JFrame {
   //---Container---//
 
         container.setLayout(new BorderLayout());
+        setResizable(false);
 
         model.addColumn("ProductID");
         model.addColumn("Brand");
@@ -100,7 +101,7 @@ public class ProductView extends JFrame {
         // -----------------Side panel-----------------//
         sidePanel.setLayout(new BoxLayout(sidePanel, BoxLayout.Y_AXIS));
         sidePanel.setBackground(Color.lightGray);
-        sidePanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        sidePanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 345, 15));
         sidePanel.setVisible(true);
 
 
@@ -141,7 +142,8 @@ public class ProductView extends JFrame {
 
 
             //Buttons
-                 buttonPanel.setLayout(new GridLayout(3, 1));
+                buttonPanel.setLayout(new GridLayout(3, 1, 15, 15));
+                buttonPanel.setBackground(Color.lightGray);
                 sidePanel.add(instructionLabel);
 
                 createButton.addActionListener(new ButtonHandler());

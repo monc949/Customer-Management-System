@@ -2,6 +2,7 @@ package View.DatabaseView;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -26,7 +27,7 @@ import javax.swing.table.DefaultTableModel;
 
 import Controller.OrderController;
 
-public class OrderView extends JFrame implements ActionListener {
+public class OrderView extends JFrame {
     /**
      *
      */
@@ -40,9 +41,9 @@ public class OrderView extends JFrame implements ActionListener {
     JButton editButton = new JButton("Edit Order");
     JButton deleteButton = new JButton("Delete Order");
 
-//FONT//
-    Font font1 = new Font("SansSerif", Font.PLAIN, 14);
+    JPanel searchPanel = new JPanel();
 
+    
     JTextField IDField = new JTextField();
     JTextField ProductListField = new JTextField();
     JTextField TotalPriceField = new JTextField();
@@ -50,9 +51,17 @@ public class OrderView extends JFrame implements ActionListener {
 
     JLabel instructionLabel = new JLabel("Hover over buttons for instructions");
 
-    JLabel IDLabel = new JLabel("Order ID (Type OrderID here and fill in the fields below)");
+    JLabel IDLabel = new JLabel("Order ID");
     JLabel ProductListLabel = new JLabel("Product List ");
     JLabel TotalPriceLabel = new JLabel("Total Price");
+
+    JLabel searchLabel = new JLabel("Filter by Customer");
+	JTextField searchField = new JTextField();
+    JButton searchButton = new JButton("Filter");
+
+//FONT//
+    Font font1 = new Font("SansSerif", Font.PLAIN, 14);
+
     
     public OrderView() {
 
@@ -61,6 +70,7 @@ public class OrderView extends JFrame implements ActionListener {
         // Make table uneditable
 
         table.setEnabled(false);
+        setResizable(false);
     //---Container---//
         container.setLayout(new BorderLayout());
         model.addColumn("OrderID");
@@ -96,7 +106,7 @@ public class OrderView extends JFrame implements ActionListener {
         // -----------------Side panel-----------------//
         sidePanel.setLayout(new BoxLayout(sidePanel, BoxLayout.Y_AXIS));
         sidePanel.setBackground(Color.lightGray);
-        sidePanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        sidePanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 445, 15));
         sidePanel.setVisible(true);
 
 
@@ -124,7 +134,8 @@ public class OrderView extends JFrame implements ActionListener {
 
 
         //Buttons
-        buttonPanel.setLayout(new GridLayout(2,1));
+        buttonPanel.setLayout(new GridLayout(2, 1, 15, 15));
+        buttonPanel.setBackground(Color.lightGray);
         sidePanel.add(instructionLabel);
 
         editButton.addActionListener(new ButtonHandler());
@@ -137,6 +148,15 @@ public class OrderView extends JFrame implements ActionListener {
 
         sidePanel.add(buttonPanel);
 
+
+        //Search Panel
+        searchPanel.setLayout(new GridLayout(3, 1 , 15, 1));
+        searchPanel.setBackground(Color.lightGray);
+        searchPanel.setVisible(true);
+        searchPanel.add(searchLabel);
+        searchPanel.add(searchField);
+        searchPanel.add(searchButton);
+        sidePanel.add(searchPanel);
         
         //------Final Panel Placement--------//
         container.add(sidePanel, BorderLayout.EAST);
@@ -162,14 +182,14 @@ public class OrderView extends JFrame implements ActionListener {
 
 
          }
+         if (e.getSource() == searchButton) {
+             //TODO:
+             table.repaint();
+         }
 
     }
 }
 
-@Override
-public void actionPerformed(ActionEvent e) {
-
-}
 
 
 }

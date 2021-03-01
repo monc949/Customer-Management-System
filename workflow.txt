@@ -5,15 +5,11 @@ with all of its info with a quantity field aswell for ease of use, maybe a remov
 
 
 
-add inner join functionality to orders page (Search for order with customer name
+add inner join functionality to orders page (Search for order with customer name)
 
 
 still need to make tables scrollable on database views
 
-
-
-
-fix updatePanel buttons sizing on resize in database views
 
 
 

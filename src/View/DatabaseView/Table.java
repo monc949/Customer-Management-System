@@ -22,7 +22,7 @@ public class Table extends JFrame {
             if (i == 1) {
                 JFrame frame = new ProductView();
                 frame.setTitle("Product Table");
-                frame.setSize(1000, 500);
+                frame.setSize(1200, 700);
                 frame.setLocationRelativeTo(null);
                 frame.setVisible(true);
                 frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -32,7 +32,7 @@ public class Table extends JFrame {
             if (i == 2) {
                 JFrame frame = new CustomerView();
                 frame.setTitle("Customer Table");
-                frame.setSize(1000, 500);
+                frame.setSize(1200, 700);
                 frame.setLocationRelativeTo(null);
                 frame.setVisible(true);
                 frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -42,7 +42,7 @@ public class Table extends JFrame {
             if (i == 3) {
                 JFrame frame = new OrderView();
                 frame.setTitle("Order Table");
-                frame.setSize(1000, 500);
+                frame.setSize(1200, 700);
                 frame.setLocationRelativeTo(null);
                 frame.setVisible(true);
                 frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
