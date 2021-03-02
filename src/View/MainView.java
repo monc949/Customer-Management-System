@@ -42,6 +42,7 @@ public class MainView extends JFrame {
 
     JButton submitInvoiceButton = new JButton("Submit Invoice");
     JButton clearListButton = new JButton("Clear List");
+    JButton ATCButton = new JButton("Add to Cart");
 
     JLabel productSelectLabel = new JLabel("Select Products");
     JLabel CustomerSelectLabel = new JLabel("Select Customer");
@@ -100,7 +101,9 @@ public class MainView extends JFrame {
 
                         JScrollPane productListContainer = new JScrollPane(productSelector);
 
+                        sideMenu.add(ATCButton);
                         sideMenu.add(productListContainer);
+
                         pack();
 
                         // -----Buttons-----//
@@ -163,6 +166,10 @@ public class MainView extends JFrame {
             }
             if (e.getSource() == orderDBButton) {
                 new Table(3);
+            }
+
+            if (e.getSource() == ATCButton) {
+                
             }
 
             if (e.getSource() == submitInvoiceButton) {
