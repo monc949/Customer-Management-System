@@ -8,6 +8,7 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
 import javax.swing.DefaultListModel;
+import javax.swing.table.DefaultTableModel;
 
 import Model.Customer;
 
@@ -73,54 +74,41 @@ public void create(Customer newCustomer) {
 
 
 //Retrieve method
-public void retrieve() {
+public DefaultTableModel retrieve() {
         		// database URL
 		        final String DATABASE_URL = "jdbc:mysql://localhost/cms";
+                DefaultTableModel model = new DefaultTableModel();
+                
 	
-            Connection connection = null;
-            PreparedStatement pstat = null;
-            ResultSet resultSet = null;
-    try{
-                
-                // establish connection to database
-                connection = DriverManager.getConnection(
-                DATABASE_URL, "root", "Knockbeg11" );
-                
-                // create Statement for querying table
-                pstat = connection.prepareStatement("SELECT * From customers");
-                
-                // query database
-                resultSet = pstat.executeQuery("SELECT * From customers");
-                
-                // process query results
-                ResultSetMetaData metaData = resultSet.getMetaData();
-                int numberOfColumns = metaData.getColumnCount();
-                System.out.println( "Customers Table of CMS Database:\n" );
-                
-                 for ( int i = 1; i <= numberOfColumns; i++ )
-                 System.out.print(metaData.getColumnName( i ) + "\t");
-                 System.out.println();
-                 
-                 while(resultSet.next() ){
-                        for ( int i = 1; i <= numberOfColumns; i++ )
-                        System.out.print( resultSet.getObject( i ) + "\t\t");
-                        System.out.println();
-                         }
-                     }
-                    catch(SQLException sqlException ) {
-                        sqlException.printStackTrace();
-                     }
-                    finally{
-                        try{
-                            resultSet.close();
-                            pstat.close();
-                            connection.close();
-                        }
-                        catch ( Exception exception ){
-                            exception.printStackTrace();
-                        }
+                model.addColumn("CustomerID");
+                model.addColumn("FirstName");
+                model.addColumn("LastName");
+                model.addColumn("Address1");
+                model.addColumn("Address2");
+                model.addColumn("City");
+                model.addColumn("County");
+                model.addColumn("Postcode");
+                model.addColumn("Email");
+                model.addColumn("PhoneNumber");
+        
+        
+                //---retrieve from database---//
+                //-and populate table---//
+                try {
+                    Connection con = DriverManager.getConnection(DATABASE_URL, "root", "Knockbeg11");
+        
+                    PreparedStatement pstm = con.prepareStatement("SELECT * FROM Customers");
+                    ResultSet Rs = pstm.executeQuery();
+                    while (Rs.next()) {
+                        model.addRow(
+                                new Object[] { Rs.getInt(1), Rs.getString(2), Rs.getString(3), Rs.getString(4), Rs.getString(5),
+                                        Rs.getString(6), Rs.getString(7), Rs.getString(8), Rs.getString(9), Rs.getString(10) });
                     }
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
                 }
+                return model;
+            }
 
 
 

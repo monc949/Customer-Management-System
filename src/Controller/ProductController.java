@@ -8,6 +8,7 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
 import javax.swing.DefaultListModel;
+import javax.swing.table.DefaultTableModel;
 
 import Model.Product;
 
@@ -65,55 +66,34 @@ public void create(Product newProduct) {
 
 
 //Retrieve method
-public ResultSet retrieve() {
-        		// database URL
-		        final String DATABASE_URL = "jdbc:mysql://localhost/cms";
-	
-            Connection connection = null;
-            PreparedStatement pstat = null;
-            ResultSet resultSet = null;
-    try{
-                
-                // establish connection to database
-                connection = DriverManager.getConnection(
-                DATABASE_URL, "root", "Knockbeg11" );
-                
-                // create Statement for querying table
-                pstat = connection.prepareStatement("SELECT Name From Products");
-                
-                // query database
-                resultSet = pstat.executeQuery("SELECT Name From Products" );
-                
-                // process query results
-                ResultSetMetaData metaData = resultSet.getMetaData();
-                int numberOfColumns = metaData.getColumnCount();
-                System.out.println( "Products Table of CMS Database:\n" );
-                
-                 for ( int i = 1; i <= numberOfColumns; i++ )
-                 System.out.print(metaData.getColumnName( i ) + "\t");
-                 System.out.println();
-                 
-                 while(resultSet.next() ){
-                        for ( int i = 1; i <= numberOfColumns; i++ )
-                        System.out.print( resultSet.getObject( i ) + "\t\t");
-                        System.out.println();
-                         }
-                     }
-                    catch(SQLException sqlException ) {
-                        sqlException.printStackTrace();
-                     }
-                    finally{
-                        try{
-                            resultSet.close();
-                            pstat.close();
-                            connection.close();
-                        }
-                        catch ( Exception exception ){
-                            exception.printStackTrace();
-                        }
-                    }
-                    return resultSet;
+public DefaultTableModel retrieve() {
+        	// database URL
+		    final String DATABASE_URL = "jdbc:mysql://localhost/cms";
+            DefaultTableModel model = new DefaultTableModel();
+
+            model.addColumn("ProductID");
+            model.addColumn("Brand");
+            model.addColumn("Name");
+            model.addColumn("Description");
+            model.addColumn("Price");
+    
+            //---retrieve from database---//
+            //-and populate table---//
+            try {
+                Connection con = DriverManager.getConnection(DATABASE_URL, "root", "Knockbeg11" );
+    
+    
+                PreparedStatement pstm = con.prepareStatement("SELECT * FROM Products");
+                ResultSet Rs = pstm.executeQuery();
+                while(Rs.next()){
+                    model.addRow(new Object[]{Rs.getInt(1), Rs.getString(2),Rs.getString(3),Rs.getString(4),Rs.getDouble(5)});
                 }
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+                return model;
+         }
+
 
 
 

@@ -32,10 +32,11 @@ public class ProductView extends JFrame {
      *
      */
     private static final long serialVersionUID = 1L;
+    ProductController pc = new ProductController();
     
     DefaultTableModel model = new DefaultTableModel();
     Container container = this.getContentPane();
-    JTable table = new JTable(model);
+    JTable table = new JTable();
     JPanel sidePanel = new JPanel();
     JPanel buttonPanel = new JPanel();
     JButton createButton = new JButton("Create Product");
@@ -64,35 +65,14 @@ public class ProductView extends JFrame {
 
         // Make table uneditable
         table.setEnabled(false);
+        setResizable(false);
 
   //---Container---//
 
         container.setLayout(new BorderLayout());
         setResizable(false);
-
-        model.addColumn("ProductID");
-        model.addColumn("Brand");
-        model.addColumn("Name");
-        model.addColumn("Description");
-        model.addColumn("Price");
-
-        //---retrieve from database---//
-        //-and populate table---//
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-
-            final String DATABASE_URL = "jdbc:mysql://localhost/cms";
-            Connection con = DriverManager.getConnection(DATABASE_URL, "root", "Knockbeg11" );
-
-
-            PreparedStatement pstm = con.prepareStatement("SELECT * FROM Products");
-            ResultSet Rs = pstm.executeQuery();
-            while(Rs.next()){
-                model.addRow(new Object[]{Rs.getInt(1), Rs.getString(2),Rs.getString(3),Rs.getString(4),Rs.getDouble(5)});
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        table.setModel(pc.retrieve());
+        
         JScrollPane pg = new JScrollPane(table);
         container.add(pg);
         
@@ -181,7 +161,8 @@ public class ProductView extends JFrame {
                 pc.create(new Product(brandField.getText(),
                 nameField.getText(),
                 descriptionField.getText(),
-                Double.parseDouble(priceField.getText()))); 
+                Double.parseDouble(priceField.getText())));
+                model.fireTableDataChanged();
          }
 
          if (e.getSource() == deleteButton) {
