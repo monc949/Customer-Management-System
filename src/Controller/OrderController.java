@@ -93,6 +93,36 @@ public DefaultTableModel retrieve() {
                 }
                 return model;
             }
+
+public DefaultTableModel retrieveCustomerOrders() {
+        		// database URL
+		        final String DATABASE_URL = "jdbc:mysql://localhost/cms";
+                DefaultTableModel model = new DefaultTableModel();
+
+                //TODO: sql statement that can be added on to by a textfield
+	
+                model.addColumn("OrderID");
+                model.addColumn("CustomerID");
+                model.addColumn("Order Date");
+                model.addColumn("Product List");
+                model.addColumn("Total Price");
+        
+                //---retrieve from database---//
+                //-and populate table---//
+        
+                try {
+                    Connection con = DriverManager.getConnection(DATABASE_URL, "root", "Knockbeg11" );
+        
+                    PreparedStatement pstm = con.prepareStatement("SELECT * FROM Orders");
+                    ResultSet Rs = pstm.executeQuery();
+                    while(Rs.next()){
+                        model.addRow(new Object[]{Rs.getInt(1), Rs.getInt(2),Rs.getDate(3),Rs.getString(4),Rs.getDouble(5)});
+                    }
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+                return model;
+            }
                 
 //Update method
 public void update(int orderID, String productList, double totalPrice) { 

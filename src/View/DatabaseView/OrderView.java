@@ -145,15 +145,29 @@ public class OrderView extends JFrame {
             OrderController oc = new OrderController();
 
          if (e.getSource()==editButton){
-            oc.update(Integer.parseInt(IDField.getText()),
-            ProductListField.getText(), 
-            Double.parseDouble(TotalPriceField.getText())); 
+                oc.update(Integer.parseInt(IDField.getText()),
+                ProductListField.getText(), 
+                Double.parseDouble(TotalPriceField.getText())); 
+                table.setModel(oc.retrieve());
+
+            //Clear Fields after use
+                IDField.setText("");
+                ProductListField.setText("");
+                TotalPriceField.setText("");
+
 
 
          }
 
          if (e.getSource() == deleteButton) {
-            oc.delete(Integer.parseInt(IDField.getText())); 
+                oc.delete(Integer.parseInt(IDField.getText())); 
+                table.setModel(oc.retrieve());
+
+                //Clear Fields after use
+                IDField.setText("");
+                ProductListField.setText("");
+                TotalPriceField.setText("");
+
 
 
          }

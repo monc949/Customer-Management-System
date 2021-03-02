@@ -43,12 +43,8 @@ public class CustomerView extends JFrame{
     Font font1 = new Font("SansSerif", Font.PLAIN, 14);
 
     JTextField IDField = new JTextField();
-    JTextField FNameField = new JTextField();
-    JTextField LNameField = new JTextField();
-    JTextField Address1Field = new JTextField();
-    JTextField Address2Field = new JTextField();
-    JTextField CityField = new JTextField();
-    JTextField CountyField = new JTextField();
+    JTextField NameField = new JTextField();
+    JTextField AddressField = new JTextField();
     JTextField PostcodeField = new JTextField();
     JTextField EmailField = new JTextField();
     JTextField PhoneNumberField = new JTextField();
@@ -56,13 +52,9 @@ public class CustomerView extends JFrame{
     JLabel instructionLabel = new JLabel("Hover over buttons for instructions");
 
     JLabel IDLabel = new JLabel("Customer ID");
-    JLabel FNameLabel = new JLabel("First Name");
-    JLabel LNameLabel = new JLabel("Last Name");
-    JLabel Address1Label = new JLabel("Address1");
-    JLabel Address2Label = new JLabel("Address2");
-    JLabel CityLabel = new JLabel("City");
-    JLabel CountyLabel = new JLabel("County");
-    JLabel PostcodeLabel = new JLabel("Post Code");
+    JLabel NameLabel = new JLabel("Name");
+    JLabel AddressLabel = new JLabel("Address");
+    JLabel PostcodeLabel = new JLabel("PostCode");
     JLabel EmailLabel = new JLabel("Email");
     JLabel PhoneNumberLabel = new JLabel("Phone Number");
 
@@ -78,36 +70,6 @@ public class CustomerView extends JFrame{
         container.setLayout(new BorderLayout());
         table.setModel(cc.retrieve());
         
-        // model.addColumn("CustomerID");
-        // model.addColumn("FirstName");
-        // model.addColumn("LastName");
-        // model.addColumn("Address1");
-        // model.addColumn("Address2");
-        // model.addColumn("City");
-        // model.addColumn("County");
-        // model.addColumn("Postcode");
-        // model.addColumn("Email");
-        // model.addColumn("PhoneNumber");
-
-
-        // //---retrieve from database---//
-        // //-and populate table---//
-        // try {
-        //     Class.forName("com.mysql.cj.jdbc.Driver");
-
-        //     final String DATABASE_URL = "jdbc:mysql://localhost/cms";
-        //     Connection con = DriverManager.getConnection(DATABASE_URL, "root", "Knockbeg11");
-
-        //     PreparedStatement pstm = con.prepareStatement("SELECT * FROM Customers");
-        //     ResultSet Rs = pstm.executeQuery();
-        //     while (Rs.next()) {
-        //         model.addRow(
-        //                 new Object[] { Rs.getInt(1), Rs.getString(2), Rs.getString(3), Rs.getString(4), Rs.getString(5),
-        //                         Rs.getString(6), Rs.getString(7), Rs.getString(8), Rs.getString(9), Rs.getString(10) });
-        //     }
-        // } catch (Exception e) {
-        //     System.out.println(e.getMessage());
-        // }
         JScrollPane pg = new JScrollPane(table);
         container.add(pg, BorderLayout.CENTER);
 
@@ -130,47 +92,18 @@ public class CustomerView extends JFrame{
         sidePanel.add(IDField);
 
 
-
-        FNameField.setSize(12, 23);
-        FNameField.setMaximumSize(new Dimension(Integer.MAX_VALUE, FNameField.getPreferredSize().height));
-        FNameField.setFont(font1);
-        sidePanel.add(FNameLabel);
-        sidePanel.add(FNameField);
-
-
-        LNameField.setSize(12, 23);
-        LNameField.setMaximumSize(new Dimension(Integer.MAX_VALUE, LNameField.getPreferredSize().height));
-        LNameField.setFont(font1);
-        sidePanel.add(LNameLabel);
-        sidePanel.add(LNameField);
+        NameField.setSize(12, 23);
+        NameField.setMaximumSize(new Dimension(Integer.MAX_VALUE, NameField.getPreferredSize().height));
+        NameField.setFont(font1);
+        sidePanel.add(NameLabel);
+        sidePanel.add(NameField);
 
 
-        Address1Field.setSize(12, 23);
-        Address1Field.setMaximumSize(new Dimension(Integer.MAX_VALUE, Address1Field.getPreferredSize().height));
-        Address1Field.setFont(font1);
-        sidePanel.add(Address1Label);
-        sidePanel.add(Address1Field);
-
-
-        Address2Field.setSize(12, 23);
-        Address2Field.setMaximumSize(new Dimension(Integer.MAX_VALUE, Address2Field.getPreferredSize().height));
-        Address2Field.setFont(font1);
-        sidePanel.add(Address2Label);
-        sidePanel.add(Address2Field);
-
-
-        CityField.setSize(12, 23);
-        CityField.setMaximumSize(new Dimension(Integer.MAX_VALUE, CityField.getPreferredSize().height));
-        CityField.setFont(font1);
-        sidePanel.add(CityLabel);
-        sidePanel.add(CityField);
-
-
-        CountyField.setSize(12, 23);
-        CountyField.setMaximumSize(new Dimension(Integer.MAX_VALUE, CountyField.getPreferredSize().height));
-        CountyField.setFont(font1);
-        sidePanel.add(CountyLabel);
-        sidePanel.add(CountyField);
+        AddressField.setSize(12, 23);
+        AddressField.setMaximumSize(new Dimension(Integer.MAX_VALUE, AddressField.getPreferredSize().height));
+        AddressField.setFont(font1);
+        sidePanel.add(AddressLabel);
+        sidePanel.add(AddressField);
 
 
         PostcodeField.setSize(12, 23);
@@ -227,29 +160,40 @@ public class CustomerView extends JFrame{
             CustomerController cc = new CustomerController();
 
          if (e.getSource()==editButton){
-            cc.update(Integer.parseInt(IDField.getText()),
-            FNameField.getText(), 
-            LNameField.getText(), 
-            Address1Field.getText(), 
-            Address2Field.getText(), 
-            CityField.getText(), 
-            CountyField.getText(), 
-            PostcodeField.getText(), 
-            EmailField.getText(), 
-            PhoneNumberField.getText());
+                cc.update(Integer.parseInt(IDField.getText()),
+                NameField.getText(), 
+                AddressField.getText(), 
+                PostcodeField.getText(), 
+                EmailField.getText(), 
+                PhoneNumberField.getText());
+
+
+            //Clear Fields
+                NameField.setText(""); 
+                AddressField.setText("");
+                PostcodeField.setText("");
+                EmailField.setText("");
+                PhoneNumberField.setText("");
+                table.setModel(cc.retrieve());
+
          }
 
          if (e.getSource()==createButton){
-            cc.create(new Customer(FNameField.getText(), 
-            LNameField.getText(), 
-            Address1Field.getText(), 
-            Address2Field.getText(), 
-            CityField.getText(), 
-            CountyField.getText(), 
-            PostcodeField.getText(), 
-            EmailField.getText(), 
-            PhoneNumberField.getText())
-            );
+                cc.create(new Customer(NameField.getText(), 
+                AddressField.getText(), 
+                PostcodeField.getText(), 
+                EmailField.getText(), 
+                PhoneNumberField.getText()));
+                table.setModel(cc.retrieve());
+
+
+            //Clear Fields after use
+                NameField.setText(""); 
+                AddressField.setText("");
+                PostcodeField.setText("");
+                EmailField.setText("");
+                PhoneNumberField.setText("");
+
          }
 
 

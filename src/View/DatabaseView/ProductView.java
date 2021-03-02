@@ -152,6 +152,15 @@ public class ProductView extends JFrame {
                 nameField.getText(),
                 descriptionField.getText(),
                 Double.parseDouble(priceField.getText()));
+                table.setModel(pc.retrieve());
+
+              //Clear Fields after use
+                IDField.setText("");
+                brandField.setText("");
+                nameField.setText("");
+                descriptionField.setText("");
+                priceField.setText("");
+
          }
 
          if (e.getSource()==createButton){
@@ -159,11 +168,27 @@ public class ProductView extends JFrame {
                 nameField.getText(),
                 descriptionField.getText(),
                 Double.parseDouble(priceField.getText())));
-                model.fireTableDataChanged();
+                table.setModel(pc.retrieve());
+
+                //Clear Fields after use
+                IDField.setText("");
+                brandField.setText("");
+                nameField.setText("");
+                descriptionField.setText("");
+                priceField.setText("");
          }
 
          if (e.getSource() == deleteButton) {
                 pc.delete(Integer.parseInt(IDField.getText())); 
+                table.setModel(pc.retrieve());
+
+                //Clear Fields after use
+                IDField.setText("");
+                brandField.setText("");
+                nameField.setText("");
+                descriptionField.setText("");
+                priceField.setText("");
+
 
          }
 

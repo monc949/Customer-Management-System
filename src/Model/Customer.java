@@ -1,85 +1,35 @@
 package Model;
 
 public class Customer{
-    private String firstName;
-    private String lastName;
-    private String address1;
-    private String address2;
-    private String city;
-    private String county;
+    private String name;
+    private String address;
     private String postcode;
     private String email;
     private String phoneNumber;
 
 
-    public Customer(String firstName, String lastName, String address1, String address2, String city,
-    String county, String postcode, String email, String phoneNumber) {
-        setFirstName(firstName);
-        setLastName(lastName);
-        setAddress1(address1);
-        setAddress2(address2);
-        setCity(city);
-        setCounty(county);
+    public Customer(String name, String address, String postcode, String email, String phoneNumber) {
+        setName(name);
+        setAddress(address);
         setPostcode(postcode);
         setEmail(email);
         setPhoneNumber(phoneNumber);
     }
 
-
-    
-
-    public String getFirstName() {
-        return firstName;
+    public String getName() {
+        return name;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getAddress() {
-        return address1 + "\n" 
-        + address2 + "\n" + city + "\n" 
-        + county + "\n" + postcode;
+        return address;
     }
 
-    public String getAddress1() {
-        return address1;
-    }
-
-    public void setAddress1(String address1) {
-        this.address1 = address1;
-    }
-
-    public String getAddress2() {
-        return address2;
-    }
-
-    public void setAddress2(String address2) {
-        this.address2 = address2;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getCounty() {
-        return county;
-    }
-
-    public void setCounty(String county) {
-        this.county = county;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getPostcode() {
@@ -105,6 +55,11 @@ public class Customer{
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
+
+
+    
+
+ 
 
 
     

@@ -27,12 +27,8 @@ public void create(Customer newCustomer) {
 
         Connection connection = null;
         PreparedStatement pstat = null;
-        String firstname = newCustomer.getFirstName();
-        String lastname = newCustomer.getLastName();
-        String address1 = newCustomer.getAddress1();
-        String address2 = newCustomer.getAddress2();
-        String city = newCustomer.getCity();
-        String county = newCustomer.getCounty();
+        String name = newCustomer.getName();
+        String address = newCustomer.getAddress();
         String postcode = newCustomer.getPostcode();
         String email = newCustomer.getEmail();
         String phoneNumber = newCustomer.getPhoneNumber();
@@ -44,19 +40,14 @@ public void create(Customer newCustomer) {
                 connection = DriverManager.getConnection(DATABASE_URL, "root", "Knockbeg11");
 
             //create Prepared Statement for inserting into table
-                pstat = connection.prepareStatement("INSERT INTO customers (FirstName, LastName, Address1, Address2, City, County, Postcode, Email, PhoneNumber) VALUES (?,?,?,?,?,?,?,?,?)");
-                pstat.setString(1, firstname);
-                pstat.setString(2, lastname);
-                pstat.setString(3, address1);
-                pstat.setString(4, address2);
-                pstat.setString(5, city);
-                pstat.setString(6, county);
-                pstat.setString(7, postcode);
-                pstat.setString(8, email);
-                pstat.setString(9, phoneNumber);
+                pstat = connection.prepareStatement("INSERT INTO customers (Name, Address, Postcode, Email, PhoneNumber) VALUES (?,?,?,?,?)");
+                pstat.setString(1, name);
+                pstat.setString(2, address);
+                pstat.setString(3, postcode);
+                pstat.setString(4, email);
+                pstat.setString(5, phoneNumber);
 
                 i = pstat.executeUpdate();
-                System.out.println(i + " record successfully added to the database");
         } 
         catch (SQLException sqlException) {
             sqlException.printStackTrace();
@@ -81,12 +72,8 @@ public DefaultTableModel retrieve() {
                 
 	
                 model.addColumn("CustomerID");
-                model.addColumn("FirstName");
-                model.addColumn("LastName");
-                model.addColumn("Address1");
-                model.addColumn("Address2");
-                model.addColumn("City");
-                model.addColumn("County");
+                model.addColumn("Name");
+                model.addColumn("Address");
                 model.addColumn("Postcode");
                 model.addColumn("Email");
                 model.addColumn("PhoneNumber");
@@ -102,7 +89,7 @@ public DefaultTableModel retrieve() {
                     while (Rs.next()) {
                         model.addRow(
                                 new Object[] { Rs.getInt(1), Rs.getString(2), Rs.getString(3), Rs.getString(4), Rs.getString(5),
-                                        Rs.getString(6), Rs.getString(7), Rs.getString(8), Rs.getString(9), Rs.getString(10) });
+                                        Rs.getString(6) });
                     }
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
@@ -134,10 +121,10 @@ public DefaultTableModel retrieve() {
                         DATABASE_URL, "root", "Knockbeg11" );
                         
                         // create Statement for querying table
-                        pstat = connection.prepareStatement("SELECT CustomerID, FirstName, LastName From Customers");
+                        pstat = connection.prepareStatement("SELECT CustomerID, Name From Customers");
                         
                         // query database
-                        resultSet = pstat.executeQuery("SELECT CustomerID, FirstName, LastName From Customers" );
+                        resultSet = pstat.executeQuery("SELECT CustomerID, Name From Customers" );
                         
                         // process query results
                         ResultSetMetaData metaData = resultSet.getMetaData();
@@ -146,7 +133,7 @@ public DefaultTableModel retrieve() {
                         
                         while(resultSet.next() ){
                                 for ( int i = 1; i <= numberOfColumns; i++ )
-                                    result = resultSet.getString("CustomerID") +" : " + resultSet.getString("FirstName") + " " + resultSet.getString("LastName");
+                                    result = resultSet.getString("CustomerID") +" : " + resultSet.getString("Name");
                                     model.addElement(result);
                         }
                     }
@@ -179,7 +166,7 @@ public DefaultTableModel retrieve() {
 
                 
 //Update method
-public void update(int CustomerID, String firstname, String lastname, String address1, String address2, String city, String county, String postcode, String email, String phoneNumber) { 
+public void update(int CustomerID, String name, String address, String postcode, String email, String phoneNumber) { 
         // database URL
 		final String DATABASE_URL = "jdbc:mysql://localhost/cms";
 		
@@ -194,17 +181,13 @@ public void update(int CustomerID, String firstname, String lastname, String add
             DATABASE_URL, "root", "Knockbeg11" );
             
             // create Statement for updating table
-            pstat = connection.prepareStatement("UPDATE customers SET FirstName = ?, Lastname = ?, Address1 = ?, Address2 = ?, City = ?, County = ?, Postcode = ?, Email = ?, Phonenumber = ? WHERE CustomerID = ?");
-            pstat.setString(1, firstname);
-            pstat.setString(2, lastname);
-            pstat.setString(3, address1);
-            pstat.setString(4, address2);
-            pstat.setString(5, city);
-            pstat.setString(6, county);
-            pstat.setString(7, postcode);
-            pstat.setString(8, email);
-            pstat.setString(9, phoneNumber);
-            pstat.setInt(10, CustomerID);
+            pstat = connection.prepareStatement("UPDATE customers SET Name = ?, Address = ?, Postcode = ?, Email = ?, Phonenumber = ? WHERE CustomerID = ?");
+            pstat.setString(1, name);
+            pstat.setString(2, address);
+            pstat.setString(3, postcode);
+            pstat.setString(4, email);
+            pstat.setString(5, phoneNumber);
+            pstat.setInt(6, CustomerID);
 
             //Update data in database
             i = pstat.executeUpdate();
