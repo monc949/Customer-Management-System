@@ -19,6 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
 import Controller.CustomerController;
@@ -38,9 +39,14 @@ public class CustomerView extends JFrame{
     JPanel buttonPanel = new JPanel();
     JButton createButton = new JButton("Create Customer");
     JButton editButton = new JButton("Edit Customer");
-    JButton loadButton = new JButton("Load Customer");
+    JButton deleteButton = new JButton("Delete Customer");
+
+
 //FONT//
     Font font1 = new Font("SansSerif", Font.PLAIN, 14);
+
+
+//Fields and Labels
 
     JTextField IDField = new JTextField();
     JTextField NameField = new JTextField();
@@ -130,18 +136,22 @@ public class CustomerView extends JFrame{
 
 
         //Buttons
-        buttonPanel.setLayout(new GridLayout(2, 1, 15, 15));
+        buttonPanel.setLayout(new GridLayout(3, 1, 15, 15));
         buttonPanel.setBackground(Color.lightGray);
 
         sidePanel.add(instructionLabel);
 
         createButton.addActionListener(new ButtonHandler());
-        createButton.setToolTipText("Enter customer info. Do not enter enter Customer ID. This auto generated");
+        createButton.setToolTipText("Enter customer info. Do not enter enter Customer ID. This will auto-generated");
         buttonPanel.add(createButton);
 
         editButton.addActionListener(new ButtonHandler());
-        editButton.setToolTipText("Enter Customer ID and fill in new info");
+        editButton.setToolTipText("Enter Customer ID and fill in new customer info");
         buttonPanel.add(editButton);
+
+        deleteButton.addActionListener(new ButtonHandler());
+        deleteButton.setToolTipText("Enter Customer ID only to delete ");
+        buttonPanel.add(deleteButton);
 
         sidePanel.add(buttonPanel);
 
@@ -159,6 +169,25 @@ public class CustomerView extends JFrame{
         public void actionPerformed(ActionEvent e){
             CustomerController cc = new CustomerController();
 
+        if (e.getSource()==createButton){
+            cc.create(new Customer(NameField.getText(), 
+            AddressField.getText(), 
+            PostcodeField.getText(), 
+            EmailField.getText(), 
+            PhoneNumberField.getText()));
+            table.setModel(cc.retrieve());
+
+
+        //Clear Fields after use
+            NameField.setText(""); 
+            AddressField.setText("");
+            PostcodeField.setText("");
+            EmailField.setText("");
+            PhoneNumberField.setText("");
+
+        }
+
+
          if (e.getSource()==editButton){
                 cc.update(Integer.parseInt(IDField.getText()),
                 NameField.getText(), 
@@ -169,6 +198,7 @@ public class CustomerView extends JFrame{
 
 
             //Clear Fields
+                IDField.setText("");
                 NameField.setText(""); 
                 AddressField.setText("");
                 PostcodeField.setText("");
@@ -178,23 +208,17 @@ public class CustomerView extends JFrame{
 
          }
 
-         if (e.getSource()==createButton){
-                cc.create(new Customer(NameField.getText(), 
-                AddressField.getText(), 
-                PostcodeField.getText(), 
-                EmailField.getText(), 
-                PhoneNumberField.getText()));
+         if (e.getSource()==deleteButton){
+                cc.delete(Integer.parseInt(IDField.getText()));
+
+
+            //Clear Fields
+                IDField.setText(""); 
                 table.setModel(cc.retrieve());
 
-
-            //Clear Fields after use
-                NameField.setText(""); 
-                AddressField.setText("");
-                PostcodeField.setText("");
-                EmailField.setText("");
-                PhoneNumberField.setText("");
-
          }
+
+
 
 
         }

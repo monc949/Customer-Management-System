@@ -95,6 +95,46 @@ public DefaultTableModel retrieve() {
          }
 
 
+//Retrieve method
+public Product makeCartItem(int productID) {
+        	// database URL
+		    final String DATABASE_URL = "jdbc:mysql://localhost/cms";
+
+            String brand = "";
+            String name = "";
+            String description = "";
+            double price = 0;
+            Product cartItem = new Product(brand, name, description, price);
+            
+    
+            //---retrieve from database---//
+            //-and populate product---//
+            try {
+                Connection con = DriverManager.getConnection(DATABASE_URL, "root", "Knockbeg11" );
+                PreparedStatement pstm = con.prepareStatement("SELECT * FROM Products WHERE ProductID = ?");
+                pstm.setInt(1, productID);
+
+                ResultSet Rs = pstm.executeQuery();
+                brand = Rs.getString("Brand");
+                name = Rs.getString("Name");
+                description = Rs.getString("Description");
+                price = Rs.getDouble("Price");
+
+                cartItem.setBrand(brand);
+                cartItem.setName(name);
+                cartItem.setDescription(description);
+                cartItem.setPrice(price);
+                
+            } 
+            catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+                
+            
+                return cartItem;
+         }
+
+
 
 
 

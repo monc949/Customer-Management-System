@@ -23,10 +23,6 @@ import Controller.ProductController;
 import View.DatabaseView.Table;
 
 public class MainView extends JFrame {
-
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
 
     ProductController pc = new ProductController();
@@ -45,12 +41,9 @@ public class MainView extends JFrame {
     JLabel productSelectLabel = new JLabel("Select Products");
     JLabel CustomerSelectLabel = new JLabel("Select Customer");
 
-    JLabel productListLabel = new JLabel("Product List");
-
     JComboBox<Object> customerSelector = new JComboBox<Object>(cc.retrieveCustomerList());
     JList<String> productSelector = new JList<String>(pc.retrieveProductList());
 
-    JList<String> productList = new JList<String>();
 
     // ---------Constructor-----------------//
 
@@ -74,11 +67,6 @@ public class MainView extends JFrame {
         center.setBackground(Color.CYAN);
         center.setVisible(true);
 
-        productList.setPreferredSize(new Dimension(500, 500));
-        productList.setAlignmentX(TOP_ALIGNMENT);
-
-        center.add(productListLabel);
-        center.add(productList);
 
         // -------Side Panel-------//
 
@@ -95,7 +83,7 @@ public class MainView extends JFrame {
                         // -----Product List------//
                         sideMenu.add(productSelectLabel);
 
-                        productSelector.setPreferredSize(new Dimension(150, 700));
+                        productSelector.setPreferredSize(new Dimension(250, 700));
 
                         JScrollPane productListContainer = new JScrollPane(productSelector);
 

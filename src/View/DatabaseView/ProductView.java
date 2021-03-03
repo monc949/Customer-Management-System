@@ -124,7 +124,7 @@ public class ProductView extends JFrame {
                 sidePanel.add(instructionLabel);
 
                 createButton.addActionListener(new ButtonHandler());
-                createButton.setToolTipText("Do Not Enter Product ID when creating new Product");
+                createButton.setToolTipText("Do Not Enter Product ID when creating new Product. This will be auto-generated");
                 buttonPanel.add(createButton);
 
                 editButton.addActionListener(new ButtonHandler());

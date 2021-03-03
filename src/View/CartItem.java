@@ -8,6 +8,7 @@ public class CartItem {
 
     private JPanel container = new JPanel();
     private JLabel itemName = new JLabel("Temp Name");
+    private JLabel itemPrice = new JLabel("Temp Price");
     private JButton clearButton = new JButton("Clear Item");
 
 
@@ -17,6 +18,7 @@ public class CartItem {
         container.setPreferredSize(new Dimension(0,50));
         itemName.setText(selectedItem);
         container.add(itemName);
+        container.add(itemPrice);
         container.add(clearButton);
     }
 
