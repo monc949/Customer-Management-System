@@ -57,7 +57,7 @@ public class CustomerView extends JFrame{
 
     JLabel instructionLabel = new JLabel("Hover over buttons for instructions");
 
-    JLabel IDLabel = new JLabel("Customer ID");
+    JLabel IDLabel = new JLabel("Customer ID", SwingConstants.RIGHT);
     JLabel NameLabel = new JLabel("Name");
     JLabel AddressLabel = new JLabel("Address");
     JLabel PostcodeLabel = new JLabel("PostCode");

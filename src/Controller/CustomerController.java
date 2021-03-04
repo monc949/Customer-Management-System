@@ -48,6 +48,8 @@ public void createNewCustomer(Customer newCustomer) {
                 pstat.setString(5, phoneNumber);
 
                 i = pstat.executeUpdate();
+                System.out.println(i + " record successfully added to the database");
+
         } 
         catch (SQLException sqlException) {
             sqlException.printStackTrace();
