@@ -74,7 +74,7 @@ public class CustomerView extends JFrame{
 
 //---Container---//
         container.setLayout(new BorderLayout());
-        table.setModel(cc.retrieve());
+        table.setModel(cc.retrieveCustomerTable());
         
         JScrollPane pg = new JScrollPane(table);
         container.add(pg, BorderLayout.CENTER);
@@ -170,12 +170,12 @@ public class CustomerView extends JFrame{
             CustomerController cc = new CustomerController();
 
         if (e.getSource()==createButton){
-            cc.create(new Customer(NameField.getText(), 
+            cc.createNewCustomer(new Customer(NameField.getText(), 
             AddressField.getText(), 
             PostcodeField.getText(), 
             EmailField.getText(), 
             PhoneNumberField.getText()));
-            table.setModel(cc.retrieve());
+            table.setModel(cc.retrieveCustomerTable());
 
 
         //Clear Fields after use
@@ -189,7 +189,7 @@ public class CustomerView extends JFrame{
 
 
          if (e.getSource()==editButton){
-                cc.update(Integer.parseInt(IDField.getText()),
+                cc.updateCustomer(Integer.parseInt(IDField.getText()),
                 NameField.getText(), 
                 AddressField.getText(), 
                 PostcodeField.getText(), 
@@ -204,17 +204,17 @@ public class CustomerView extends JFrame{
                 PostcodeField.setText("");
                 EmailField.setText("");
                 PhoneNumberField.setText("");
-                table.setModel(cc.retrieve());
+                table.setModel(cc.retrieveCustomerTable());
 
          }
 
          if (e.getSource()==deleteButton){
-                cc.delete(Integer.parseInt(IDField.getText()));
+                cc.deleteCustomer(Integer.parseInt(IDField.getText()));
 
 
             //Clear Fields
                 IDField.setText(""); 
-                table.setModel(cc.retrieve());
+                table.setModel(cc.retrieveCustomerTable());
 
          }
 

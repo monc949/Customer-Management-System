@@ -18,7 +18,7 @@ public class OrderController {
     }
 
 //Create method
-public void create(Order newOrder) {
+public void createNewOrder(Order newOrder) {
         //database URL
         final String DATABASE_URL = "jdbc:mysql://localhost/cms";
 
@@ -65,7 +65,7 @@ public void create(Order newOrder) {
 
 
 //Retrieve method
-public DefaultTableModel retrieve() {
+public DefaultTableModel retrieveOrderTable() {
         		// database URL
 		        final String DATABASE_URL = "jdbc:mysql://localhost/cms";
                 DefaultTableModel model = new DefaultTableModel();
@@ -94,15 +94,17 @@ public DefaultTableModel retrieve() {
                 return model;
             }
 
-public DefaultTableModel retrieveCustomerOrders() {
+
+
+
+public DefaultTableModel retrieveFilteredOrders(int id) {
         		// database URL
 		        final String DATABASE_URL = "jdbc:mysql://localhost/cms";
                 DefaultTableModel model = new DefaultTableModel();
-
-                //TODO: sql statement that can be added on to by a textfield
-	
-                model.addColumn("OrderID");
+    
                 model.addColumn("CustomerID");
+                model.addColumn("Name");
+                model.addColumn("OrderID");
                 model.addColumn("Order Date");
                 model.addColumn("Product List");
                 model.addColumn("Total Price");
@@ -113,19 +115,22 @@ public DefaultTableModel retrieveCustomerOrders() {
                 try {
                     Connection con = DriverManager.getConnection(DATABASE_URL, "root", "Knockbeg11" );
         
-                    PreparedStatement pstm = con.prepareStatement("SELECT * FROM Orders");
+                    PreparedStatement pstm = con.prepareStatement("SELECT Customers.CustomerID, Customers.Name, Orders.OrderID, Orders.OrderDate, Orders.ProductList, Orders.TotalPrice FROM Orders INNER JOIN Customers ON Orders.CustomerID = ?");
+                    pstm.setInt(1, id);
                     ResultSet Rs = pstm.executeQuery();
                     while(Rs.next()){
-                        model.addRow(new Object[]{Rs.getInt(1), Rs.getInt(2),Rs.getDate(3),Rs.getString(4),Rs.getDouble(5)});
+                        model.addRow(new Object[]{Rs.getInt(1), Rs.getString(2),Rs.getInt(3),Rs.getDate(4),Rs.getString(5),Rs.getDouble(6)});
                     }
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
                 }
                 return model;
             }
+
+
                 
 //Update method
-public void update(int orderID, String productList, double totalPrice) { 
+public void updateOrder(int orderID, String productList, double totalPrice) { 
         // database URL
 		final String DATABASE_URL = "jdbc:mysql://localhost/cms";
 		
@@ -165,7 +170,7 @@ public void update(int orderID, String productList, double totalPrice) {
 
 
 //Delete method
-public void delete(int orderID) {
+public void deleteOrder(int orderID) {
         	// database URL
 
 		final String DATABASE_URL = "jdbc:mysql://localhost/cms";

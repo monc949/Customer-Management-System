@@ -11,3 +11,11 @@ add inner join functionality to orders page (Search for order with customer name
 
 
 
+
+
+product selector now displays objects instead*************************** do this next
+
+
+
+
+

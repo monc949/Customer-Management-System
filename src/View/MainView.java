@@ -16,10 +16,10 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-
 import Controller.CustomerController;
 import Controller.OrderController;
 import Controller.ProductController;
+import Model.Product;
 import View.DatabaseView.Table;
 
 public class MainView extends JFrame {
@@ -42,7 +42,7 @@ public class MainView extends JFrame {
     JLabel CustomerSelectLabel = new JLabel("Select Customer");
 
     JComboBox<Object> customerSelector = new JComboBox<Object>(cc.retrieveCustomerList());
-    JList<String> productSelector = new JList<String>(pc.retrieveProductList());
+    JList<Product> productSelector = new JList<Product>(pc.retrieveProductList());
 
 
     // ---------Constructor-----------------//
@@ -60,6 +60,7 @@ public class MainView extends JFrame {
         frame.setSize(1000, 500);
         frame.setLayout(new BorderLayout());
         frame.setVisible(true);
+        frame.setLocationRelativeTo(null);
 
         // -----------Center panel-------------//
 
@@ -89,8 +90,6 @@ public class MainView extends JFrame {
 
                         sideMenu.add(ATCButton);
                         sideMenu.add(productListContainer);
-
-                        pack();
 
                         // -----Buttons-----//
 

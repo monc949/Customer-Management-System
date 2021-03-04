@@ -68,7 +68,7 @@ public class ProductView extends JFrame {
 
         container.setLayout(new BorderLayout());
         setResizable(false);
-        table.setModel(pc.retrieve());
+        table.setModel(pc.retrieveProductTable());
         
         JScrollPane pg = new JScrollPane(table);
         container.add(pg);
@@ -147,12 +147,12 @@ public class ProductView extends JFrame {
             ProductController pc = new ProductController();
 
          if (e.getSource()==editButton){
-                pc.update(Integer.parseInt(IDField.getText()),
+                pc.updateProduct(Integer.parseInt(IDField.getText()),
                 brandField.getText(),
                 nameField.getText(),
                 descriptionField.getText(),
                 Double.parseDouble(priceField.getText()));
-                table.setModel(pc.retrieve());
+                table.setModel(pc.retrieveProductTable());
 
               //Clear Fields after use
                 IDField.setText("");
@@ -164,11 +164,11 @@ public class ProductView extends JFrame {
          }
 
          if (e.getSource()==createButton){
-                pc.create(new Product(brandField.getText(),
+                pc.createNewProduct(new Product(brandField.getText(),
                 nameField.getText(),
                 descriptionField.getText(),
                 Double.parseDouble(priceField.getText())));
-                table.setModel(pc.retrieve());
+                table.setModel(pc.retrieveProductTable());
 
                 //Clear Fields after use
                 IDField.setText("");
@@ -179,8 +179,8 @@ public class ProductView extends JFrame {
          }
 
          if (e.getSource() == deleteButton) {
-                pc.delete(Integer.parseInt(IDField.getText())); 
-                table.setModel(pc.retrieve());
+                pc.deleteProduct(Integer.parseInt(IDField.getText())); 
+                table.setModel(pc.retrieveProductTable());
 
                 //Clear Fields after use
                 IDField.setText("");

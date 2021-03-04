@@ -55,6 +55,7 @@ public class OrderView extends JFrame {
     JLabel searchLabel = new JLabel("Filter by Customer");
 	JTextField searchField = new JTextField();
     JButton searchButton = new JButton("Filter");
+    JButton resetButton = new JButton("Reset");
 
 //FONT//
     Font font1 = new Font("SansSerif", Font.PLAIN, 14);
@@ -70,7 +71,7 @@ public class OrderView extends JFrame {
         setResizable(false);
     //---Container---//
         container.setLayout(new BorderLayout());
-        table.setModel(oc.retrieve());
+        table.setModel(oc.retrieveOrderTable());
 
         JScrollPane pg = new JScrollPane(table);
         container.add(pg);
@@ -125,12 +126,15 @@ public class OrderView extends JFrame {
 
 
         //Search Panel
-        searchPanel.setLayout(new GridLayout(3, 1 , 15, 1));
+        searchPanel.setLayout(new GridLayout(4, 1 , 15, 1));
         searchPanel.setBackground(Color.lightGray);
         searchPanel.setVisible(true);
         searchPanel.add(searchLabel);
+
         searchPanel.add(searchField);
         searchPanel.add(searchButton);
+        searchPanel.add(resetButton);
+        
         sidePanel.add(searchPanel);
         
         //------Final Panel Placement--------//
@@ -145,10 +149,10 @@ public class OrderView extends JFrame {
             OrderController oc = new OrderController();
 
          if (e.getSource()==editButton){
-                oc.update(Integer.parseInt(IDField.getText()),
+                oc.updateOrder(Integer.parseInt(IDField.getText()),
                 ProductListField.getText(), 
                 Double.parseDouble(TotalPriceField.getText())); 
-                table.setModel(oc.retrieve());
+                table.setModel(oc.retrieveOrderTable());
 
             //Clear Fields after use
                 IDField.setText("");
@@ -160,19 +164,22 @@ public class OrderView extends JFrame {
          }
 
          if (e.getSource() == deleteButton) {
-                oc.delete(Integer.parseInt(IDField.getText())); 
-                table.setModel(oc.retrieve());
+                oc.deleteOrder(Integer.parseInt(IDField.getText())); 
+                table.setModel(oc.retrieveOrderTable());
 
                 //Clear Fields after use
                 IDField.setText("");
                 ProductListField.setText("");
                 TotalPriceField.setText("");
-
-
-
          }
+
          if (e.getSource() == searchButton) {
-             //TODO:
+             oc.retrieveFilteredOrders(Integer.parseInt(IDField.getText()));
+         }
+
+         if (e.getSource() == resetButton) {
+             oc.retrieveOrderTable();
+             searchField.setText("");
          }
 
     }

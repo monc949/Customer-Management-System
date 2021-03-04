@@ -22,7 +22,7 @@ public class ProductController {
 
 
 //Create method
-public void create(Product newProduct) {
+public void createNewProduct(Product newProduct) {
         //database URL
         final String DATABASE_URL = "jdbc:mysql://localhost/cms";
 
@@ -66,7 +66,7 @@ public void create(Product newProduct) {
 
 
 //Retrieve method
-public DefaultTableModel retrieve() {
+public DefaultTableModel retrieveProductTable() {
         	// database URL
 		    final String DATABASE_URL = "jdbc:mysql://localhost/cms";
             DefaultTableModel model = new DefaultTableModel();
@@ -138,17 +138,19 @@ public Product makeCartItem(int productID) {
 
 
 
+
+
+
 //Retrieve product list method
-public DefaultListModel<String> retrieveProductList() {
+public DefaultListModel<Product> retrieveProductList() {
     // database URL
     final String DATABASE_URL = "jdbc:mysql://localhost/cms";
 
-    DefaultListModel<String> model = new DefaultListModel<String>();
+    DefaultListModel<Product> model = new DefaultListModel<Product>();
 
     Connection connection = null;
     PreparedStatement pstat = null;
     ResultSet resultSet = null;
-    String result = null;
     try{
     
         // establish connection to database
@@ -156,10 +158,10 @@ public DefaultListModel<String> retrieveProductList() {
         DATABASE_URL, "root", "Knockbeg11" );
         
         // create Statement for querying table
-        pstat = connection.prepareStatement("SELECT Brand, Name From Products");
+        pstat = connection.prepareStatement("SELECT * FROM Products");
         
         // query database
-        resultSet = pstat.executeQuery("SELECT Brand, Name From Products" );
+        resultSet = pstat.executeQuery("SELECT * FROM Products" );
         
         // process query results
         ResultSetMetaData metaData = resultSet.getMetaData();
@@ -168,8 +170,12 @@ public DefaultListModel<String> retrieveProductList() {
         
         while(resultSet.next() ){
                 for ( int i = 1; i <= numberOfColumns; i++ )
-                    result = resultSet.getString("Brand") + " " + resultSet.getString("Name");
-                    model.addElement(result);
+                    model.addElement(new Product(
+                    resultSet.getInt("ProductID"),
+                    resultSet.getString("Brand"),
+                    resultSet.getString("name"),
+                    resultSet.getString("description"),
+                    resultSet.getDouble("price")));
         }
 
 
@@ -196,7 +202,7 @@ public DefaultListModel<String> retrieveProductList() {
 
                 
 //Update method
-public void update(int orderID, String brand, String name, String description, double price) {
+public void updateProduct(int orderID, String brand, String name, String description, double price) {
         // database URL
 		final String DATABASE_URL = "jdbc:mysql://localhost/cms";
 		
@@ -238,7 +244,7 @@ public void update(int orderID, String brand, String name, String description, d
 
 
 //Delete method
-public void delete(int productID) {
+public void deleteProduct(int productID) {
         	// database URL
 
 		final String DATABASE_URL = "jdbc:mysql://localhost/cms";

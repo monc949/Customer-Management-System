@@ -21,7 +21,7 @@ public class CustomerController {
     }
 
 //Create method
-public void create(Customer newCustomer) {
+public void createNewCustomer(Customer newCustomer) {
         //database URL
         final String DATABASE_URL = "jdbc:mysql://localhost/cms";
 
@@ -65,7 +65,7 @@ public void create(Customer newCustomer) {
 
 
 //Retrieve method
-public DefaultTableModel retrieve() {
+public DefaultTableModel retrieveCustomerTable() {
         		// database URL
 		        final String DATABASE_URL = "jdbc:mysql://localhost/cms";
                 DefaultTableModel model = new DefaultTableModel();
@@ -166,7 +166,7 @@ public DefaultTableModel retrieve() {
 
                 
 //Update method
-public void update(int CustomerID, String name, String address, String postcode, String email, String phoneNumber) { 
+public void updateCustomer(int CustomerID, String name, String address, String postcode, String email, String phoneNumber) { 
         // database URL
 		final String DATABASE_URL = "jdbc:mysql://localhost/cms";
 		
@@ -209,7 +209,7 @@ public void update(int CustomerID, String name, String address, String postcode,
 
 
 //Delete method
-public void delete(int customerID) {
+public void deleteCustomer(int customerID) {
         	// database URL
 
 		final String DATABASE_URL = "jdbc:mysql://localhost/cms";
