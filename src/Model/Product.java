@@ -63,6 +63,11 @@ public class Product {
         this.productID = productID;
     }
 
+    @Override
+    public String toString() {
+        return getBrand() + " " + getName();
+    }
+
     
 
 

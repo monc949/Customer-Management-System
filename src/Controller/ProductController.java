@@ -161,24 +161,19 @@ public DefaultListModel<Product> retrieveProductList() {
         pstat = connection.prepareStatement("SELECT * FROM Products");
         
         // query database
-        resultSet = pstat.executeQuery("SELECT * FROM Products" );
+        resultSet = pstat.executeQuery("SELECT * FROM Products");
         
         // process query results
-        ResultSetMetaData metaData = resultSet.getMetaData();
-        int numberOfColumns = metaData.getColumnCount();
-        
-        
         while(resultSet.next() ){
-                for ( int i = 1; i <= numberOfColumns; i++ )
-                    model.addElement(new Product(
-                    resultSet.getInt("ProductID"),
+                    Product element = new Product(resultSet.getInt("ProductID"),
                     resultSet.getString("Brand"),
                     resultSet.getString("name"),
                     resultSet.getString("description"),
-                    resultSet.getDouble("price")));
-        }
+                    resultSet.getDouble("price"));
 
+                    model.addElement(element);
 
+            }
     }
             catch(SQLException sqlException ) {
                 sqlException.printStackTrace();

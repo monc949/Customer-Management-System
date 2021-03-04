@@ -42,6 +42,7 @@ public class MainView extends JFrame {
     JLabel CustomerSelectLabel = new JLabel("Select Customer");
 
     JComboBox<Object> customerSelector = new JComboBox<Object>(cc.retrieveCustomerList());
+    
     JList<Product> productSelector = new JList<Product>(pc.retrieveProductList());
 
 
