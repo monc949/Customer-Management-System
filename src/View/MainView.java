@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BoxLayout;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -42,9 +43,10 @@ public class MainView extends JFrame {
     JLabel CustomerSelectLabel = new JLabel("Select Customer");
 
     JComboBox<Object> customerSelector = new JComboBox<Object>(cc.retrieveCustomerList());
-    
+
     JList<Product> productSelector = new JList<Product>(pc.retrieveProductList());
 
+    JList<Product> cart = new JList<Product>();
 
     // ---------Constructor-----------------//
 
@@ -69,7 +71,6 @@ public class MainView extends JFrame {
         center.setBackground(Color.CYAN);
         center.setVisible(true);
 
-
         // -------Side Panel-------//
 
         sideMenu.setPreferredSize(new Dimension(300, 0));
@@ -78,24 +79,25 @@ public class MainView extends JFrame {
         sideMenu.setBackground(Color.lightGray);
         sideMenu.setVisible(true);
 
-                        // -------Customer Selection Box------//
-                        sideMenu.add(CustomerSelectLabel);
-                        sideMenu.add(customerSelector);
+        // -------Customer Selection Box------//
+        sideMenu.add(CustomerSelectLabel);
+        sideMenu.add(customerSelector);
 
-                        // -----Product List------//
-                        sideMenu.add(productSelectLabel);
+        // -----Product List------//
+        sideMenu.add(productSelectLabel);
 
-                        productSelector.setPreferredSize(new Dimension(250, 700));
+        productSelector.setPreferredSize(new Dimension(250, 700));
 
-                        JScrollPane productListContainer = new JScrollPane(productSelector);
+        JScrollPane productListContainer = new JScrollPane(productSelector);
 
-                        sideMenu.add(ATCButton);
-                        sideMenu.add(productListContainer);
+        sideMenu.add(productListContainer);
+        ATCButton.addActionListener(new ButtonHandler());
+        sideMenu.add(ATCButton);
 
-                        // -----Buttons-----//
+        // -----Buttons-----//
 
-                        sideMenu.add(submitInvoiceButton);
-                        sideMenu.add(clearListButton);
+        sideMenu.add(submitInvoiceButton);
+        sideMenu.add(clearListButton);
 
         // -----Top Panel-------//
 
@@ -104,43 +106,32 @@ public class MainView extends JFrame {
         topMenu.setLayout(new FlowLayout());
         topMenu.setBackground(Color.lightGray);
 
-                    // -----Buttons-----//
-                    productDBButton.setBounds(0, 0, 90, 5);
-                    productDBButton.setFocusable(false);
-                    productDBButton.addActionListener(new ButtonHandler());
-                    topMenu.add(productDBButton);
+        // -----Buttons-----//
+        productDBButton.setBounds(0, 0, 90, 5);
+        productDBButton.setFocusable(false);
+        productDBButton.addActionListener(new ButtonHandler());
+        topMenu.add(productDBButton);
 
-                    customerDBButton.setBounds(0, 0, 90, 5);
-                    customerDBButton.setFocusable(false);
-                    customerDBButton.addActionListener(new ButtonHandler());
-                    topMenu.add(customerDBButton);
+        customerDBButton.setBounds(0, 0, 90, 5);
+        customerDBButton.setFocusable(false);
+        customerDBButton.addActionListener(new ButtonHandler());
+        topMenu.add(customerDBButton);
 
-                    orderDBButton.setBounds(0, 0, 90, 5);
-                    orderDBButton.setFocusable(false);
-                    orderDBButton.addActionListener(new ButtonHandler());
-                    topMenu.add(orderDBButton);
+        orderDBButton.setBounds(0, 0, 90, 5);
+        orderDBButton.setFocusable(false);
+        orderDBButton.addActionListener(new ButtonHandler());
+        topMenu.add(orderDBButton);
 
-                    topMenu.setVisible(true);
+        topMenu.setVisible(true);
 
         // -----Add components ------>
         frame.add(sideMenu, BorderLayout.WEST);
         frame.add(topMenu, BorderLayout.NORTH);
         frame.add(center, BorderLayout.CENTER);
 
-
-
     }
 
-
-
-
-
-
-
-
     // ----------Action listener---------------//
-
- 
 
     private class ButtonHandler implements ActionListener {
         public void actionPerformed(ActionEvent e) {
