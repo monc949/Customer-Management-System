@@ -2,12 +2,21 @@ package Model;
 
 public class Product {
     
+    private int productID;
     private String brand;
     private String name;
     private String description;
     private double price;
 
     public Product(String brand, String name, String description, double price) {
+        setBrand(brand);
+        setName(name);
+        setDescription(description);
+        setPrice(price);
+    }
+
+    public Product(int productID, String brand, String name, String description, double price) {
+        setProductID(productID);
         setBrand(brand);
         setName(name);
         setDescription(description);
@@ -44,6 +53,14 @@ public class Product {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public int getProductID() {
+        return productID;
+    }
+
+    public void setProductID(int productID) {
+        this.productID = productID;
     }
 
     
