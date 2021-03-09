@@ -1,4 +1,4 @@
-package View;
+package Model;
 
 import java.awt.Dimension;
 
