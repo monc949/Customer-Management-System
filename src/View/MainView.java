@@ -45,8 +45,6 @@ public class MainView extends JFrame {
 
     JList<Product> productSelector = new JList<Product>(pc.retrieveProductList());
 
-    JList<Product> cart = new JList<Product>();
-
     // ---------Constructor-----------------//
 
     public MainView() {
@@ -145,7 +143,9 @@ public class MainView extends JFrame {
             }
 
             if (e.getSource() == ATCButton) {
-                
+                pc.makeCartItem(productSelector.getSelectedIndex() + 1);
+                //TODO:
+
             }
 
             if (e.getSource() == submitInvoiceButton) {
