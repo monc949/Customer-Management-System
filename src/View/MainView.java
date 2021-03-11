@@ -113,8 +113,11 @@ public class MainView extends JFrame {
         sideMenu.add(ATCButton);
 
         // -----Buttons-----//
-
+        submitInvoiceButton.addActionListener(new ButtonHandler());
         sideMenu.add(submitInvoiceButton);
+
+
+        clearListButton.addActionListener(new ButtonHandler());
         sideMenu.add(clearListButton);
 
         // -----Top Panel-------//
@@ -173,7 +176,8 @@ public class MainView extends JFrame {
                 // TODO:
             }
             if (e.getSource() == clearListButton) {
-                // TODO:
+                cic.clearCart();
+                table.setModel(cic.retrieveCartTable());
             }
         }
     }

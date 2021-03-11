@@ -8,12 +8,10 @@ with all of its info with a quantity field aswell for ease of use, maybe a remov
 
 add inner join functionality to orders page (Search for order with customer name)
 
-adding item to cart not working yet******************
 
 
 
 Then copy all the products in the cart into a new order
- mainview is just gonna have a table showing the cart items and some other feature that i could think of
 
 
 
