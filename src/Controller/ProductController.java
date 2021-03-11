@@ -95,7 +95,7 @@ public DefaultTableModel retrieveProductTable() {
 
 
 //Retrieve method
-public Product makeCartItem(int productID) {
+public Product makeCartItem(int productIndex) {
         	// database URL
 		    final String DATABASE_URL = "jdbc:mysql://localhost/cms";
 
@@ -111,7 +111,7 @@ public Product makeCartItem(int productID) {
             try {
                 Connection con = DriverManager.getConnection(DATABASE_URL, "root", "Knockbeg11" );
                 PreparedStatement pstm = con.prepareStatement("SELECT * FROM Products WHERE ProductID = ?");
-                pstm.setInt(1, productID);
+                pstm.setInt(1, productIndex);
 
                 ResultSet Rs = pstm.executeQuery();
                 brand = Rs.getString("Brand");

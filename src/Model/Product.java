@@ -59,6 +59,10 @@ public class Product {
         return productID;
     }
 
+    public String getProductIDString(){
+        return String.valueOf(productID);
+    }
+
     public void setProductID(int productID) {
         this.productID = productID;
     }

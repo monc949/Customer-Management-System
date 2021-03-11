@@ -15,7 +15,10 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
+import Controller.CartItemController;
 import Controller.CustomerController;
 import Controller.OrderController;
 import Controller.ProductController;
@@ -28,6 +31,7 @@ public class MainView extends JFrame {
     ProductController pc = new ProductController();
     CustomerController cc = new CustomerController();
     OrderController oc = new OrderController();
+    CartItemController cic = new CartItemController();
 
     // ---------Components--------------//
     JButton productDBButton = new JButton("Product Database");
@@ -40,6 +44,9 @@ public class MainView extends JFrame {
 
     JLabel productSelectLabel = new JLabel("Select Products");
     JLabel CustomerSelectLabel = new JLabel("Select Customer");
+
+    DefaultTableModel model = new DefaultTableModel();
+    JTable table = new JTable(model);
 
     JComboBox<Object> customerSelector = new JComboBox<Object>(cc.retrieveCustomerList());
 
@@ -67,6 +74,20 @@ public class MainView extends JFrame {
         center.setLayout(new BoxLayout(center, BoxLayout.Y_AXIS));
         center.setBackground(Color.CYAN);
         center.setVisible(true);
+
+                // ---------------Table----------------//
+
+        // Make table uneditable
+        table.setEnabled(false);
+        setResizable(false);
+
+//---Container---//
+        table.setModel(cic.retrieveCartTable());
+        
+        JScrollPane pg = new JScrollPane(table);
+        center.add(pg, BorderLayout.CENTER);
+
+        this.pack();
 
         // -------Side Panel-------//
 
@@ -143,8 +164,8 @@ public class MainView extends JFrame {
             }
 
             if (e.getSource() == ATCButton) {
-                pc.makeCartItem(productSelector.getSelectedIndex() + 1);
-                //TODO:
+                cic.createNewCartItem(productSelector.getSelectedValue());
+                table.setModel(cic.retrieveCartTable());
 
             }
 
