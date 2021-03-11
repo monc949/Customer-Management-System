@@ -1,13 +1,14 @@
 package Model;
 
+import java.util.ArrayList;
 
 public class Order {
 
     private int customerID;
     private double totalPrice;
-    private Product[] productList;
+    private ArrayList<Product> productList = new ArrayList<Product>();
 
-    public Order(int customerID, Product[] productList) {
+    public Order(int customerID, ArrayList<Product> productList) {
         setCustomerID(customerID);
         setProductList(productList);
         setTotalPrice();
@@ -34,11 +35,11 @@ public class Order {
         this.totalPrice = totalPrice;
     }
 
-    public Product[] getProductList() {
+    public ArrayList<Product> getProductList() {
         return productList;
     }
 
-    public void setProductList(Product[] productList) {
+    public void setProductList(ArrayList<Product> productList) {
         this.productList = productList;
     }
 

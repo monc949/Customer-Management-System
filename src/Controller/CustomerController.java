@@ -11,6 +11,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.table.DefaultTableModel;
 
 import Model.Customer;
+import Model.Product;
 
 
 public class CustomerController {
@@ -106,11 +107,11 @@ public DefaultTableModel retrieveCustomerTable() {
 
     //get customer list for combo box 
 
-                public Object[] retrieveCustomerList() {
+                public DefaultListModel<Customer> retrieveCustomerList() {
                     // database URL
                     final String DATABASE_URL = "jdbc:mysql://localhost/cms";
                 
-                    DefaultListModel<String> model = new DefaultListModel<String>();
+                    DefaultListModel<Customer> model = new DefaultListModel<Customer>();
                 
                     Connection connection = null;
                     PreparedStatement pstat = null;
@@ -123,10 +124,77 @@ public DefaultTableModel retrieveCustomerTable() {
                         DATABASE_URL, "root", "Knockbeg11" );
                         
                         // create Statement for querying table
-                        pstat = connection.prepareStatement("SELECT CustomerID, Name From Customers");
+                        pstat = connection.prepareStatement("SELECT * From Customers");
                         
                         // query database
-                        resultSet = pstat.executeQuery("SELECT CustomerID, Name From Customers" );
+                        resultSet = pstat.executeQuery("SELECT * From Customers" );
+                        
+                        // process query results
+                        ResultSetMetaData metaData = resultSet.getMetaData();
+                        int numberOfColumns = metaData.getColumnCount();
+                        
+                        
+                        while(resultSet.next() ){
+                                Customer element = new Customer(resultSet.getInt("CustomerID"),
+                                 resultSet.getString("Name"),
+                                  resultSet.getString("Address"),
+                                   resultSet.getString("Postcode"),
+                                    resultSet.getString("Email"),
+                                     resultSet.getString("PhoneNumber"));
+            
+                                model.addElement(element);
+                    }
+                            catch(SQLException sqlException ) {
+                                sqlException.printStackTrace();
+                        }
+                            finally{
+                                try{
+                                    resultSet.close();
+                                    pstat.close();
+                                    connection.close();
+                                }
+                                catch ( Exception exception ){
+                                    exception.printStackTrace();
+                                }
+                        }
+
+
+                            return model;
+                
+                }
+                  
+
+
+
+                public int getCustomerID(Customer customer) {
+                    // database URL
+                    final String DATABASE_URL = "jdbc:mysql://localhost/cms";
+                
+                    Connection connection = null;
+                    PreparedStatement pstat = null;
+                    ResultSet resultSet = null;
+                    int result = 0;
+                    String name = customer.getName();
+                    String address = customer.getAddress();
+                    String postcode = customer.getPostcode();
+                    String email = customer.getEmail();
+                    String phonenumber = customer.getPhoneNumber();
+                    try{
+                    
+                        // establish connection to database
+                        connection = DriverManager.getConnection(
+                        DATABASE_URL, "root", "Knockbeg11" );
+                        
+                        // create Statement for querying table
+                        pstat = connection.prepareStatement("SELECT CustomerID FROM Customers WHERE Name = ? AND Address = ? AND PostCode = ? AND Email = ? AND PhoneNumber = ?");
+                        pstat.setString(1, name);
+                        pstat.setString(2, address);
+                        pstat.setString(3, postcode);
+                        pstat.setString(4, email);
+                        pstat.setString(5, phonenumber);
+                        
+                        // query database
+                        resultSet = pstat.executeQuery("SELECT CustomerID FROM Customers WHERE Name = ? AND Address = ? AND PostCode = ? AND Email = ? AND PhoneNumber = ?");
                         
                         // process query results
                         ResultSetMetaData metaData = resultSet.getMetaData();
@@ -135,8 +203,7 @@ public DefaultTableModel retrieveCustomerTable() {
                         
                         while(resultSet.next() ){
                                 for ( int i = 1; i <= numberOfColumns; i++ )
-                                    result = resultSet.getString("CustomerID") +" : " + resultSet.getString("Name");
-                                    model.addElement(result);
+                                    result = resultSet.getInt("CustomerID");
                         }
                     }
                             catch(SQLException sqlException ) {
@@ -152,10 +219,8 @@ public DefaultTableModel retrieveCustomerTable() {
                                     exception.printStackTrace();
                                 }
                         }
-                            Object[] customerString = new String[model.toArray().length];
-                            customerString = model.toArray();
 
-                            return customerString;
+                            return result;
                 
                 }
                   

@@ -1,6 +1,7 @@
 package Model;
 
 public class Customer{
+    private int customerID;
     private String name;
     private String address;
     private String postcode;
@@ -9,6 +10,15 @@ public class Customer{
 
 
     public Customer(String name, String address, String postcode, String email, String phoneNumber) {
+        setCustomerID(customerID);
+        setName(name);
+        setAddress(address);
+        setPostcode(postcode);
+        setEmail(email);
+        setPhoneNumber(phoneNumber);
+    }
+
+    public Customer(int customerID, String name, String address, String postcode, String email, String phoneNumber) {
         setName(name);
         setAddress(address);
         setPostcode(postcode);
@@ -55,6 +65,15 @@ public class Customer{
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
+
+    public int getCustomerID() {
+        return customerID;
+    }
+
+    public void setCustomerID(int customerID) {
+        this.customerID = customerID;
+    }
+
 
 
     

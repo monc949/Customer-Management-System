@@ -15,6 +15,11 @@ Then copy all the products in the cart into a new order
 
 
 
+****cant populate the customer selector with customer objects just yet,
+at the moment theyre just a toString of an objetc somehow
+
+
+
 
 
 

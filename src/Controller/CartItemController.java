@@ -61,6 +61,38 @@ public void createNewCartItem(Product product) {
         }
     }
 
+    //Retrieve method
+public DefaultTableModel cartToString() {
+    // database URL
+    final String DATABASE_URL = "jdbc:mysql://localhost/cms";
+    DefaultTableModel model = new DefaultTableModel();
+    
+
+    model.addColumn("OrderID");
+    model.addColumn("CustomerID");
+    model.addColumn("Order Date");
+    model.addColumn("ProductList");
+    model.addColumn("TotalPrice");
+
+
+    //---retrieve from database---//
+    //-and populate table---//
+    try {
+        Connection con = DriverManager.getConnection(DATABASE_URL, "root", "Knockbeg11");
+
+        PreparedStatement pstm = con.prepareStatement("SELECT * FROM Customers");
+        ResultSet Rs = pstm.executeQuery();
+        while (Rs.next()) {
+            model.addRow(
+                    new Object[] { Rs.getInt(1), Rs.getString(2), Rs.getString(3), Rs.getString(4), Rs.getString(5),
+                            Rs.getString(6) });
+        }
+    } catch (Exception e) {
+        System.out.println(e.getMessage());
+    }
+    return model;
+}
+
 
 
 //Delete method
