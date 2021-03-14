@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
+import javax.swing.ComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -51,7 +52,7 @@ public class MainView extends JFrame {
     DefaultTableModel model = new DefaultTableModel();
     JTable table = new JTable(model);
 
-    JComboBox<Object> customerSelector = new JComboBox<Object>(cc.retrieveCustomerList());
+    JComboBox<Customer> customerSelector = new JComboBox<Customer>(cc.retrieveCustomerList());
 
     JList<Product> productSelector = new JList<Product>(pc.retrieveProductList());
 
@@ -180,7 +181,7 @@ public class MainView extends JFrame {
             }
 
             if (e.getSource() == submitInvoiceButton) {
-                Customer customer = customerSelector.getSelectedItem();
+                Customer customer = (Customer) customerSelector.getSelectedItem();
                 int CustomerID = cc.getCustomerID(customer);
                 Order newOrder = new Order(CustomerID, productList);
                 oc.createNewOrder(newOrder);
