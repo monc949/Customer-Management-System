@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
+import javax.swing.ComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.table.DefaultTableModel;
 
@@ -107,11 +108,11 @@ public DefaultTableModel retrieveCustomerTable() {
 
     //get customer list for combo box 
 
-                public DefaultListModel<Customer> retrieveCustomerList() {
+                public ComboBoxModel<Customer> retrieveCustomerList() {
                     // database URL
                     final String DATABASE_URL = "jdbc:mysql://localhost/cms";
                 
-                    DefaultListModel<Customer> model = new DefaultListModel<Customer>();
+                    ComboBoxModel<Object>
                 
                     Connection connection = null;
                     PreparedStatement pstat = null;
@@ -142,8 +143,10 @@ public DefaultTableModel retrieveCustomerTable() {
                                     resultSet.getString("Email"),
                                      resultSet.getString("PhoneNumber"));
             
-                                model.addElement(element);
-                    }
+                                model.setSelectedItem(element);
+                                    }       
+                                }
+                    
                             catch(SQLException sqlException ) {
                                 sqlException.printStackTrace();
                         }
