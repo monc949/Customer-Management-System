@@ -1,22 +1,8 @@
-add the new list of "selected" items to the center panel
-currently thinking of making a mini panel to hold the product list indiviudal items that have all its info on it,
-so you click an item on the product selector and it pops up in the center panel
-(is there all along but set visible = true on click/add to cart)
-with all of its info with a quantity field aswell for ease of use, maybe a remove button.
-
-
-
 add inner join functionality to orders page (Search for order with customer name)
 
 
 
 
-Then copy all the products in the cart into a new order
-
-
-
-****cant populate the customer selector with customer objects just yet,
-at the moment theyre just a toString of an objetc somehow
 
 
 

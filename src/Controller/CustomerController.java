@@ -7,12 +7,10 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
-import javax.swing.ComboBoxModel;
-import javax.swing.DefaultListModel;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 
 import Model.Customer;
-import Model.Product;
 
 
 public class CustomerController {
@@ -108,63 +106,60 @@ public DefaultTableModel retrieveCustomerTable() {
 
     //get customer list for combo box 
 
-                public ComboBoxModel<Customer> retrieveCustomerList() {
-                    // database URL
-                    final String DATABASE_URL = "jdbc:mysql://localhost/cms";
-                
-                    ComboBoxModel<Object>
-                
-                    Connection connection = null;
-                    PreparedStatement pstat = null;
-                    ResultSet resultSet = null;
-                    String result = null;
-                    try{
-                    
-                        // establish connection to database
-                        connection = DriverManager.getConnection(
-                        DATABASE_URL, "root", "Knockbeg11" );
-                        
-                        // create Statement for querying table
-                        pstat = connection.prepareStatement("SELECT * From Customers");
-                        
-                        // query database
-                        resultSet = pstat.executeQuery("SELECT * From Customers" );
-                        
-                        // process query results
-                        ResultSetMetaData metaData = resultSet.getMetaData();
-                        int numberOfColumns = metaData.getColumnCount();
-                        
-                        
-                        while(resultSet.next() ){
-                                Customer element = new Customer(resultSet.getInt("CustomerID"),
-                                 resultSet.getString("Name"),
-                                  resultSet.getString("Address"),
-                                   resultSet.getString("Postcode"),
-                                    resultSet.getString("Email"),
-                                     resultSet.getString("PhoneNumber"));
+    public DefaultComboBoxModel<Customer> retrieveCustomerList() {
+        // database URL
+        final String DATABASE_URL = "jdbc:mysql://localhost/cms";
+    
+        DefaultComboBoxModel<Customer> model = new DefaultComboBoxModel<Customer>();
+    
+
+        Connection connection = null;
+        PreparedStatement pstat = null;
+        ResultSet resultSet = null;
+        try{
+        
+            // establish connection to database
+            connection = DriverManager.getConnection(
+            DATABASE_URL, "root", "Knockbeg11" );
             
-                                model.setSelectedItem(element);
-                                    }       
-                                }
-                    
-                            catch(SQLException sqlException ) {
-                                sqlException.printStackTrace();
-                        }
-                            finally{
-                                try{
-                                    resultSet.close();
-                                    pstat.close();
-                                    connection.close();
-                                }
-                                catch ( Exception exception ){
-                                    exception.printStackTrace();
-                                }
-                        }
+            // create Statement for querying table
+            pstat = connection.prepareStatement("SELECT * From Customers");
+            
+            // query database
+            resultSet = pstat.executeQuery("SELECT * From Customers");
+            
+            // process query results
+            
+            while(resultSet.next() ){
+                        Customer element = new Customer(resultSet.getInt("CustomerID"),
+                            resultSet.getString("Name"),
+                            resultSet.getString("Address"),
+                            resultSet.getString("Postcode"),
+                            resultSet.getString("Email"),
+                            resultSet.getString("PhoneNumber"));
 
-
-                            return model;
-                
-                }
+                            model.addElement(element);
+                        
+            }
+    }
+        
+                catch(SQLException sqlException ) {
+                    sqlException.printStackTrace();
+            }
+                finally{
+                    try{
+                        resultSet.close();
+                        pstat.close();
+                        connection.close();
+                    }
+                    catch ( Exception exception ){
+                        exception.printStackTrace();
+                    }
+            }
+                return model;
+    
+    }
+      
                   
 
 

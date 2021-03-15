@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.swing.table.DefaultTableModel;
 
@@ -30,7 +31,6 @@ public void createNewCartItem(Product product) {
         String name = product.getName();
         String description = product.getDescription();
         Double price = product.getPrice();
-        int i;
 
         try {
 
@@ -44,7 +44,7 @@ public void createNewCartItem(Product product) {
                 pstat.setString(3, name);
                 pstat.setString(4, description);
                 pstat.setDouble(5, price);
-                i = pstat.executeUpdate();
+                pstat.executeUpdate();
 
         } 
         catch (SQLException sqlException) {
@@ -61,37 +61,6 @@ public void createNewCartItem(Product product) {
         }
     }
 
-    //Retrieve method
-public DefaultTableModel cartToString() {
-    // database URL
-    final String DATABASE_URL = "jdbc:mysql://localhost/cms";
-    DefaultTableModel model = new DefaultTableModel();
-    
-
-    model.addColumn("OrderID");
-    model.addColumn("CustomerID");
-    model.addColumn("Order Date");
-    model.addColumn("ProductList");
-    model.addColumn("TotalPrice");
-
-
-    //---retrieve from database---//
-    //-and populate table---//
-    try {
-        Connection con = DriverManager.getConnection(DATABASE_URL, "root", "Knockbeg11");
-
-        PreparedStatement pstm = con.prepareStatement("SELECT * FROM Customers");
-        ResultSet Rs = pstm.executeQuery();
-        while (Rs.next()) {
-            model.addRow(
-                    new Object[] { Rs.getInt(1), Rs.getString(2), Rs.getString(3), Rs.getString(4), Rs.getString(5),
-                            Rs.getString(6) });
-        }
-    } catch (Exception e) {
-        System.out.println(e.getMessage());
-    }
-    return model;
-}
 
 
 
@@ -140,8 +109,7 @@ public void clearCart() {
 final String DATABASE_URL = "jdbc:mysql://localhost/cms";
 
 Connection connection = null;
-PreparedStatement pstat = null;	
-int i = 0;		
+PreparedStatement pstat = null;			
 try{
     
     // establish connection to database
@@ -150,7 +118,7 @@ try{
     // create Statement for deleting from table
     pstat = connection.prepareStatement("Delete FROM cart");			
     
-    i = pstat.executeUpdate();
+    pstat.executeUpdate();
  }
 catch(SQLException sqlException ) {
     sqlException.printStackTrace();
@@ -199,6 +167,38 @@ public DefaultTableModel retrieveCartTable() {
 
 
 
+public ArrayList<Product> retrieveCartItems() {
+    // database URL
+    final String DATABASE_URL = "jdbc:mysql://localhost/cms";
+    ArrayList<Product> cartItems = new ArrayList<Product>();
+
+    //---retrieve from database---//
+    //-and populate table---//
+    try {
+        Connection con = DriverManager.getConnection(DATABASE_URL, "root", "Knockbeg11");
+
+        PreparedStatement pstm = con.prepareStatement("SELECT * FROM Cart");
+        ResultSet resultSet = pstm.executeQuery();
+        while (resultSet.next()) {
+            Product element = new Product(resultSet.getInt("ProductID"),
+            resultSet.getString("Brand"),
+            resultSet.getString("name"),
+            resultSet.getString("description"),
+            resultSet.getDouble("price"));
+
+            
+            cartItems.add(element);
+        }
+    }
+         catch (Exception e) {
+        System.out.println(e.getMessage());
+        }
+        return cartItems; 
+    }
 
 }
+
+
+
+
 

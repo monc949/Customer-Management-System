@@ -9,7 +9,6 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
-import javax.swing.ComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -101,9 +100,14 @@ public class MainView extends JFrame {
         sideMenu.setBackground(Color.lightGray);
         sideMenu.setVisible(true);
 
+
+
         // -------Customer Selection Box------//
         sideMenu.add(CustomerSelectLabel);
         sideMenu.add(customerSelector);
+
+
+
 
         // -----Product List------//
         sideMenu.add(productSelectLabel);
@@ -116,6 +120,8 @@ public class MainView extends JFrame {
         ATCButton.addActionListener(new ButtonHandler());
         sideMenu.add(ATCButton);
 
+
+
         // -----Buttons-----//
         submitInvoiceButton.addActionListener(new ButtonHandler());
         sideMenu.add(submitInvoiceButton);
@@ -124,12 +130,16 @@ public class MainView extends JFrame {
         clearListButton.addActionListener(new ButtonHandler());
         sideMenu.add(clearListButton);
 
+
+
         // -----Top Panel-------//
 
         topMenu.setPreferredSize(new Dimension(0, 100));
         topMenu.setMinimumSize(new Dimension(0, 70));
         topMenu.setLayout(new FlowLayout());
         topMenu.setBackground(Color.lightGray);
+
+
 
         // -----Buttons-----//
         productDBButton.setBounds(0, 0, 90, 5);
@@ -160,9 +170,6 @@ public class MainView extends JFrame {
 
     private class ButtonHandler implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            ArrayList<Product> productList = new ArrayList<Product>();
-
-
             if (e.getSource() == productDBButton) {
                 new Table(1);
             }
@@ -175,20 +182,21 @@ public class MainView extends JFrame {
 
             if (e.getSource() == ATCButton) {
                 cic.createNewCartItem(productSelector.getSelectedValue());
-                productList.add(productSelector.getSelectedValue());
                 table.setModel(cic.retrieveCartTable());
 
             }
 
             if (e.getSource() == submitInvoiceButton) {
                 Customer customer = (Customer) customerSelector.getSelectedItem();
-                int CustomerID = cc.getCustomerID(customer);
-                Order newOrder = new Order(CustomerID, productList);
+                int CustomerID = customer.getCustomerID();
+                
+                ArrayList<Product> cartItems = cic.retrieveCartItems();
+                Order newOrder = new Order(CustomerID, cartItems);
                 oc.createNewOrder(newOrder);
+                table.setModel(cic.retrieveCartTable());
             }
             if (e.getSource() == clearListButton) {
                 cic.clearCart();
-                productList.clear();
                 table.setModel(cic.retrieveCartTable());
             }
         }

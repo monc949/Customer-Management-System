@@ -10,7 +10,6 @@ public class Customer{
 
 
     public Customer(String name, String address, String postcode, String email, String phoneNumber) {
-        setCustomerID(customerID);
         setName(name);
         setAddress(address);
         setPostcode(postcode);
@@ -19,6 +18,7 @@ public class Customer{
     }
 
     public Customer(int customerID, String name, String address, String postcode, String email, String phoneNumber) {
+        setCustomerID(customerID);
         setName(name);
         setAddress(address);
         setPostcode(postcode);
@@ -72,6 +72,11 @@ public class Customer{
 
     public void setCustomerID(int customerID) {
         this.customerID = customerID;
+    }
+
+    @Override
+    public String toString() {
+        return customerID + " : " + name;
     }
 
 
