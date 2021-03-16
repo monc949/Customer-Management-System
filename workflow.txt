@@ -2,7 +2,9 @@ add inner join functionality to orders page (Search for order with customer name
 
 
 
+add refresh button on main page
 
+resructure database view layouts to be more functional,
 
 
 

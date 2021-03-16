@@ -47,6 +47,7 @@ public class MainView extends JFrame {
 
     JLabel productSelectLabel = new JLabel("Select Products");
     JLabel CustomerSelectLabel = new JLabel("Select Customer");
+    JLabel cartLabel = new JLabel("Cart");
 
     DefaultTableModel model = new DefaultTableModel();
     JTable table = new JTable(model);
@@ -76,6 +77,7 @@ public class MainView extends JFrame {
 
         center.setLayout(new BoxLayout(center, BoxLayout.Y_AXIS));
         center.setBackground(Color.CYAN);
+        center.add(cartLabel);
         center.setVisible(true);
 
                 // ---------------Table----------------//

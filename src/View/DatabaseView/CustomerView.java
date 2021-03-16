@@ -179,6 +179,7 @@ public class CustomerView extends JFrame{
 
 
         //Clear Fields after use
+            IDField.setText("");
             NameField.setText(""); 
             AddressField.setText("");
             PostcodeField.setText("");
