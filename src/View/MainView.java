@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -17,6 +18,7 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
 import Controller.CartItemController;
@@ -42,12 +44,11 @@ public class MainView extends JFrame {
     JButton customerDBButton = new JButton("Customer Database");
 
     JButton submitInvoiceButton = new JButton("Submit Invoice");
-    JButton clearListButton = new JButton("Clear List");
+    JButton clearCartButton = new JButton("Clear Cart");
     JButton ATCButton = new JButton("Add to Cart");
 
     JLabel productSelectLabel = new JLabel("Select Products");
     JLabel CustomerSelectLabel = new JLabel("Select Customer");
-    JLabel cartLabel = new JLabel("Cart");
 
     DefaultTableModel model = new DefaultTableModel();
     JTable table = new JTable(model);
@@ -76,8 +77,7 @@ public class MainView extends JFrame {
         // -----------Center panel-------------//
 
         center.setLayout(new BoxLayout(center, BoxLayout.Y_AXIS));
-        center.setBackground(Color.CYAN);
-        center.add(cartLabel);
+        center.setBackground(Color.lightGray);
         center.setVisible(true);
 
                 // ---------------Table----------------//
@@ -129,8 +129,8 @@ public class MainView extends JFrame {
         sideMenu.add(submitInvoiceButton);
 
 
-        clearListButton.addActionListener(new ButtonHandler());
-        sideMenu.add(clearListButton);
+        clearCartButton.addActionListener(new ButtonHandler());
+        sideMenu.add(clearCartButton);
 
 
 
@@ -197,7 +197,7 @@ public class MainView extends JFrame {
                 oc.createNewOrder(newOrder);
                 table.setModel(cic.retrieveCartTable());
             }
-            if (e.getSource() == clearListButton) {
+            if (e.getSource() == clearCartButton) {
                 cic.clearCart();
                 table.setModel(cic.retrieveCartTable());
             }
