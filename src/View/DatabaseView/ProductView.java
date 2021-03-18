@@ -83,33 +83,27 @@ public class ProductView extends JFrame {
 
 
                //----text fields---//
-        
-               IDField.setPreferredSize(new Dimension(15, 23));
-               IDField.setMaximumSize(new Dimension(Integer.MAX_VALUE, IDField.getPreferredSize().height));
+               IDField.setSize(12, 23);
                IDField.setFont(font1);
                sidePanel.add(IDLabel);
                sidePanel.add(IDField);
-       
-               brandField.setPreferredSize(new Dimension(12, 23));
-               brandField.setMaximumSize(new Dimension(Integer.MAX_VALUE, brandField.getPreferredSize().height));
+
+               brandField.setSize(12, 23);
                brandField.setFont(font1);
                sidePanel.add(brandLabel);
                sidePanel.add(brandField);
        
-               nameField.setPreferredSize(new Dimension(12, 23));
-               nameField.setMaximumSize(new Dimension(Integer.MAX_VALUE, nameField.getPreferredSize().height));
+               nameField.setSize(12, 23);
                nameField.setFont(font1);
                sidePanel.add(nameLabel);
                sidePanel.add(nameField);
-       
-               descriptionField.setPreferredSize(new Dimension(12, 23));
-               descriptionField.setMaximumSize(new Dimension(Integer.MAX_VALUE, descriptionField.getPreferredSize().height));
+
+               descriptionField.setSize(12, 23);
                descriptionField.setFont(font1);
                sidePanel.add(descriptionLabel);
                sidePanel.add(descriptionField);
-       
-               priceField.setPreferredSize(new Dimension(12, 23));
-               priceField.setMaximumSize(new Dimension(Integer.MAX_VALUE, priceField.getPreferredSize().height));
+
+               priceField.setSize(12, 23);
                priceField.setFont(font1);
                sidePanel.add(priceLabel);
                sidePanel.add(priceField);

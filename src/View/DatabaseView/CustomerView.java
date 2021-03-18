@@ -19,7 +19,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
 import Controller.CustomerController;
@@ -57,7 +56,7 @@ public class CustomerView extends JFrame{
 
     JLabel instructionLabel = new JLabel("Hover over buttons for instructions");
 
-    JLabel IDLabel = new JLabel("Customer ID", SwingConstants.RIGHT);
+    JLabel IDLabel = new JLabel("Customer ID");
     JLabel NameLabel = new JLabel("Name");
     JLabel AddressLabel = new JLabel("Address");
     JLabel PostcodeLabel = new JLabel("PostCode");
@@ -92,42 +91,36 @@ public class CustomerView extends JFrame{
         //-----Text Fields-----////////
 
         IDField.setSize(12, 23);
-        IDField.setMaximumSize(new Dimension(Integer.MAX_VALUE, IDField.getPreferredSize().height));
         IDField.setFont(font1);
         sidePanel.add(IDLabel);
         sidePanel.add(IDField);
 
 
         NameField.setSize(12, 23);
-        NameField.setMaximumSize(new Dimension(Integer.MAX_VALUE, NameField.getPreferredSize().height));
         NameField.setFont(font1);
         sidePanel.add(NameLabel);
         sidePanel.add(NameField);
 
 
         AddressField.setSize(12, 23);
-        AddressField.setMaximumSize(new Dimension(Integer.MAX_VALUE, AddressField.getPreferredSize().height));
         AddressField.setFont(font1);
         sidePanel.add(AddressLabel);
         sidePanel.add(AddressField);
 
 
         PostcodeField.setSize(12, 23);
-        PostcodeField.setMaximumSize(new Dimension(Integer.MAX_VALUE, PostcodeField.getPreferredSize().height));
         PostcodeField.setFont(font1);
         sidePanel.add(PostcodeLabel);
         sidePanel.add(PostcodeField);
 
 
         EmailField.setSize(12, 23);
-        EmailField.setMaximumSize(new Dimension(Integer.MAX_VALUE, EmailField.getPreferredSize().height));
         EmailField.setFont(font1);
         sidePanel.add(EmailLabel);
         sidePanel.add(EmailField);
 
 
         PhoneNumberField.setSize(12, 23);
-        PhoneNumberField.setMaximumSize(new Dimension(Integer.MAX_VALUE, PhoneNumberField.getPreferredSize().height));
         PhoneNumberField.setFont(font1);
         sidePanel.add(PhoneNumberLabel);
         sidePanel.add(PhoneNumberField);

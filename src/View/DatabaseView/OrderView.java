@@ -90,19 +90,16 @@ public class OrderView extends JFrame {
         //----text fields---//
         
         IDField.setSize(12, 23);
-        IDField.setMaximumSize(new Dimension(Integer.MAX_VALUE, IDField.getPreferredSize().height));
         IDField.setFont(font1);
         sidePanel.add(IDLabel);
         sidePanel.add(IDField);
 
         ProductListField.setSize(12, 23);
-        ProductListField.setMaximumSize(new Dimension(Integer.MAX_VALUE, ProductListField.getPreferredSize().height));
         ProductListField.setFont(font1);
         sidePanel.add(ProductListLabel);
         sidePanel.add(ProductListField);
 
         TotalPriceField.setSize(12, 23);
-        TotalPriceField.setMaximumSize(new Dimension(Integer.MAX_VALUE, TotalPriceField.getPreferredSize().height));
         TotalPriceField.setFont(font1);
         sidePanel.add(TotalPriceLabel);
         sidePanel.add(TotalPriceField);
