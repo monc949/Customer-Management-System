@@ -102,9 +102,8 @@ public DefaultTableModel retrieveFilteredOrders(int id) {
 		        final String DATABASE_URL = "jdbc:mysql://localhost/cms";
                 DefaultTableModel model = new DefaultTableModel();
     
-                model.addColumn("CustomerID");
-                model.addColumn("Name");
                 model.addColumn("OrderID");
+                model.addColumn("CustomerID");
                 model.addColumn("Order Date");
                 model.addColumn("Product List");
                 model.addColumn("Total Price");
@@ -115,11 +114,11 @@ public DefaultTableModel retrieveFilteredOrders(int id) {
                 try {
                     Connection con = DriverManager.getConnection(DATABASE_URL, "root", "Knockbeg11" );
         
-                    PreparedStatement pstm = con.prepareStatement("SELECT Customers.CustomerID, Customers.Name, Orders.OrderID, Orders.OrderDate, Orders.ProductList, Orders.TotalPrice FROM Orders INNER JOIN Customers ON Orders.CustomerID = ?");
+                    PreparedStatement pstm = con.prepareStatement("SELECT * FROM Orders WHERE CustomerID = ?");
                     pstm.setInt(1, id);
                     ResultSet Rs = pstm.executeQuery();
                     while(Rs.next()){
-                        model.addRow(new Object[]{Rs.getInt(1), Rs.getString(2),Rs.getInt(3),Rs.getDate(4),Rs.getString(5),Rs.getDouble(6)});
+                        model.addRow(new Object[]{Rs.getInt(1), Rs.getInt(2),Rs.getDate(3),Rs.getString(4),Rs.getDouble(5)});
                     }
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
