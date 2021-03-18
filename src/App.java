@@ -1,5 +1,3 @@
-import javax.swing.JDialog;
-
 import View.*;
 
 
