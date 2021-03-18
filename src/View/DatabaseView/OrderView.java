@@ -129,8 +129,12 @@ public class OrderView extends JFrame {
         searchPanel.add(searchLabel);
 
         searchPanel.add(searchField);
+
+        searchButton.addActionListener(new ButtonHandler());
         searchPanel.add(searchButton);
+
         searchPanel.add(resetButton);
+        resetButton.addActionListener(new ButtonHandler());
         
         sidePanel.add(searchPanel);
         
@@ -171,11 +175,11 @@ public class OrderView extends JFrame {
          }
 
          if (e.getSource() == searchButton) {
-             oc.retrieveFilteredOrders(Integer.parseInt(IDField.getText()));
+             table.setModel(oc.retrieveFilteredOrders(Integer.parseInt(searchField.getText())));
          }
 
          if (e.getSource() == resetButton) {
-             oc.retrieveOrderTable();
+             table.setModel(oc.retrieveOrderTable());
              searchField.setText("");
          }
 

@@ -193,7 +193,7 @@ public class MainView extends JFrame {
                 ArrayList<Product> cartItems = cic.retrieveCartItems();
                 Order newOrder = new Order(CustomerID, cartItems);
                 oc.createNewOrder(newOrder);
-                table.setModel(cic.retrieveCartTable());
+                cic.clearCart();
             }
             if (e.getSource() == clearCartButton) {
                 cic.clearCart();
