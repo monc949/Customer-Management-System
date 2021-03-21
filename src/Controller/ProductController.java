@@ -20,6 +20,10 @@ public class ProductController {
     }
 
 
+
+/** Adds a new record to the product database
+ * @param newProduct
+ */
 //Create method
 public void createNewProduct(Product newProduct) {
         //database URL
@@ -32,7 +36,6 @@ public void createNewProduct(Product newProduct) {
         String description = newProduct.getDescription();
         double price = newProduct.getPrice();
  
-        int i;
 
         try {
 
@@ -46,8 +49,7 @@ public void createNewProduct(Product newProduct) {
                 pstat.setString(3, description);
                 pstat.setDouble(4, price);
 
-                i = pstat.executeUpdate();
-                System.out.println(i + " record successfully added to the database");
+                pstat.executeUpdate();
         } 
         catch (SQLException sqlException) {
             sqlException.printStackTrace();
@@ -64,6 +66,10 @@ public void createNewProduct(Product newProduct) {
     }
 
 
+
+/** Returns all products in the database as a Table Model
+ * @return DefaultTableModel
+ */
 //Retrieve method
 public DefaultTableModel retrieveProductTable() {
         	// database URL
@@ -94,53 +100,12 @@ public DefaultTableModel retrieveProductTable() {
          }
 
 
-//Retrieve method
-public Product makeCartItem(int productIndex) {
-        	// database URL
-		    final String DATABASE_URL = "jdbc:mysql://localhost/cms";
-
-            String brand = "";
-            String name = "";
-            String description = "";
-            double price = 0;
-            Product cartItem = new Product(brand, name, description, price);
-            
-    
-            //---retrieve from database---//
-            //-and populate product---//
-            try {
-                Connection con = DriverManager.getConnection(DATABASE_URL, "root", "Knockbeg11" );
-                PreparedStatement pstm = con.prepareStatement("SELECT * FROM Products WHERE ProductID = ?");
-                pstm.setInt(1, productIndex);
-
-                ResultSet Rs = pstm.executeQuery();
-                brand = Rs.getString("Brand");
-                name = Rs.getString("Name");
-                description = Rs.getString("Description");
-                price = Rs.getDouble("Price");
-
-                cartItem.setBrand(brand);
-                cartItem.setName(name);
-                cartItem.setDescription(description);
-                cartItem.setPrice(price);
-                
-            } 
-            catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
-                
-            
-                return cartItem;
-         }
 
 
 
-
-
-
-
-
-//Retrieve product list method
+/** Returns all products from the database in a List Model
+ * @return DefaultListModel<Product>
+ */
 public DefaultListModel<Product> retrieveProductList() {
     // database URL
     final String DATABASE_URL = "jdbc:mysql://localhost/cms";
@@ -195,15 +160,21 @@ public DefaultListModel<Product> retrieveProductList() {
     
 
                 
-//Update method
-public void updateProduct(int orderID, String brand, String name, String description, double price) {
+
+/** Takes in a product ID and updates the product information given by the user
+ * @param productID
+ * @param brand
+ * @param name
+ * @param description
+ * @param price
+ */
+public void updateProduct(int productID, String brand, String name, String description, double price) {
         // database URL
 		final String DATABASE_URL = "jdbc:mysql://localhost/cms";
 		
 
         Connection connection = null;
         PreparedStatement pstat = null;
-        int i;
         
         try{
             // establish connection to database
@@ -216,11 +187,10 @@ public void updateProduct(int orderID, String brand, String name, String descrip
             pstat.setString(2, name);
             pstat.setString(3, description);
             pstat.setDouble(4, price);
-            pstat.setDouble(5, orderID);
+            pstat.setDouble(5, productID);
 
             //Update data in database
-            i = pstat.executeUpdate();
-            System.out.println(i + " record successfully updated in the database");
+            pstat.executeUpdate();
          }
         catch(SQLException sqlException ) {
             sqlException.printStackTrace();
@@ -237,7 +207,10 @@ public void updateProduct(int orderID, String brand, String name, String descrip
     }
 
 
-//Delete method
+
+/** Takes in a Product ID and deltes the corresponding product from the database
+ * @param productID
+ */
 public void deleteProduct(int productID) {
         	// database URL
 
@@ -245,7 +218,6 @@ public void deleteProduct(int productID) {
 		
         Connection connection = null;
         PreparedStatement pstat = null;	
-        int i = 0;		
         try{
             
             // establish connection to database
@@ -256,8 +228,7 @@ public void deleteProduct(int productID) {
             pstat.setInt(1, productID);		
             
             //Delete data in database
-            i = pstat.executeUpdate();
-            System.out.println(i + " record successfully removed from the database. ");
+            pstat.executeUpdate();
             
          }
         catch(SQLException sqlException ) {

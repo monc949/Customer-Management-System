@@ -17,7 +17,10 @@ public class OrderController {
 
     }
 
-//Create method
+
+/** Takes in a order and adds a new order record to the database
+ * @param newOrder
+ */
 public void createNewOrder(Order newOrder) {
         //database URL
         final String DATABASE_URL = "jdbc:mysql://localhost/cms";
@@ -31,7 +34,6 @@ public void createNewOrder(Order newOrder) {
         double totalPrice = newOrder.getTotalPrice();
         String productList = newOrder.toString();
        
-        int i;
 
         try {
 
@@ -44,8 +46,7 @@ public void createNewOrder(Order newOrder) {
                 pstat.setString(2, productList);
                 pstat.setDouble(3, totalPrice);
 
-                i = pstat.executeUpdate();
-                System.out.println(i + " record successfully added to the database");
+                pstat.executeUpdate();
 
 
         } 
@@ -64,7 +65,10 @@ public void createNewOrder(Order newOrder) {
     }
 
 
-//Retrieve method
+
+/** Returns all orders in the form of a Table Model
+ * @return DefaultTableModel
+ */
 public DefaultTableModel retrieveOrderTable() {
         		// database URL
 		        final String DATABASE_URL = "jdbc:mysql://localhost/cms";
@@ -97,6 +101,11 @@ public DefaultTableModel retrieveOrderTable() {
 
 
 
+
+/** Takes in a customer ID and returns the Orders made by that customer in the form of a table model
+ * @param id
+ * @return DefaultTableModel
+ */
 public DefaultTableModel retrieveFilteredOrders(int id) {
         		// database URL
 		        final String DATABASE_URL = "jdbc:mysql://localhost/cms";
@@ -128,7 +137,12 @@ public DefaultTableModel retrieveFilteredOrders(int id) {
 
 
                 
-//Update method
+
+/** Takes in and OrderID and updates the Order with the information passed in by the user
+ * @param orderID
+ * @param productList
+ * @param totalPrice
+ */
 public void updateOrder(int orderID, String productList, double totalPrice) { 
         // database URL
 		final String DATABASE_URL = "jdbc:mysql://localhost/cms";
@@ -136,7 +150,6 @@ public void updateOrder(int orderID, String productList, double totalPrice) {
 
         Connection connection = null;
         PreparedStatement pstat = null;
-        int i;
         
         try{
             // establish connection to database
@@ -150,8 +163,7 @@ public void updateOrder(int orderID, String productList, double totalPrice) {
             pstat.setInt(3, orderID);
 
             //Update data in database
-            i = pstat.executeUpdate();
-            System.out.println(i + " record successfully updated in the database");
+            pstat.executeUpdate();
          }
         catch(SQLException sqlException ) {
             sqlException.printStackTrace();
@@ -168,7 +180,10 @@ public void updateOrder(int orderID, String productList, double totalPrice) {
     }
 
 
-//Delete method
+
+/** Takes in an OrderID and deletes the corresponding Order
+ * @param orderID
+ */
 public void deleteOrder(int orderID) {
         	// database URL
 
@@ -176,7 +191,6 @@ public void deleteOrder(int orderID) {
 		
         Connection connection = null;
         PreparedStatement pstat = null;	
-        int i = 0;		
         try{
             
             // establish connection to database
@@ -187,8 +201,7 @@ public void deleteOrder(int orderID) {
             pstat.setInt(1, orderID);		
             
             //Delete data in database
-            i = pstat.executeUpdate();
-            System.out.println(i + " record successfully removed from the database. ");
+            pstat.executeUpdate();
             
          }
         catch(SQLException sqlException ) {

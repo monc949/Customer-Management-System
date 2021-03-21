@@ -20,7 +20,10 @@ public class CustomerController {
 
     }
 
-//Create method
+
+/** Creates a new customer record on the customer table
+ * @param newCustomer customer object created and sent from GUI
+ */
 public void createNewCustomer(Customer newCustomer) {
         //database URL
         final String DATABASE_URL = "jdbc:mysql://localhost/cms";
@@ -32,7 +35,6 @@ public void createNewCustomer(Customer newCustomer) {
         String postcode = newCustomer.getPostcode();
         String email = newCustomer.getEmail();
         String phoneNumber = newCustomer.getPhoneNumber();
-        int i;
 
         try {
 
@@ -47,8 +49,7 @@ public void createNewCustomer(Customer newCustomer) {
                 pstat.setString(4, email);
                 pstat.setString(5, phoneNumber);
 
-                i = pstat.executeUpdate();
-                System.out.println(i + " record successfully added to the database");
+                pstat.executeUpdate();
 
         } 
         catch (SQLException sqlException) {
@@ -66,7 +67,10 @@ public void createNewCustomer(Customer newCustomer) {
     }
 
 
-//Retrieve method
+
+/** Builds and returns a Table model for the customer table
+ * @return DefaultTableModel
+ */
 public DefaultTableModel retrieveCustomerTable() {
         		// database URL
 		        final String DATABASE_URL = "jdbc:mysql://localhost/cms";
@@ -104,7 +108,10 @@ public DefaultTableModel retrieveCustomerTable() {
 
 
 
-    //get customer list for combo box 
+    
+    /** Builds and returns a ComboBox Model for the customer select combobox
+     * @return DefaultComboBoxModel<Customer>
+     */
 
     public DefaultComboBoxModel<Customer> retrieveCustomerList() {
         // database URL
@@ -164,64 +171,69 @@ public DefaultTableModel retrieveCustomerTable() {
 
 
 
-                public int getCustomerID(Customer customer) {
-                    // database URL
-                    final String DATABASE_URL = "jdbc:mysql://localhost/cms";
                 
-                    Connection connection = null;
-                    PreparedStatement pstat = null;
-                    ResultSet resultSet = null;
-                    int result = 0;
-                    String name = customer.getName();
-                    String address = customer.getAddress();
-                    String postcode = customer.getPostcode();
-                    String email = customer.getEmail();
-                    String phonenumber = customer.getPhoneNumber();
+    /** Passes in a customer Object and returns the ID for that customer
+     * @param customer
+     * @return int 
+     */
+    public int getCustomerID(Customer customer) {
+        // database URL
+        final String DATABASE_URL = "jdbc:mysql://localhost/cms";
+    
+        Connection connection = null;
+        PreparedStatement pstat = null;
+        ResultSet resultSet = null;
+        int result = 0;
+        String name = customer.getName();
+        String address = customer.getAddress();
+        String postcode = customer.getPostcode();
+        String email = customer.getEmail();
+        String phonenumber = customer.getPhoneNumber();
+        try{
+        
+            // establish connection to database
+            connection = DriverManager.getConnection(
+            DATABASE_URL, "root", "Knockbeg11" );
+            
+            // create Statement for querying table
+            pstat = connection.prepareStatement("SELECT CustomerID FROM Customers WHERE Name = ? AND Address = ? AND PostCode = ? AND Email = ? AND PhoneNumber = ?");
+            pstat.setString(1, name);
+            pstat.setString(2, address);
+            pstat.setString(3, postcode);
+            pstat.setString(4, email);
+            pstat.setString(5, phonenumber);
+            
+            // query database
+            resultSet = pstat.executeQuery("SELECT CustomerID FROM Customers WHERE Name = ? AND Address = ? AND PostCode = ? AND Email = ? AND PhoneNumber = ?");
+            
+            // process query results
+            ResultSetMetaData metaData = resultSet.getMetaData();
+            int numberOfColumns = metaData.getColumnCount();
+            
+            
+            while(resultSet.next() ){
+                    for ( int i = 1; i <= numberOfColumns; i++ )
+                        result = resultSet.getInt("CustomerID");
+            }
+        }
+                catch(SQLException sqlException ) {
+                    sqlException.printStackTrace();
+            }
+                finally{
                     try{
-                    
-                        // establish connection to database
-                        connection = DriverManager.getConnection(
-                        DATABASE_URL, "root", "Knockbeg11" );
-                        
-                        // create Statement for querying table
-                        pstat = connection.prepareStatement("SELECT CustomerID FROM Customers WHERE Name = ? AND Address = ? AND PostCode = ? AND Email = ? AND PhoneNumber = ?");
-                        pstat.setString(1, name);
-                        pstat.setString(2, address);
-                        pstat.setString(3, postcode);
-                        pstat.setString(4, email);
-                        pstat.setString(5, phonenumber);
-                        
-                        // query database
-                        resultSet = pstat.executeQuery("SELECT CustomerID FROM Customers WHERE Name = ? AND Address = ? AND PostCode = ? AND Email = ? AND PhoneNumber = ?");
-                        
-                        // process query results
-                        ResultSetMetaData metaData = resultSet.getMetaData();
-                        int numberOfColumns = metaData.getColumnCount();
-                        
-                        
-                        while(resultSet.next() ){
-                                for ( int i = 1; i <= numberOfColumns; i++ )
-                                    result = resultSet.getInt("CustomerID");
-                        }
+                        resultSet.close();
+                        pstat.close();
+                        connection.close();
                     }
-                            catch(SQLException sqlException ) {
-                                sqlException.printStackTrace();
-                        }
-                            finally{
-                                try{
-                                    resultSet.close();
-                                    pstat.close();
-                                    connection.close();
-                                }
-                                catch ( Exception exception ){
-                                    exception.printStackTrace();
-                                }
-                        }
+                    catch ( Exception exception ){
+                        exception.printStackTrace();
+                    }
+            }
 
-                            return result;
-                
-                }
-                  
+                return result;
+    
+    }
+        
 
 
 
@@ -230,6 +242,15 @@ public DefaultTableModel retrieveCustomerTable() {
 
 
                 
+
+/** Passes in a customerID and updates a customers information given the parameters enterd by user
+ * @param CustomerID
+ * @param name
+ * @param address
+ * @param postcode
+ * @param email
+ * @param phoneNumber
+ */
 //Update method
 public void updateCustomer(int CustomerID, String name, String address, String postcode, String email, String phoneNumber) { 
         // database URL
@@ -238,7 +259,6 @@ public void updateCustomer(int CustomerID, String name, String address, String p
 
         Connection connection = null;
         PreparedStatement pstat = null;
-        int i;
         
         try{
             // establish connection to database
@@ -255,8 +275,7 @@ public void updateCustomer(int CustomerID, String name, String address, String p
             pstat.setInt(6, CustomerID);
 
             //Update data in database
-            i = pstat.executeUpdate();
-            System.out.println(i + " record successfully updated in the database");
+            pstat.executeUpdate();
          }
         catch(SQLException sqlException ) {
             sqlException.printStackTrace();
@@ -273,6 +292,10 @@ public void updateCustomer(int CustomerID, String name, String address, String p
     }
 
 
+
+/** Passes in a CustomerID and deletes the corresponding customer from the database
+ * @param customerID
+ */
 //Delete method
 public void deleteCustomer(int customerID) {
         	// database URL
@@ -281,7 +304,6 @@ public void deleteCustomer(int customerID) {
 		
         Connection connection = null;
         PreparedStatement pstat = null;	
-        int i = 0;		
         try{
             
             // establish connection to database
@@ -292,8 +314,7 @@ public void deleteCustomer(int customerID) {
             pstat.setInt(1, customerID);		
             
             //Delete data in database
-            i = pstat.executeUpdate();
-            System.out.println(i + " record successfully removed from the database. ");
+            pstat.executeUpdate();
             
          }
         catch(SQLException sqlException ) {

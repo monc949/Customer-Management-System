@@ -20,10 +20,9 @@ public class CartItemController {
     }
 
 
-/** 
- * @param product
+/** Adds a product to the cart 
+ * @param product this product is passed in through the Product List
  */
-//Create method
 public void createNewCartItem(Product product) {
         //database URL
         final String DATABASE_URL = "jdbc:mysql://localhost/cms";
@@ -66,35 +65,29 @@ public void createNewCartItem(Product product) {
     }
 
 
+/** Clears all items in the cart 
+ * 
+ */
+public void clearCart() {
+    // database URL
 
+        final String DATABASE_URL = "jdbc:mysql://localhost/cms";
 
-//Delete method
-public void deleteCartItem(Product product) {
-        	// database URL
-
-		final String DATABASE_URL = "jdbc:mysql://localhost/cms";
-		
         Connection connection = null;
-        PreparedStatement pstat = null;	
-        int productID = product.getProductID();
-        int i = 0;		
+        PreparedStatement pstat = null;			
         try{
             
             // establish connection to database
             connection = DriverManager.getConnection(DATABASE_URL, "root" , "Knockbeg11" );
 
             // create Statement for deleting from table
-            pstat = connection.prepareStatement("Delete FROM cart WHERE ProductID = ?");	
-            pstat.setInt(1, productID);		
+            pstat = connection.prepareStatement("Delete FROM cart");			
             
-            //Delete data in database
-            i = pstat.executeUpdate();
-            System.out.println(i + " record successfully removed from the database. ");
-            
-         }
+            pstat.executeUpdate();
+        }
         catch(SQLException sqlException ) {
             sqlException.printStackTrace();
-         }
+        }
         finally{
             try{
                 pstat.close();
@@ -104,41 +97,12 @@ public void deleteCartItem(Product product) {
                 exception.printStackTrace();
             }
         }
-    }
-
-    //Delete method
-public void clearCart() {
-    // database URL
-
-final String DATABASE_URL = "jdbc:mysql://localhost/cms";
-
-Connection connection = null;
-PreparedStatement pstat = null;			
-try{
-    
-    // establish connection to database
-    connection = DriverManager.getConnection(DATABASE_URL, "root" , "Knockbeg11" );
-
-    // create Statement for deleting from table
-    pstat = connection.prepareStatement("Delete FROM cart");			
-    
-    pstat.executeUpdate();
- }
-catch(SQLException sqlException ) {
-    sqlException.printStackTrace();
- }
-finally{
-    try{
-        pstat.close();
-        connection.close();
-    }
-    catch ( Exception exception ){
-        exception.printStackTrace();
-    }
-}
 }
 
-    //Retrieve method
+    
+    /**  Builds and returns a table model to be used on the main order screen
+     * @return DefaultTableModel
+     */
 public DefaultTableModel retrieveCartTable() {
     // database URL
     final String DATABASE_URL = "jdbc:mysql://localhost/cms";
@@ -171,6 +135,10 @@ public DefaultTableModel retrieveCartTable() {
 
 
 
+
+/** Returns the contents of the cart as an array list of products
+ * @return ArrayList<Product>
+ */
 public ArrayList<Product> retrieveCartItems() {
     // database URL
     final String DATABASE_URL = "jdbc:mysql://localhost/cms";

@@ -189,19 +189,26 @@ public class MainView extends JFrame {
             if (e.getSource() == productDBButton) {
                 new Table(1);
             }
+
             //Customer Database
             if (e.getSource() == customerDBButton) {
                 new Table(2);
             }
+
             //Orders Database
             if (e.getSource() == orderDBButton) {
                 new Table(3);
             }
+
+
+
+
             //Add to Cart
             if (e.getSource() == ATCButton) {
                 cic.createNewCartItem(productSelector.getSelectedValue());
                 table.setModel(cic.retrieveCartTable());
             }
+
             //Submit Invoice
             if (e.getSource() == submitInvoiceButton) {
                 Customer customer = (Customer) customerSelector.getSelectedItem();
