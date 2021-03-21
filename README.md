@@ -1,4 +1,3 @@
 # Customer-Management-System
-Stock and Purchasing System written in Java
 
-This is a Stock and Purchasing system written in Java with a Swing GUI 
+This is a Stock, Customer and Invoice management system written in Java with a Swing GUI

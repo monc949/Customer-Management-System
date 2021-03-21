@@ -1,3 +1,0 @@
-SELECT Customers.CustomerID, Customers.Name, Orders.OrderID, Orders.OrderDate, Orders.ProductList, Orders.TotalPrice
-FROM Orders
-INNER JOIN Customers ON Orders.CustomerID = Customers.CustomerID;

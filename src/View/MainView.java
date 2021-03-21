@@ -37,9 +37,13 @@ public class MainView extends JFrame {
     CartItemController cic = new CartItemController();
 
     // ---------Components--------------//
+    JButton refreshButton = new JButton("Refresh");
+    JPanel refreshButtonPanel = new JPanel();
+
     JButton productDBButton = new JButton("Product Database");
     JButton orderDBButton = new JButton("Order Database");
     JButton customerDBButton = new JButton("Customer Database");
+    JPanel databaseButtonsPanel = new JPanel();
 
     JButton submitInvoiceButton = new JButton("Submit Invoice");
     JButton clearCartButton = new JButton("Clear Cart");
@@ -101,7 +105,6 @@ public class MainView extends JFrame {
         sideMenu.setVisible(true);
 
 
-
         // -------Customer Selection Box------//
         sideMenu.add(CustomerSelectLabel);
         sideMenu.add(customerSelector);
@@ -136,26 +139,38 @@ public class MainView extends JFrame {
 
         topMenu.setPreferredSize(new Dimension(0, 100));
         topMenu.setMinimumSize(new Dimension(0, 70));
-        topMenu.setLayout(new FlowLayout());
+        topMenu.setLayout(new BorderLayout());
         topMenu.setBackground(Color.lightGray);
+        databaseButtonsPanel.setBackground(Color.lightGray);
+        refreshButtonPanel.setBackground(Color.lightGray);
 
 
 
         // -----Buttons-----//
-        productDBButton.setBounds(0, 0, 90, 5);
+        productDBButton.setSize(90, 5);
         productDBButton.setFocusable(false);
         productDBButton.addActionListener(new ButtonHandler());
-        topMenu.add(productDBButton);
+        databaseButtonsPanel.add(productDBButton);
 
-        customerDBButton.setBounds(0, 0, 90, 5);
+        customerDBButton.setSize(90, 5);
         customerDBButton.setFocusable(false);
         customerDBButton.addActionListener(new ButtonHandler());
-        topMenu.add(customerDBButton);
+        databaseButtonsPanel.add(customerDBButton);
 
-        orderDBButton.setBounds(0, 0, 90, 5);
+        orderDBButton.setSize(90, 5);
         orderDBButton.setFocusable(false);
         orderDBButton.addActionListener(new ButtonHandler());
-        topMenu.add(orderDBButton);
+        databaseButtonsPanel.add(orderDBButton);
+
+        refreshButton.setSize(90, 5);
+        refreshButton.setFocusable(false);
+        refreshButton.addActionListener(new ButtonHandler());
+        refreshButtonPanel.add(refreshButton);
+
+        topMenu.add(refreshButtonPanel, BorderLayout.WEST);
+        topMenu.add(databaseButtonsPanel, BorderLayout.NORTH);
+
+
 
         topMenu.setVisible(true);
 
@@ -170,22 +185,24 @@ public class MainView extends JFrame {
 
     private class ButtonHandler implements ActionListener {
         public void actionPerformed(ActionEvent e) {
+            //Product Database
             if (e.getSource() == productDBButton) {
                 new Table(1);
             }
+            //Customer Database
             if (e.getSource() == customerDBButton) {
                 new Table(2);
             }
+            //Orders Database
             if (e.getSource() == orderDBButton) {
                 new Table(3);
             }
-
+            //Add to Cart
             if (e.getSource() == ATCButton) {
                 cic.createNewCartItem(productSelector.getSelectedValue());
                 table.setModel(cic.retrieveCartTable());
-
             }
-
+            //Submit Invoice
             if (e.getSource() == submitInvoiceButton) {
                 Customer customer = (Customer) customerSelector.getSelectedItem();
                 int CustomerID = customer.getCustomerID();
@@ -194,7 +211,9 @@ public class MainView extends JFrame {
                 Order newOrder = new Order(CustomerID, cartItems);
                 oc.createNewOrder(newOrder);
                 cic.clearCart();
+                table.setModel(cic.retrieveCartTable());
             }
+            //Clear Cart
             if (e.getSource() == clearCartButton) {
                 cic.clearCart();
                 table.setModel(cic.retrieveCartTable());
