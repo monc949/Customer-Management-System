@@ -14,6 +14,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -136,6 +137,8 @@ public class OrderView extends JFrame {
         resetButton.addActionListener(new ButtonHandler());
         
         sidePanel.add(searchPanel);
+        searchButton.setToolTipText("Enter Customer ID");
+
         
         //------Final Panel Placement--------//
         container.add(sidePanel, BorderLayout.EAST);
@@ -145,45 +148,68 @@ public class OrderView extends JFrame {
     
     private class ButtonHandler implements ActionListener {
         @Override
-        public void actionPerformed(ActionEvent e){
+        public void actionPerformed(ActionEvent ae){
             OrderController oc = new OrderController();
 
-         if (e.getSource()==editButton){
+         if (ae.getSource()==editButton){
+             try {
                 oc.updateOrder(Integer.parseInt(IDField.getText()),
                 ProductListField.getText(), 
                 Double.parseDouble(TotalPriceField.getText())); 
                 table.setModel(oc.retrieveOrderTable());
+             } catch (Exception e) {
+                 OrderView.infoBox("You have entered the information incorrectly. \nPlease mouse over the buttons to learn how to use the functions", "Incorrect Information");
+             }
 
-            //Clear Fields after use
-                IDField.setText("");
-                ProductListField.setText("");
-                TotalPriceField.setText("");
-
-
-
-         }
-
-         if (e.getSource() == deleteButton) {
-                oc.deleteOrder(Integer.parseInt(IDField.getText())); 
-                table.setModel(oc.retrieveOrderTable());
-
+             finally {
                 //Clear Fields after use
                 IDField.setText("");
                 ProductListField.setText("");
                 TotalPriceField.setText("");
+             }
+
+
          }
 
-         if (e.getSource() == searchButton) {
+         if (ae.getSource() == deleteButton) {
+             try {
+                oc.deleteOrder(Integer.parseInt(IDField.getText())); 
+                table.setModel(oc.retrieveOrderTable());
+             } catch (Exception e) {
+                OrderView.infoBox("You have entered the information incorrectly. \nPlease mouse over the buttons to learn how to use the functions", "Incorrect Information");
+             }
+             finally{
+                //Clear Fields after use
+                IDField.setText("");
+                ProductListField.setText("");
+                TotalPriceField.setText("");
+             }
+           
+
+
+         }
+
+         if (ae.getSource() == searchButton) {
+             try {
              table.setModel(oc.retrieveFilteredOrders(Integer.parseInt(searchField.getText())));
+                 
+             } catch (Exception e) {
+                OrderView.infoBox("You have entered the information incorrectly. \nPlease mouse over the buttons to learn how to use the functions", "Incorrect Information");
+             }
          }
 
-         if (e.getSource() == resetButton) {
+         if (ae.getSource() == resetButton) {
              table.setModel(oc.retrieveOrderTable());
              searchField.setText("");
          }
 
     }
 }
+
+        public static void infoBox(String infoMessage, String titleBar)
+        {
+            JOptionPane.showMessageDialog(null, infoMessage, titleBar, JOptionPane.INFORMATION_MESSAGE);
+        }
 
 
 

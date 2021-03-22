@@ -14,6 +14,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -158,16 +159,19 @@ public class CustomerView extends JFrame{
 
 
     private class ButtonHandler implements ActionListener {
-        public void actionPerformed(ActionEvent e){
+        public void actionPerformed(ActionEvent ae){
             CustomerController cc = new CustomerController();
 
-        if (e.getSource()==createButton){
-            cc.createNewCustomer(new Customer(NameField.getText(), 
-            AddressField.getText(), 
-            PostcodeField.getText(), 
-            EmailField.getText(), 
-            PhoneNumberField.getText()));
-            table.setModel(cc.retrieveCustomerTable());
+        if (ae.getSource()==createButton){
+            if (NameField.getText() !=null) {
+                cc.createNewCustomer(new Customer(NameField.getText(), 
+                AddressField.getText(), 
+                PostcodeField.getText(), 
+                EmailField.getText(), 
+                PhoneNumberField.getText()));
+                table.setModel(cc.retrieveCustomerTable());
+            }
+
 
 
         //Clear Fields after use
@@ -181,7 +185,8 @@ public class CustomerView extends JFrame{
         }
 
 
-         if (e.getSource()==editButton){
+         if (ae.getSource()==editButton){
+             try {
                 cc.updateCustomer(Integer.parseInt(IDField.getText()),
                 NameField.getText(), 
                 AddressField.getText(), 
@@ -189,35 +194,46 @@ public class CustomerView extends JFrame{
                 EmailField.getText(), 
                 PhoneNumberField.getText());
 
+             } catch (Exception e) {
+                CustomerView.infoBox("You have entered the information incorrectly. \nPlease mouse over the buttons to learn how to use the functions", "Incorrect Information");
+             }
+            finally {
+                    //Clear Fields
+                    IDField.setText("");
+                    NameField.setText(""); 
+                    AddressField.setText("");
+                    PostcodeField.setText("");
+                    EmailField.setText("");
+                    PhoneNumberField.setText("");
+                    table.setModel(cc.retrieveCustomerTable());
+            }
 
-            //Clear Fields
-                IDField.setText("");
-                NameField.setText(""); 
-                AddressField.setText("");
-                PostcodeField.setText("");
-                EmailField.setText("");
-                PhoneNumberField.setText("");
-                table.setModel(cc.retrieveCustomerTable());
+
 
          }
 
-         if (e.getSource()==deleteButton){
-                cc.deleteCustomer(Integer.parseInt(IDField.getText()));
+         if (ae.getSource()==deleteButton){
+             try {
+                cc.deleteCustomer(Integer.parseInt(IDField.getText()));cc.deleteCustomer(Integer.parseInt(IDField.getText()));
+             } catch (Exception e) {
+                CustomerView.infoBox("You have entered the information incorrectly. \nPlease mouse over the buttons to learn how to use the functions", "Incorrect Information");  
+             }
 
-
-            //Clear Fields
+             finally {
+                //Clear Fields
                 IDField.setText(""); 
                 table.setModel(cc.retrieveCustomerTable());
+             }
 
          }
-
-
-
 
         }
     }
+
+    public static void infoBox(String infoMessage, String titleBar)
+    {
+        JOptionPane.showMessageDialog(null, infoMessage, titleBar, JOptionPane.INFORMATION_MESSAGE);
+    }
+}
     
 
-
-
-}

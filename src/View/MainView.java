@@ -225,6 +225,11 @@ public class MainView extends JFrame {
                 cic.clearCart();
                 table.setModel(cic.retrieveCartTable());
             }
+
+            if (e.getSource() == refreshButton) {
+               productSelector.setModel(pc.retrieveProductList());
+               customerSelector.setModel(cc.retrieveCustomerList());
+            }
         }
     }
 

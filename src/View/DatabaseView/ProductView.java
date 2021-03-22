@@ -14,6 +14,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -108,9 +109,6 @@ public class ProductView extends JFrame {
                sidePanel.add(priceField);
 
 
-
-
-
             //Buttons
                 buttonPanel.setLayout(new GridLayout(3, 1, 15, 15));
                 buttonPanel.setBackground(Color.lightGray);
@@ -136,56 +134,82 @@ public class ProductView extends JFrame {
 
     }
     private class ButtonHandler implements ActionListener {
-        public void actionPerformed(ActionEvent e){
+        public void actionPerformed(ActionEvent ae){
             ProductController pc = new ProductController();
 
-         if (e.getSource()==editButton){
-                pc.updateProduct(Integer.parseInt(IDField.getText()),
-                brandField.getText(),
-                nameField.getText(),
-                descriptionField.getText(),
-                Double.parseDouble(priceField.getText()));
-                table.setModel(pc.retrieveProductTable());
+         if (ae.getSource()==createButton){
+                try {
+                     pc.createNewProduct(new Product(brandField.getText(),
+                     nameField.getText(),
+                     descriptionField.getText(),
+                     Double.parseDouble(priceField.getText())));
+                     table.setModel(pc.retrieveProductTable());
+                } catch (Exception e) {
+                      ProductView.infoBox("You have entered the information incorrectly. \nPlease mouse over the buttons to learn how to use the functions", "Incorrect Information");    
+                }
 
-              //Clear Fields after use
-                IDField.setText("");
-                brandField.setText("");
-                nameField.setText("");
-                descriptionField.setText("");
-                priceField.setText("");
+                finally {
+                     //Clear Fields after use
+                     IDField.setText("");
+                     brandField.setText("");
+                     nameField.setText("");
+                     descriptionField.setText("");
+                     priceField.setText("");
+                }
 
          }
 
-         if (e.getSource()==createButton){
-                pc.createNewProduct(new Product(brandField.getText(),
-                nameField.getText(),
-                descriptionField.getText(),
-                Double.parseDouble(priceField.getText())));
-                table.setModel(pc.retrieveProductTable());
+         
+         if (ae.getSource()==editButton){
+              try {
+                   pc.updateProduct(Integer.parseInt(IDField.getText()),
+                   brandField.getText(),
+                   nameField.getText(),
+                   descriptionField.getText(),
+                   Double.parseDouble(priceField.getText()));
+                   table.setModel(pc.retrieveProductTable());
 
-                //Clear Fields after use
-                IDField.setText("");
-                brandField.setText("");
-                nameField.setText("");
-                descriptionField.setText("");
-                priceField.setText("");
-         }
+              } catch (Exception e) {
+                   ProductView.infoBox("You have entered the information incorrectly. \nPlease mouse over the buttons to learn how to use the functions", "Incorrect Information");     
+              }
+              
+              finally {
+                   //Clear Fields after use
+                   IDField.setText("");
+                   brandField.setText("");
+                   nameField.setText("");
+                   descriptionField.setText("");
+                   priceField.setText("");
+              }
 
-         if (e.getSource() == deleteButton) {
-                pc.deleteProduct(Integer.parseInt(IDField.getText())); 
-                table.setModel(pc.retrieveProductTable());
+       }
 
-                //Clear Fields after use
-                IDField.setText("");
-                brandField.setText("");
-                nameField.setText("");
-                descriptionField.setText("");
-                priceField.setText("");
+         if (ae.getSource() == deleteButton) {
+                try {
+                     pc.deleteProduct(Integer.parseInt(IDField.getText())); 
+                     table.setModel(pc.retrieveProductTable());
+                } catch (Exception e) {
+                   ProductView.infoBox("You have entered the information incorrectly. \nPlease mouse over the buttons to learn how to use the functions", "Incorrect Information");
+                }
+                finally {
+                     //Clear Fields after use
+                     IDField.setText("");
+                     brandField.setText("");
+                     nameField.setText("");
+                     descriptionField.setText("");
+                     priceField.setText("");
+                }
+
+
 
 
          }
 
     }
 }
+       public static void infoBox(String infoMessage, String titleBar)
+       {
+              JOptionPane.showMessageDialog(null, infoMessage, titleBar, JOptionPane.INFORMATION_MESSAGE);
+       }
 
 }
