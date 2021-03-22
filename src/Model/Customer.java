@@ -26,53 +26,76 @@ public class Customer{
         setPhoneNumber(phoneNumber);
     }
 
+
     public String getName() {
         return name;
     }
+
 
     public void setName(String name) {
         this.name = name;
     }
 
+    
+
     public String getAddress() {
         return address;
     }
+
+    
 
     public void setAddress(String address) {
         this.address = address;
     }
 
+    
     public String getPostcode() {
         return postcode;
     }
+
+    
 
     public void setPostcode(String postcode) {
         this.postcode = postcode;
     }
 
+    
+
     public String getEmail() {
         return email;
     }
+
+    
 
     public void setEmail(String email) {
         this.email = email;
     }
 
+    
+
     public String getPhoneNumber() {
         return phoneNumber;
     }
 
+    
+ 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
+    
+   
     public int getCustomerID() {
         return customerID;
     }
 
+    
+ 
     public void setCustomerID(int customerID) {
         this.customerID = customerID;
     }
+
+    
 
     @Override
     public String toString() {

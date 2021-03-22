@@ -1,4 +1,4 @@
-import View.*;
+import View.MainView;
 
 
 

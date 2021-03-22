@@ -20,8 +20,10 @@ public class CartItemController {
     }
 
 
-/** Adds a product to the cart 
- * @param product this product is passed in through the Product List
+
+
+/** 
+ * @param product
  */
 public void createNewCartItem(Product product) {
         //database URL
@@ -65,9 +67,6 @@ public void createNewCartItem(Product product) {
     }
 
 
-/** Clears all items in the cart 
- * 
- */
 public void clearCart() {
     // database URL
 
@@ -100,9 +99,10 @@ public void clearCart() {
 }
 
     
-    /**  Builds and returns a table model to be used on the main order screen
-     * @return DefaultTableModel
-     */
+
+/** 
+ * @return DefaultTableModel
+ */
 public DefaultTableModel retrieveCartTable() {
     // database URL
     final String DATABASE_URL = "jdbc:mysql://localhost/cms";
@@ -136,7 +136,8 @@ public DefaultTableModel retrieveCartTable() {
 
 
 
-/** Returns the contents of the cart as an array list of products
+
+/** 
  * @return ArrayList<Product>
  */
 public ArrayList<Product> retrieveCartItems() {

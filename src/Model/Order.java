@@ -15,13 +15,18 @@ public class Order {
 
     }
 
+    
+
     public int getCustomerID() {
         return customerID;
     }
 
+
     public void setCustomerID(int customerID) {
         this.customerID = customerID;
     }
+
+    
 
     public double getTotalPrice() {
         return totalPrice;
@@ -35,13 +40,19 @@ public class Order {
         this.totalPrice = totalPrice;
     }
 
+    
+ 
     public ArrayList<Product> getProductList() {
         return productList;
     }
 
+    
+
     public void setProductList(ArrayList<Product> productList) {
         this.productList = productList;
     }
+
+    
 
     @Override
     public String toString() {

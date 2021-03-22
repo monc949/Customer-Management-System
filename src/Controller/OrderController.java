@@ -18,7 +18,9 @@ public class OrderController {
     }
 
 
-/** Takes in a order and adds a new order record to the database
+
+
+/** 
  * @param newOrder
  */
 public void createNewOrder(Order newOrder) {
@@ -66,7 +68,9 @@ public void createNewOrder(Order newOrder) {
 
 
 
-/** Returns all orders in the form of a Table Model
+
+
+/** 
  * @return DefaultTableModel
  */
 public DefaultTableModel retrieveOrderTable() {
@@ -102,7 +106,9 @@ public DefaultTableModel retrieveOrderTable() {
 
 
 
-/** Takes in a customer ID and returns the Orders made by that customer in the form of a table model
+
+
+/** 
  * @param id
  * @return DefaultTableModel
  */
@@ -138,7 +144,8 @@ public DefaultTableModel retrieveFilteredOrders(int id) {
 
                 
 
-/** Takes in and OrderID and updates the Order with the information passed in by the user
+
+/** 
  * @param orderID
  * @param productList
  * @param totalPrice
@@ -181,7 +188,9 @@ public void updateOrder(int orderID, String productList, double totalPrice) {
 
 
 
-/** Takes in an OrderID and deletes the corresponding Order
+
+
+/** 
  * @param orderID
  */
 public void deleteOrder(int orderID) {

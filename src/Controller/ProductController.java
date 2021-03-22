@@ -21,10 +21,11 @@ public class ProductController {
 
 
 
-/** Adds a new record to the product database
+
+
+/** 
  * @param newProduct
  */
-//Create method
 public void createNewProduct(Product newProduct) {
         //database URL
         final String DATABASE_URL = "jdbc:mysql://localhost/cms";
@@ -67,10 +68,11 @@ public void createNewProduct(Product newProduct) {
 
 
 
-/** Returns all products in the database as a Table Model
+
+
+/** 
  * @return DefaultTableModel
  */
-//Retrieve method
 public DefaultTableModel retrieveProductTable() {
         	// database URL
 		    final String DATABASE_URL = "jdbc:mysql://localhost/cms";
@@ -103,7 +105,9 @@ public DefaultTableModel retrieveProductTable() {
 
 
 
-/** Returns all products from the database in a List Model
+
+
+/** 
  * @return DefaultListModel<Product>
  */
 public DefaultListModel<Product> retrieveProductList() {
@@ -161,7 +165,9 @@ public DefaultListModel<Product> retrieveProductList() {
 
                 
 
-/** Takes in a product ID and updates the product information given by the user
+
+
+/** 
  * @param productID
  * @param brand
  * @param name
@@ -208,7 +214,8 @@ public void updateProduct(int productID, String brand, String name, String descr
 
 
 
-/** Takes in a Product ID and deltes the corresponding product from the database
+
+/** 
  * @param productID
  */
 public void deleteProduct(int productID) {

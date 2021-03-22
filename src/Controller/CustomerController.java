@@ -21,8 +21,9 @@ public class CustomerController {
     }
 
 
-/** Creates a new customer record on the customer table
- * @param newCustomer customer object created and sent from GUI
+
+/** 
+ * @param newCustomer
  */
 public void createNewCustomer(Customer newCustomer) {
         //database URL
@@ -68,7 +69,8 @@ public void createNewCustomer(Customer newCustomer) {
 
 
 
-/** Builds and returns a Table model for the customer table
+
+/** 
  * @return DefaultTableModel
  */
 public DefaultTableModel retrieveCustomerTable() {
@@ -109,10 +111,9 @@ public DefaultTableModel retrieveCustomerTable() {
 
 
     
-    /** Builds and returns a ComboBox Model for the customer select combobox
+    /** 
      * @return DefaultComboBoxModel<Customer>
      */
-
     public DefaultComboBoxModel<Customer> retrieveCustomerList() {
         // database URL
         final String DATABASE_URL = "jdbc:mysql://localhost/cms";
@@ -172,9 +173,10 @@ public DefaultTableModel retrieveCustomerTable() {
 
 
                 
-    /** Passes in a customer Object and returns the ID for that customer
+    
+    /** 
      * @param customer
-     * @return int 
+     * @return int
      */
     public int getCustomerID(Customer customer) {
         // database URL
@@ -238,12 +240,7 @@ public DefaultTableModel retrieveCustomerTable() {
 
 
 
-
-
-
-                
-
-/** Passes in a customerID and updates a customers information given the parameters enterd by user
+/** 
  * @param CustomerID
  * @param name
  * @param address
@@ -251,7 +248,6 @@ public DefaultTableModel retrieveCustomerTable() {
  * @param email
  * @param phoneNumber
  */
-//Update method
 public void updateCustomer(int CustomerID, String name, String address, String postcode, String email, String phoneNumber) { 
         // database URL
 		final String DATABASE_URL = "jdbc:mysql://localhost/cms";
@@ -293,10 +289,10 @@ public void updateCustomer(int CustomerID, String name, String address, String p
 
 
 
-/** Passes in a CustomerID and deletes the corresponding customer from the database
+
+/** 
  * @param customerID
  */
-//Delete method
 public void deleteCustomer(int customerID) {
         	// database URL
 
