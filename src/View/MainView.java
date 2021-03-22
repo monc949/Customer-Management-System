@@ -71,9 +71,8 @@ public class MainView extends JFrame {
         // -------Main Panel (frame)-----------//
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(1000, 500);
+        frame.setSize(1200, 500);
         frame.setLayout(new BorderLayout());
-        frame.setVisible(true);
         frame.setLocationRelativeTo(null);
 
         // -----------Center panel-------------//
@@ -178,6 +177,8 @@ public class MainView extends JFrame {
         frame.add(sideMenu, BorderLayout.WEST);
         frame.add(topMenu, BorderLayout.NORTH);
         frame.add(center, BorderLayout.CENTER);
+        frame.setVisible(true);
+        
 
     }
 
