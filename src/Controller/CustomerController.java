@@ -13,6 +13,11 @@ import javax.swing.table.DefaultTableModel;
 import Model.Customer;
 
 
+/**
+ * Controller for the Customer Table
+ *
+ *
+ */
 public class CustomerController {
 
     //Constructor
@@ -22,7 +27,7 @@ public class CustomerController {
 
 
 
-/** 
+/** Creates a new record in the Customer Table using a Customer Object
  * @param newCustomer
  */
 public void createNewCustomer(Customer newCustomer) {
@@ -70,7 +75,7 @@ public void createNewCustomer(Customer newCustomer) {
 
 
 
-/** 
+/** Retrieves the Customer table in a the form of a table model
  * @return DefaultTableModel
  */
 public DefaultTableModel retrieveCustomerTable() {
@@ -111,7 +116,7 @@ public DefaultTableModel retrieveCustomerTable() {
 
 
     
-    /** 
+    /** Retrieves the Customer table in the form of a Combobox model
      * @return DefaultComboBoxModel<Customer>
      */
     public DefaultComboBoxModel<Customer> retrieveCustomerList() {
@@ -168,79 +173,8 @@ public DefaultTableModel retrieveCustomerTable() {
     
     }
       
-                  
 
-
-
-                
-    
-    /** 
-     * @param customer
-     * @return int
-     */
-    public int getCustomerID(Customer customer) {
-        // database URL
-        final String DATABASE_URL = "jdbc:mysql://localhost/cms";
-    
-        Connection connection = null;
-        PreparedStatement pstat = null;
-        ResultSet resultSet = null;
-        int result = 0;
-        String name = customer.getName();
-        String address = customer.getAddress();
-        String postcode = customer.getPostcode();
-        String email = customer.getEmail();
-        String phonenumber = customer.getPhoneNumber();
-        try{
-        
-            // establish connection to database
-            connection = DriverManager.getConnection(
-            DATABASE_URL, "root", "Knockbeg11" );
-            
-            // create Statement for querying table
-            pstat = connection.prepareStatement("SELECT CustomerID FROM Customers WHERE Name = ? AND Address = ? AND PostCode = ? AND Email = ? AND PhoneNumber = ?");
-            pstat.setString(1, name);
-            pstat.setString(2, address);
-            pstat.setString(3, postcode);
-            pstat.setString(4, email);
-            pstat.setString(5, phonenumber);
-            
-            // query database
-            resultSet = pstat.executeQuery("SELECT CustomerID FROM Customers WHERE Name = ? AND Address = ? AND PostCode = ? AND Email = ? AND PhoneNumber = ?");
-            
-            // process query results
-            ResultSetMetaData metaData = resultSet.getMetaData();
-            int numberOfColumns = metaData.getColumnCount();
-            
-            
-            while(resultSet.next() ){
-                    for ( int i = 1; i <= numberOfColumns; i++ )
-                        result = resultSet.getInt("CustomerID");
-            }
-        }
-                catch(SQLException sqlException ) {
-                    sqlException.printStackTrace();
-            }
-                finally{
-                    try{
-                        resultSet.close();
-                        pstat.close();
-                        connection.close();
-                    }
-                    catch ( Exception exception ){
-                        exception.printStackTrace();
-                    }
-            }
-
-                return result;
-    
-    }
-        
-
-
-
-
-/** 
+/** Updates a Customer in the Customer table using the Users Entries
  * @param CustomerID
  * @param name
  * @param address
@@ -290,7 +224,7 @@ public void updateCustomer(int CustomerID, String name, String address, String p
 
 
 
-/** 
+/** Deletes a record from the Customer Table using a Customer ID
  * @param customerID
  */
 public void deleteCustomer(int customerID) {

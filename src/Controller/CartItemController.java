@@ -12,6 +12,10 @@ import javax.swing.table.DefaultTableModel;
 import Model.Product;
 
 
+/**
+ * Controller for the Cart Table
+ *
+ */
 public class CartItemController {
 
     //Constructor
@@ -22,8 +26,8 @@ public class CartItemController {
 
 
 
-/** 
- * @param product
+/** Creates a new record in the Cart Table
+ * @param product Product to be passed in to the table, chosen from product select list
  */
 public void createNewCartItem(Product product) {
         //database URL
@@ -66,7 +70,9 @@ public void createNewCartItem(Product product) {
         }
     }
 
-
+/** Clears the cart table
+ * @return DefaultTableModel Empty table model
+ */
 public void clearCart() {
     // database URL
 
@@ -100,7 +106,7 @@ public void clearCart() {
 
     
 
-/** 
+/** Retrieves the items in the cart in the form of a table model
  * @return DefaultTableModel
  */
 public DefaultTableModel retrieveCartTable() {
@@ -137,7 +143,7 @@ public DefaultTableModel retrieveCartTable() {
 
 
 
-/** 
+/** Retrieves the items in the cart in the form of an Array List
  * @return ArrayList<Product>
  */
 public ArrayList<Product> retrieveCartItems() {

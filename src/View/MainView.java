@@ -104,33 +104,33 @@ public class MainView extends JFrame {
         sideMenu.setVisible(true);
 
 
-        // -------Customer Selection Box------//
-        sideMenu.add(CustomerSelectLabel);
-        sideMenu.add(customerSelector);
+            // -----Customer Selection Box------//
+            sideMenu.add(CustomerSelectLabel);
+            sideMenu.add(customerSelector);
 
 
 
 
-        // -----Product List------//
-        sideMenu.add(productSelectLabel);
+            // -----Product List------//
+            sideMenu.add(productSelectLabel);
 
-        productSelector.setPreferredSize(new Dimension(250, 700));
+            productSelector.setPreferredSize(new Dimension(250, 700));
 
-        JScrollPane productListContainer = new JScrollPane(productSelector);
+            JScrollPane productListContainer = new JScrollPane(productSelector);
 
-        sideMenu.add(productListContainer);
-        ATCButton.addActionListener(new ButtonHandler());
-        sideMenu.add(ATCButton);
-
-
-
-        // -----Buttons-----//
-        submitInvoiceButton.addActionListener(new ButtonHandler());
-        sideMenu.add(submitInvoiceButton);
+            sideMenu.add(productListContainer);
+            ATCButton.addActionListener(new ButtonHandler());
+            sideMenu.add(ATCButton);
 
 
-        clearCartButton.addActionListener(new ButtonHandler());
-        sideMenu.add(clearCartButton);
+
+                // -----Buttons-----//
+                submitInvoiceButton.addActionListener(new ButtonHandler());
+                sideMenu.add(submitInvoiceButton);
+
+
+                clearCartButton.addActionListener(new ButtonHandler());
+                sideMenu.add(clearCartButton);
 
 
 
@@ -145,31 +145,29 @@ public class MainView extends JFrame {
 
 
 
-        // -----Buttons-----//
-        productDBButton.setSize(90, 5);
-        productDBButton.setFocusable(false);
-        productDBButton.addActionListener(new ButtonHandler());
-        databaseButtonsPanel.add(productDBButton);
+                // -----Buttons-----//
+                productDBButton.setSize(90, 5);
+                productDBButton.setFocusable(false);
+                productDBButton.addActionListener(new ButtonHandler());
+                databaseButtonsPanel.add(productDBButton);
 
-        customerDBButton.setSize(90, 5);
-        customerDBButton.setFocusable(false);
-        customerDBButton.addActionListener(new ButtonHandler());
-        databaseButtonsPanel.add(customerDBButton);
+                customerDBButton.setSize(90, 5);
+                customerDBButton.setFocusable(false);
+                customerDBButton.addActionListener(new ButtonHandler());
+                databaseButtonsPanel.add(customerDBButton);
 
-        orderDBButton.setSize(90, 5);
-        orderDBButton.setFocusable(false);
-        orderDBButton.addActionListener(new ButtonHandler());
-        databaseButtonsPanel.add(orderDBButton);
+                orderDBButton.setSize(90, 5);
+                orderDBButton.setFocusable(false);
+                orderDBButton.addActionListener(new ButtonHandler());
+                databaseButtonsPanel.add(orderDBButton);
 
-        refreshButton.setSize(90, 5);
-        refreshButton.setFocusable(false);
-        refreshButton.addActionListener(new ButtonHandler());
-        refreshButtonPanel.add(refreshButton);
+                refreshButton.setSize(90, 5);
+                refreshButton.setFocusable(false);
+                refreshButton.addActionListener(new ButtonHandler());
+                refreshButtonPanel.add(refreshButton);
 
-        topMenu.add(refreshButtonPanel, BorderLayout.WEST);
-        topMenu.add(databaseButtonsPanel, BorderLayout.NORTH);
-
-
+                topMenu.add(refreshButtonPanel, BorderLayout.WEST);
+                topMenu.add(databaseButtonsPanel, BorderLayout.NORTH);
 
         topMenu.setVisible(true);
 

@@ -10,6 +10,9 @@ import javax.swing.table.DefaultTableModel;
 
 import Model.Order;
 
+/**
+ * Controller for the Order Table
+ */
 public class OrderController {
     
     //Constructor
@@ -20,7 +23,7 @@ public class OrderController {
 
 
 
-/** 
+/** Creates a new record in the Order Table using an Order Object
  * @param newOrder
  */
 public void createNewOrder(Order newOrder) {
@@ -70,7 +73,7 @@ public void createNewOrder(Order newOrder) {
 
 
 
-/** 
+/** Retrieves the Order Table in the form of a Table Model
  * @return DefaultTableModel
  */
 public DefaultTableModel retrieveOrderTable() {
@@ -108,7 +111,7 @@ public DefaultTableModel retrieveOrderTable() {
 
 
 
-/** 
+/** Retrieves the Order Table in the form of a Table Model, filtered to show the Orders from a particular Customer. Requires an Customer ID number
  * @param id
  * @return DefaultTableModel
  */
@@ -145,7 +148,7 @@ public DefaultTableModel retrieveFilteredOrders(int id) {
                 
 
 
-/** 
+/** Updates a record in the Order Table. Requires an order ID
  * @param orderID
  * @param productList
  * @param totalPrice
@@ -190,7 +193,7 @@ public void updateOrder(int orderID, String productList, double totalPrice) {
 
 
 
-/** 
+/** Deletes a record from the Order Table. Requires an OrderID Number
  * @param orderID
  */
 public void deleteOrder(int orderID) {

@@ -13,6 +13,10 @@ import Model.Product;
 
 
 
+/**
+ * Controller for the Product Table
+ *
+ */
 public class ProductController {
 
     public ProductController() {
@@ -23,7 +27,7 @@ public class ProductController {
 
 
 
-/** 
+/** Creates a new record in the Product Table using a Product Object
  * @param newProduct
  */
 public void createNewProduct(Product newProduct) {
@@ -70,7 +74,7 @@ public void createNewProduct(Product newProduct) {
 
 
 
-/** 
+/** Retrieves the Product Table in the form of a Table Model
  * @return DefaultTableModel
  */
 public DefaultTableModel retrieveProductTable() {
@@ -107,7 +111,7 @@ public DefaultTableModel retrieveProductTable() {
 
 
 
-/** 
+/** Retrieves the Product Table in the form of a List Model
  * @return DefaultListModel<Product>
  */
 public DefaultListModel<Product> retrieveProductList() {
@@ -167,7 +171,7 @@ public DefaultListModel<Product> retrieveProductList() {
 
 
 
-/** 
+/** Updates a Product in the Product table using the Users Entries
  * @param productID
  * @param brand
  * @param name
@@ -215,7 +219,7 @@ public void updateProduct(int productID, String brand, String name, String descr
 
 
 
-/** 
+/** Deletes a record from the Product Table. Requires an ProductID Number
  * @param productID
  */
 public void deleteProduct(int productID) {
