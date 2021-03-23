@@ -24,6 +24,9 @@ import javax.swing.table.DefaultTableModel;
 import Controller.ProductController;
 import Model.Product;
 
+/**
+ * Product Database Manangement Window
+ */
 public class ProductView extends JFrame {
     /**
      *

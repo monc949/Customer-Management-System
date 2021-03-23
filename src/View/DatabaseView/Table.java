@@ -10,6 +10,9 @@ import javax.swing.table.DefaultTableModel;
 
 
 
+/**
+ * Basic Layout for the Database Management Windows
+ */
 public class Table extends JFrame {
     /**
      *

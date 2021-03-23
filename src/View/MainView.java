@@ -28,6 +28,10 @@ import Model.Order;
 import Model.Product;
 import View.DatabaseView.Table;
 
+/**
+ * Main Menu for creating Invoices
+ *
+ */
 public class MainView extends JFrame {
     private static final long serialVersionUID = 1L;
 

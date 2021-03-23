@@ -24,6 +24,9 @@ import javax.swing.table.DefaultTableModel;
 import Controller.CustomerController;
 import Model.Customer;
 
+/**
+ * Customer Database Manangement Window
+ */
 public class CustomerView extends JFrame{
     /**
      *

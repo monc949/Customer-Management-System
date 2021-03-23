@@ -23,6 +23,9 @@ import javax.swing.table.DefaultTableModel;
 
 import Controller.OrderController;
 
+/**
+ * Order Database Manangement Window
+ */
 public class OrderView extends JFrame {
     /**
      *
