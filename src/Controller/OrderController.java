@@ -8,12 +8,13 @@ import java.sql.SQLException;
 
 import javax.swing.table.DefaultTableModel;
 
+import Model.Globals;
 import Model.Order;
 
 /**
  * Controller for the Order Table
  */
-public class OrderController {
+public class OrderController implements Globals {
     
     //Constructor
     public OrderController() {
@@ -27,8 +28,7 @@ public class OrderController {
  * @param newOrder
  */
 public void createNewOrder(Order newOrder) {
-        //database URL
-        final String DATABASE_URL = "jdbc:mysql://localhost/cms";
+
 
         Connection connection = null;
         PreparedStatement pstat = null;
@@ -43,7 +43,7 @@ public void createNewOrder(Order newOrder) {
         try {
 
             //establish connection to database
-                connection = DriverManager.getConnection(DATABASE_URL, "root", "Knockbeg11");
+            connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);
 
             //create Prepared Statement for inserting into table
                 pstat = connection.prepareStatement("INSERT INTO Orders (CustomerID, ProductList, TotalPrice) VALUES (?,?,?)");
@@ -77,8 +77,7 @@ public void createNewOrder(Order newOrder) {
  * @return DefaultTableModel
  */
 public DefaultTableModel retrieveOrderTable() {
-        		// database URL
-		        final String DATABASE_URL = "jdbc:mysql://localhost/cms";
+                Connection connection = null;
                 DefaultTableModel model = new DefaultTableModel();
 
 	
@@ -92,9 +91,9 @@ public DefaultTableModel retrieveOrderTable() {
                 //-and populate table---//
         
                 try {
-                    Connection con = DriverManager.getConnection(DATABASE_URL, "root", "Knockbeg11" );
+                    connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);
         
-                    PreparedStatement pstm = con.prepareStatement("SELECT * FROM Orders");
+                    PreparedStatement pstm = connection.prepareStatement("SELECT * FROM Orders");
                     ResultSet Rs = pstm.executeQuery();
                     while(Rs.next()){
                         model.addRow(new Object[]{Rs.getInt(1), Rs.getInt(2),Rs.getDate(3),Rs.getString(4),Rs.getDouble(5)});
@@ -116,8 +115,7 @@ public DefaultTableModel retrieveOrderTable() {
  * @return DefaultTableModel
  */
 public DefaultTableModel retrieveFilteredOrders(int id) {
-        		// database URL
-		        final String DATABASE_URL = "jdbc:mysql://localhost/cms";
+                Connection connection = null;
                 DefaultTableModel model = new DefaultTableModel();
     
                 model.addColumn("OrderID");
@@ -130,9 +128,9 @@ public DefaultTableModel retrieveFilteredOrders(int id) {
                 //-and populate table---//
         
                 try {
-                    Connection con = DriverManager.getConnection(DATABASE_URL, "root", "Knockbeg11" );
+                    connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);
         
-                    PreparedStatement pstm = con.prepareStatement("SELECT * FROM Orders WHERE CustomerID = ?");
+                    PreparedStatement pstm = connection.prepareStatement("SELECT * FROM Orders WHERE CustomerID = ?");
                     pstm.setInt(1, id);
                     ResultSet Rs = pstm.executeQuery();
                     while(Rs.next()){
@@ -154,17 +152,14 @@ public DefaultTableModel retrieveFilteredOrders(int id) {
  * @param totalPrice
  */
 public void updateOrder(int orderID, String productList, double totalPrice) { 
-        // database URL
-		final String DATABASE_URL = "jdbc:mysql://localhost/cms";
-		
 
         Connection connection = null;
         PreparedStatement pstat = null;
         
         try{
             // establish connection to database
-            connection = DriverManager.getConnection(
-            DATABASE_URL, "root", "Knockbeg11" );
+            connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);
+
             
             // create Statement for updating table
             pstat = connection.prepareStatement("UPDATE Orders SET ProductList = ?, TotalPrice = ? Where orderID = ?");
@@ -197,16 +192,13 @@ public void updateOrder(int orderID, String productList, double totalPrice) {
  * @param orderID
  */
 public void deleteOrder(int orderID) {
-        	// database URL
-
-		final String DATABASE_URL = "jdbc:mysql://localhost/cms";
 		
         Connection connection = null;
         PreparedStatement pstat = null;	
         try{
             
             // establish connection to database
-            connection = DriverManager.getConnection(DATABASE_URL, "root" , "Knockbeg11" );
+            connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);
 
             // create Statement for deleting from table
             pstat = connection.prepareStatement("Delete FROM Orders WHERE OrderID = ?");	

@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import javax.swing.DefaultListModel;
 import javax.swing.table.DefaultTableModel;
 
+import Model.Globals;
 import Model.Product;
 
 
@@ -17,7 +18,7 @@ import Model.Product;
  * Controller for the Product Table
  *
  */
-public class ProductController {
+public class ProductController implements Globals {
 
     public ProductController() {
 
@@ -45,7 +46,8 @@ public void createNewProduct(Product newProduct) {
         try {
 
             //establish connection to database
-                connection = DriverManager.getConnection(DATABASE_URL, "root", "Knockbeg11");
+                connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);
+                
 
             //create Prepared Statement for inserting into table
                 pstat = connection.prepareStatement("INSERT INTO Products (brand, name, description, price) VALUES (?,?,?,?)");
@@ -78,8 +80,8 @@ public void createNewProduct(Product newProduct) {
  * @return DefaultTableModel
  */
 public DefaultTableModel retrieveProductTable() {
-        	// database URL
-		    final String DATABASE_URL = "jdbc:mysql://localhost/cms";
+            Connection connection = null;
+
             DefaultTableModel model = new DefaultTableModel();
 
             model.addColumn("ProductID");
@@ -91,10 +93,9 @@ public DefaultTableModel retrieveProductTable() {
             //---retrieve from database---//
             //-and populate table---//
             try {
-                Connection con = DriverManager.getConnection(DATABASE_URL, "root", "Knockbeg11" );
-    
-    
-                PreparedStatement pstm = con.prepareStatement("SELECT * FROM Products");
+                connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);
+
+                PreparedStatement pstm = connection.prepareStatement("SELECT * FROM Products");
                 ResultSet Rs = pstm.executeQuery();
                 while(Rs.next()){
                     model.addRow(new Object[]{Rs.getInt(1), Rs.getString(2),Rs.getString(3),Rs.getString(4),Rs.getDouble(5)});
@@ -115,8 +116,7 @@ public DefaultTableModel retrieveProductTable() {
  * @return DefaultListModel<Product>
  */
 public DefaultListModel<Product> retrieveProductList() {
-    // database URL
-    final String DATABASE_URL = "jdbc:mysql://localhost/cms";
+
 
     DefaultListModel<Product> model = new DefaultListModel<Product>();
 
@@ -126,8 +126,8 @@ public DefaultListModel<Product> retrieveProductList() {
     try{
     
         // establish connection to database
-        connection = DriverManager.getConnection(
-        DATABASE_URL, "root", "Knockbeg11" );
+        connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);
+
         
         // create Statement for querying table
         pstat = connection.prepareStatement("SELECT * FROM Products");
@@ -179,8 +179,7 @@ public DefaultListModel<Product> retrieveProductList() {
  * @param price
  */
 public void updateProduct(int productID, String brand, String name, String description, double price) {
-        // database URL
-		final String DATABASE_URL = "jdbc:mysql://localhost/cms";
+
 		
 
         Connection connection = null;
@@ -188,8 +187,8 @@ public void updateProduct(int productID, String brand, String name, String descr
         
         try{
             // establish connection to database
-            connection = DriverManager.getConnection(
-            DATABASE_URL, "root", "Knockbeg11" );
+            connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);
+
             
             // create Statement for updating table
             pstat = connection.prepareStatement("UPDATE products SET brand = ?, name = ?, description = ?, price = ? Where ProductID = ?");
@@ -223,16 +222,14 @@ public void updateProduct(int productID, String brand, String name, String descr
  * @param productID
  */
 public void deleteProduct(int productID) {
-        	// database URL
 
-		final String DATABASE_URL = "jdbc:mysql://localhost/cms";
 		
         Connection connection = null;
         PreparedStatement pstat = null;	
         try{
             
             // establish connection to database
-            connection = DriverManager.getConnection(DATABASE_URL, "root" , "Knockbeg11" );
+            connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);
 
             // create Statement for deleting from table
             pstat = connection.prepareStatement("Delete FROM Products WHERE ProductID = ?");	

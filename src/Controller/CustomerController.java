@@ -10,6 +10,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 
 import Model.Customer;
+import Model.Globals;
 
 
 /**
@@ -17,7 +18,7 @@ import Model.Customer;
  *
  *
  */
-public class CustomerController {
+public class CustomerController implements Globals {
 
     //Constructor
     public CustomerController() {
@@ -30,9 +31,6 @@ public class CustomerController {
  * @param newCustomer
  */
 public void createNewCustomer(Customer newCustomer) {
-        //database URL
-        final String DATABASE_URL = "jdbc:mysql://localhost/cms";
-
         Connection connection = null;
         PreparedStatement pstat = null;
         String name = newCustomer.getName();
@@ -44,7 +42,7 @@ public void createNewCustomer(Customer newCustomer) {
         try {
 
             //establish connection to database
-                connection = DriverManager.getConnection(DATABASE_URL, "root", "Knockbeg11");
+                connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);
 
             //create Prepared Statement for inserting into table
                 pstat = connection.prepareStatement("INSERT INTO customers (Name, Address, Postcode, Email, PhoneNumber) VALUES (?,?,?,?,?)");
@@ -78,9 +76,8 @@ public void createNewCustomer(Customer newCustomer) {
  * @return DefaultTableModel
  */
 public DefaultTableModel retrieveCustomerTable() {
-        		// database URL
-		        final String DATABASE_URL = "jdbc:mysql://localhost/cms";
                 DefaultTableModel model = new DefaultTableModel();
+                Connection connection = null;
                 
 	
                 model.addColumn("CustomerID");
@@ -94,9 +91,9 @@ public DefaultTableModel retrieveCustomerTable() {
                 //---retrieve from database---//
                 //-and populate table---//
                 try {
-                    Connection con = DriverManager.getConnection(DATABASE_URL, "root", "Knockbeg11");
+                    connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);
         
-                    PreparedStatement pstm = con.prepareStatement("SELECT * FROM Customers");
+                    PreparedStatement pstm = connection.prepareStatement("SELECT * FROM Customers");
                     ResultSet Rs = pstm.executeQuery();
                     while (Rs.next()) {
                         model.addRow(
@@ -119,20 +116,18 @@ public DefaultTableModel retrieveCustomerTable() {
      * @return DefaultComboBoxModel<Customer>
      */
     public DefaultComboBoxModel<Customer> retrieveCustomerList() {
-        // database URL
-        final String DATABASE_URL = "jdbc:mysql://localhost/cms";
     
         DefaultComboBoxModel<Customer> model = new DefaultComboBoxModel<Customer>();
+        Connection connection = null;
     
 
-        Connection connection = null;
         PreparedStatement pstat = null;
         ResultSet resultSet = null;
         try{
         
             // establish connection to database
-            connection = DriverManager.getConnection(
-            DATABASE_URL, "root", "Knockbeg11" );
+            connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);
+          
             
             // create Statement for querying table
             pstat = connection.prepareStatement("SELECT * From Customers");
@@ -182,8 +177,6 @@ public DefaultTableModel retrieveCustomerTable() {
  * @param phoneNumber
  */
 public void updateCustomer(int CustomerID, String name, String address, String postcode, String email, String phoneNumber) { 
-        // database URL
-		final String DATABASE_URL = "jdbc:mysql://localhost/cms";
 		
 
         Connection connection = null;
@@ -191,8 +184,8 @@ public void updateCustomer(int CustomerID, String name, String address, String p
         
         try{
             // establish connection to database
-            connection = DriverManager.getConnection(
-            DATABASE_URL, "root", "Knockbeg11" );
+            connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);
+            
             
             // create Statement for updating table
             pstat = connection.prepareStatement("UPDATE customers SET Name = ?, Address = ?, Postcode = ?, Email = ?, Phonenumber = ? WHERE CustomerID = ?");
@@ -227,16 +220,14 @@ public void updateCustomer(int CustomerID, String name, String address, String p
  * @param customerID
  */
 public void deleteCustomer(int customerID) {
-        	// database URL
 
-		final String DATABASE_URL = "jdbc:mysql://localhost/cms";
 		
         Connection connection = null;
         PreparedStatement pstat = null;	
         try{
             
             // establish connection to database
-            connection = DriverManager.getConnection(DATABASE_URL, "root" , "Knockbeg11" );
+            connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);
 
             // create Statement for deleting from table
             pstat = connection.prepareStatement("Delete FROM customers WHERE CustomerID = ?");	

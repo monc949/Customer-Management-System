@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import javax.swing.table.DefaultTableModel;
 
+import Model.Globals;
 import Model.Product;
 
 
@@ -16,7 +17,7 @@ import Model.Product;
  * Controller for the Cart Table
  *
  */
-public class CartItemController {
+public class CartItemController implements Globals{
 
     //Constructor
     public CartItemController() {
@@ -30,8 +31,7 @@ public class CartItemController {
  * @param product Product to be passed in to the table, chosen from product select list
  */
 public void createNewCartItem(Product product) {
-        //database URL
-        final String DATABASE_URL = "jdbc:mysql://localhost/cms";
+
 
         Connection connection = null;
         PreparedStatement pstat = null;
@@ -44,7 +44,7 @@ public void createNewCartItem(Product product) {
         try {
 
             //establish connection to database
-                connection = DriverManager.getConnection(DATABASE_URL, "root", "Knockbeg11");
+            connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);
 
             //create Prepared Statement for inserting into table
                 pstat = connection.prepareStatement("INSERT INTO cart (ProductID, Brand, Name, Description, Price) VALUES (?,?,?,?,?)");
@@ -74,16 +74,13 @@ public void createNewCartItem(Product product) {
  * @return DefaultTableModel Empty table model
  */
 public void clearCart() {
-    // database URL
-
-        final String DATABASE_URL = "jdbc:mysql://localhost/cms";
 
         Connection connection = null;
         PreparedStatement pstat = null;			
         try{
             
             // establish connection to database
-            connection = DriverManager.getConnection(DATABASE_URL, "root" , "Knockbeg11" );
+            connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);
 
             // create Statement for deleting from table
             pstat = connection.prepareStatement("Delete FROM cart");			
@@ -110,8 +107,7 @@ public void clearCart() {
  * @return DefaultTableModel
  */
 public DefaultTableModel retrieveCartTable() {
-    // database URL
-    final String DATABASE_URL = "jdbc:mysql://localhost/cms";
+    Connection connection = null;
     DefaultTableModel model = new DefaultTableModel();
     
     model.addColumn("ProductID");
@@ -125,9 +121,9 @@ public DefaultTableModel retrieveCartTable() {
     //---retrieve from database---//
     //-and populate table---//
     try {
-        Connection con = DriverManager.getConnection(DATABASE_URL, "root", "Knockbeg11");
+        connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);
 
-        PreparedStatement pstm = con.prepareStatement("SELECT ProductID, Brand, Name, Description, Price FROM Cart");
+        PreparedStatement pstm = connection.prepareStatement("SELECT ProductID, Brand, Name, Description, Price FROM Cart");
         ResultSet Rs = pstm.executeQuery();
         while (Rs.next()) {
             model.addRow(
@@ -147,16 +143,15 @@ public DefaultTableModel retrieveCartTable() {
  * @return ArrayList<Product>
  */
 public ArrayList<Product> retrieveCartItems() {
-    // database URL
-    final String DATABASE_URL = "jdbc:mysql://localhost/cms";
+    Connection connection = null;
     ArrayList<Product> cartItems = new ArrayList<Product>();
 
     //---retrieve from database---//
     //-and populate table---//
     try {
-        Connection con = DriverManager.getConnection(DATABASE_URL, "root", "Knockbeg11");
+        connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);
 
-        PreparedStatement pstm = con.prepareStatement("SELECT * FROM Cart");
+        PreparedStatement pstm = connection.prepareStatement("SELECT * FROM Cart");
         ResultSet resultSet = pstm.executeQuery();
         while (resultSet.next()) {
             Product element = new Product(resultSet.getInt("ProductID"),
