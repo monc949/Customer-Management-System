@@ -44,13 +44,11 @@ public class OrderView extends JFrame {
 
     
     JTextField IDField = new JTextField();
-    JTextField TotalPriceField = new JTextField();
 
 
     JLabel instructionLabel = new JLabel("Hover over buttons for instructions");
 
     JLabel IDLabel = new JLabel("Order ID");
-    JLabel TotalPriceLabel = new JLabel("Total Price");
 
     JLabel searchLabel = new JLabel("Filter by Customer");
 	JTextField searchField = new JTextField();
@@ -99,11 +97,6 @@ public class OrderView extends JFrame {
         sidePanel.add(IDLabel);
         sidePanel.add(IDField);
 
-
-        TotalPriceField.setSize(12, 23);
-        TotalPriceField.setFont(font1);
-        sidePanel.add(TotalPriceLabel);
-        sidePanel.add(TotalPriceField);
 
 
 
@@ -166,7 +159,6 @@ public class OrderView extends JFrame {
              finally{
                 //Clear Fields after use
                 IDField.setText("");
-                TotalPriceField.setText("");
              }
            
 
