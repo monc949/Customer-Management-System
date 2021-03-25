@@ -38,27 +38,28 @@ public class OrderView extends JFrame {
     JTable table = new JTable(model);
     JPanel sidePanel = new JPanel();
     JPanel buttonPanel = new JPanel();
-    JButton editButton = new JButton("Edit Order");
     JButton deleteButton = new JButton("Delete Order");
 
     JPanel searchPanel = new JPanel();
 
     
     JTextField IDField = new JTextField();
-    JTextField ProductListField = new JTextField();
     JTextField TotalPriceField = new JTextField();
 
 
     JLabel instructionLabel = new JLabel("Hover over buttons for instructions");
 
     JLabel IDLabel = new JLabel("Order ID");
-    JLabel ProductListLabel = new JLabel("Product List ");
     JLabel TotalPriceLabel = new JLabel("Total Price");
 
     JLabel searchLabel = new JLabel("Filter by Customer");
 	JTextField searchField = new JTextField();
-    JButton searchButton = new JButton("Filter");
-    JButton resetButton = new JButton("Reset");
+    JButton filterButton = new JButton("Filter");
+    JButton resetButton = new JButton("Reset Table");
+
+    JLabel orderDetailFilterLabel = new JLabel("Show Order Details");
+	JTextField orderDetailFilterField = new JTextField();
+    JButton showOrderDetailsButton = new JButton("Show Details");
 
 //FONT//
     Font font1 = new Font("SansSerif", Font.PLAIN, 14);
@@ -72,6 +73,7 @@ public class OrderView extends JFrame {
 
         table.setEnabled(false);
         setResizable(false);
+
     //---Container---//
         container.setLayout(new BorderLayout());
         table.setModel(oc.retrieveOrderTable());
@@ -97,10 +99,6 @@ public class OrderView extends JFrame {
         sidePanel.add(IDLabel);
         sidePanel.add(IDField);
 
-        ProductListField.setSize(12, 23);
-        ProductListField.setFont(font1);
-        sidePanel.add(ProductListLabel);
-        sidePanel.add(ProductListField);
 
         TotalPriceField.setSize(12, 23);
         TotalPriceField.setFont(font1);
@@ -114,10 +112,6 @@ public class OrderView extends JFrame {
         buttonPanel.setBackground(Color.lightGray);
         sidePanel.add(instructionLabel);
 
-        editButton.addActionListener(new ButtonHandler());
-        editButton.setToolTipText("Enter Order ID and enter new info.");
-        buttonPanel.add(editButton);
-
         deleteButton.addActionListener(new ButtonHandler());
         deleteButton.setToolTipText("Enter OrderID only");
         buttonPanel.add(deleteButton);
@@ -126,21 +120,29 @@ public class OrderView extends JFrame {
 
 
         //Search Panel
-        searchPanel.setLayout(new GridLayout(4, 1 , 15, 1));
+        searchPanel.setLayout(new GridLayout(7, 1 , 15, 1));
         searchPanel.setBackground(Color.lightGray);
         searchPanel.setVisible(true);
         searchPanel.add(searchLabel);
 
         searchPanel.add(searchField);
 
-        searchButton.addActionListener(new ButtonHandler());
-        searchPanel.add(searchButton);
+        filterButton.addActionListener(new ButtonHandler());
+        filterButton.setToolTipText("Enter Customer ID");
+        searchPanel.add(filterButton);
+
+        searchPanel.add(orderDetailFilterLabel);
+        searchPanel.add(orderDetailFilterField);
+
+        showOrderDetailsButton.addActionListener(new ButtonHandler());
+        showOrderDetailsButton.setToolTipText("Enter OrderID");
+        searchPanel.add(showOrderDetailsButton);
 
         searchPanel.add(resetButton);
         resetButton.addActionListener(new ButtonHandler());
         
         sidePanel.add(searchPanel);
-        searchButton.setToolTipText("Enter Customer ID");
+
 
         
         //------Final Panel Placement--------//
@@ -154,26 +156,6 @@ public class OrderView extends JFrame {
         public void actionPerformed(ActionEvent ae){
             OrderController oc = new OrderController();
 
-         if (ae.getSource()==editButton){
-             try {
-                oc.updateOrder(Integer.parseInt(IDField.getText()),
-                ProductListField.getText(), 
-                Double.parseDouble(TotalPriceField.getText())); 
-                table.setModel(oc.retrieveOrderTable());
-             } catch (Exception e) {
-                 OrderView.infoBox("You have entered the information incorrectly. \nPlease mouse over the buttons to learn how to use the functions", "Incorrect Information");
-             }
-
-             finally {
-                //Clear Fields after use
-                IDField.setText("");
-                ProductListField.setText("");
-                TotalPriceField.setText("");
-             }
-
-
-         }
-
          if (ae.getSource() == deleteButton) {
              try {
                 oc.deleteOrder(Integer.parseInt(IDField.getText())); 
@@ -184,7 +166,6 @@ public class OrderView extends JFrame {
              finally{
                 //Clear Fields after use
                 IDField.setText("");
-                ProductListField.setText("");
                 TotalPriceField.setText("");
              }
            
@@ -192,12 +173,20 @@ public class OrderView extends JFrame {
 
          }
 
-         if (ae.getSource() == searchButton) {
+         if (ae.getSource() == filterButton) {
              try {
              table.setModel(oc.retrieveFilteredOrders(Integer.parseInt(searchField.getText())));
                  
              } catch (Exception e) {
                 OrderView.infoBox("You have entered the information incorrectly. \nPlease mouse over the buttons to learn how to use the functions", "Incorrect Information");
+             }
+         }
+
+         if (ae.getSource() == showOrderDetailsButton) {
+             try {
+                 table.setModel(oc.retrieveOrderDetailsTable(Integer.parseInt(orderDetailFilterField.getText())));
+             } catch (Exception e) {
+                OrderView.infoBox("You have entered the information incorrectly. \nPlease mouse over the buttons to learn how to use the functions", "Incorrect Information"); 
              }
          }
 

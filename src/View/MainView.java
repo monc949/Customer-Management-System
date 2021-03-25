@@ -47,6 +47,7 @@ public class MainView extends JFrame {
     JButton productDBButton = new JButton("Product Database");
     JButton orderDBButton = new JButton("Order Database");
     JButton customerDBButton = new JButton("Customer Database");
+
     JPanel databaseButtonsPanel = new JPanel();
 
     JButton submitInvoiceButton = new JButton("Submit Invoice");
@@ -219,7 +220,11 @@ public class MainView extends JFrame {
                 
                 ArrayList<Product> cartItems = cic.retrieveCartItems();
                 Order newOrder = new Order(CustomerID, cartItems);
+
                 oc.createNewOrder(newOrder);
+                oc.createNewOrderDetails(oc.getLastOrderID(),newOrder);
+
+
                 cic.clearCart();
                 table.setModel(cic.retrieveCartTable());
             }

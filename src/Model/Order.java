@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * Order Object
  */
 public class Order {
-
+    private int orderID;
     private int customerID;
     private double totalPrice;
     private ArrayList<Product> productList = new ArrayList<Product>();
@@ -17,6 +17,19 @@ public class Order {
      * @param productList
      */
     public Order(int customerID, ArrayList<Product> productList) {
+        setCustomerID(customerID);
+        setProductList(productList);
+        setTotalPrice();
+
+    }
+
+    /**
+     * Creates an Order Object using a Customer ID and a ArrayList of Products
+     * @param customerID
+     * @param productList
+     */
+    public Order(int orderID, int customerID, ArrayList<Product> productList) {
+        setOrderID(orderID);
         setCustomerID(customerID);
         setProductList(productList);
         setTotalPrice();
@@ -84,20 +97,13 @@ public class Order {
         this.productList = productList;
     }
 
-    
 
-    
-    /** Outputs the ProductList as a String
-     * @return String
-     */
-    @Override
-    public String toString() {
-        String productString = "";
-        for (Product product : productList) {
-            productString+=product.getName() + ", ";
-        }
+    public int getOrderID() {
+        return orderID;
+    }
 
-        return productString;
+    public void setOrderID(int orderID) {
+        this.orderID = orderID;
     }
 
 

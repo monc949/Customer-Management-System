@@ -5,11 +5,13 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.swing.table.DefaultTableModel;
 
 import Model.Globals;
 import Model.Order;
+import Model.Product;
 
 /**
  * Controller for the Order Table
@@ -69,6 +71,51 @@ public void createNewOrder(Order newOrder) {
         }
     }
 
+    /** Creates a new record in the OrderDetails Table using the product list form the order object passed in
+ * @param orderID should be aquired using getLastOrderID()
+ * @param newOrder
+ */
+    public void createNewOrderDetails(int orderID, Order newOrder) {
+        Connection connection = null;
+        PreparedStatement pstat = null;
+        
+        ArrayList<Product> productList = newOrder.getProductList();
+
+        try {
+
+            //establish connection to database
+            connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);
+
+            //create Prepared Statement for inserting into table
+                for (Product product : productList) {
+                        pstat = connection.prepareStatement("INSERT INTO OrderDetails(OrderID, ProductID, ProductName) VALUES (?,?,?)");
+                        pstat.setInt(1, orderID);
+                        pstat.setInt(2, product.getProductID());
+                        pstat.setString(3, product.toString());
+        
+                        pstat.executeUpdate();
+                }
+
+
+
+
+        } 
+        catch (SQLException sqlException) {
+            sqlException.printStackTrace();
+        }
+        finally {
+                try {
+                    pstat.close();
+                    connection.close();
+                } catch (Exception exception) {
+                    exception.printStackTrace();
+                }
+
+        }
+    }
+
+
+
 
 
 
@@ -84,7 +131,6 @@ public DefaultTableModel retrieveOrderTable() {
                 model.addColumn("OrderID");
                 model.addColumn("CustomerID");
                 model.addColumn("Order Date");
-                model.addColumn("Product List");
                 model.addColumn("Total Price");
         
                 //---retrieve from database---//
@@ -96,7 +142,38 @@ public DefaultTableModel retrieveOrderTable() {
                     PreparedStatement pstm = connection.prepareStatement("SELECT * FROM Orders");
                     ResultSet Rs = pstm.executeQuery();
                     while(Rs.next()){
-                        model.addRow(new Object[]{Rs.getInt(1), Rs.getInt(2),Rs.getDate(3),Rs.getString(4),Rs.getDouble(5)});
+                        model.addRow(new Object[]{Rs.getInt(1), Rs.getInt(2),Rs.getDate(3),Rs.getDouble(4)});
+                    }
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+                return model;
+            }
+
+/** Retrieves the Order Details Table in the form of a Table Model, showing only the record matching the order ID passed in
+ * @return DefaultTableModel
+ */
+public DefaultTableModel retrieveOrderDetailsTable(int orderID) {
+                Connection connection = null;
+                DefaultTableModel model = new DefaultTableModel();
+
+	
+                model.addColumn("OrderID");
+                model.addColumn("ProductID");
+                model.addColumn("Product Name");
+
+        
+                //---retrieve from database---//
+                //-and populate table---//
+        
+                try {
+                    connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);
+        
+                    PreparedStatement pstm = connection.prepareStatement("SELECT * FROM orderdetails WHERE OrderID = ?");
+                    pstm.setInt(1, orderID);
+                    ResultSet Rs = pstm.executeQuery();
+                    while(Rs.next()){
+                        model.addRow(new Object[]{Rs.getInt(2), Rs.getInt(3),Rs.getString(4)});
                     }
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
@@ -121,7 +198,6 @@ public DefaultTableModel retrieveFilteredOrders(int id) {
                 model.addColumn("OrderID");
                 model.addColumn("CustomerID");
                 model.addColumn("Order Date");
-                model.addColumn("Product List");
                 model.addColumn("Total Price");
         
                 //---retrieve from database---//
@@ -134,58 +210,13 @@ public DefaultTableModel retrieveFilteredOrders(int id) {
                     pstm.setInt(1, id);
                     ResultSet Rs = pstm.executeQuery();
                     while(Rs.next()){
-                        model.addRow(new Object[]{Rs.getInt(1), Rs.getInt(2),Rs.getDate(3),Rs.getString(4),Rs.getDouble(5)});
+                        model.addRow(new Object[]{Rs.getInt(1), Rs.getInt(2),Rs.getDate(3),Rs.getDouble(4)});
                     }
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
                 }
                 return model;
             }
-
-
-                
-
-
-/** Updates a record in the Order Table. Requires an order ID
- * @param orderID
- * @param productList
- * @param totalPrice
- */
-public void updateOrder(int orderID, String productList, double totalPrice) { 
-
-        Connection connection = null;
-        PreparedStatement pstat = null;
-        
-        try{
-            // establish connection to database
-            connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);
-
-            
-            // create Statement for updating table
-            pstat = connection.prepareStatement("UPDATE Orders SET ProductList = ?, TotalPrice = ? Where orderID = ?");
-            pstat.setString(1, productList);
-            pstat.setDouble(2, totalPrice);
-            pstat.setInt(3, orderID);
-
-            //Update data in database
-            pstat.executeUpdate();
-         }
-        catch(SQLException sqlException ) {
-            sqlException.printStackTrace();
-         }
-        finally{
-            try{
-                pstat.close();
-                connection.close();
-            }
-            catch ( Exception exception ){
-                exception.printStackTrace();
-            }
-        }
-    }
-
-
-
 
 
 /** Deletes a record from the Order Table. Requires an OrderID Number
@@ -221,4 +252,31 @@ public void deleteOrder(int orderID) {
             }
         }
     }
+
+
+/** Returns the OrderID of the most recent Order record
+ * @param orderID
+ */
+public int getLastOrderID() {
+		
+        Connection connection = null;
+        int orderID = 0;
+
+        try {
+            connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);
+
+            PreparedStatement pstm = connection.prepareStatement("SELECT OrderID FROM Orders");
+            ResultSet Rs = pstm.executeQuery();
+            while(Rs.next()){
+                if(Rs.isLast()) {
+                    orderID = Rs.getInt("OrderID");
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+            return orderID;
+        }
+    
+
 }
