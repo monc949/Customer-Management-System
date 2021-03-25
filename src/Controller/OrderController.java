@@ -39,7 +39,6 @@ public void createNewOrder(Order newOrder) {
         
         int customerID = newOrder.getCustomerID();
         double totalPrice = newOrder.getTotalPrice();
-        String productList = newOrder.toString();
        
 
         try {
@@ -48,10 +47,9 @@ public void createNewOrder(Order newOrder) {
             connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);
 
             //create Prepared Statement for inserting into table
-                pstat = connection.prepareStatement("INSERT INTO Orders (CustomerID, ProductList, TotalPrice) VALUES (?,?,?)");
+                pstat = connection.prepareStatement("INSERT INTO Orders (CustomerID, TotalPrice) VALUES (?,?)");
                 pstat.setInt(1, customerID);
-                pstat.setString(2, productList);
-                pstat.setDouble(3, totalPrice);
+                pstat.setDouble(2, totalPrice);
 
                 pstat.executeUpdate();
 
